@@ -1,0 +1,13 @@
+{
+  "name": "db",
+  "version": "1.0.0",
+  "description": "",
+  "main": "",
+  "scripts": {
+    "start": "mongod -f ./mongod.conf",
+    "stop": "mongod --shutdown -f ./mongod.conf"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
