@@ -35,6 +35,9 @@ node_modules/
 # Built javascript
 **/build/**
 
+# Database data
+**/db/data/**
+
 # Optional npm cache directory
 .npm
 
