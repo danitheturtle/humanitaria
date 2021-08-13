@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start:compiled": "node ../dist/api/index.js",
-    "start": "nodemon --watch ./src ./src/index.js --exec babel-node",
+    "start:compiled": "node ../dist/api/server.js",
+    "start": "nodemon --watch ./src ./src/server.js --exec babel-node",
     "build": "rm -rf ../dist/api && babel ./src --out-dir ../dist/api"
   },
   "keywords": [],
@@ -14,7 +14,9 @@
     "express": "^4.17.1",
     "express-graphql": "^0.12.0",
     "graphql": "^15.5.1",
-    "mongodb": "^4.1.0"
+    "graphql-voyager": "^1.0.0-rc.31",
+    "mongodb": "^4.1.0",
+    "validator": "^13.6.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.14.5",

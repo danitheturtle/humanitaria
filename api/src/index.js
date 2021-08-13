@@ -1,23 +1,35 @@
-import express from 'express';
-import cors from 'cors';
-import { graphqlHTTP } from 'express-graphql';
-import { setupDB } from './config/databaseConnection';
-import schema from './graphql/schema';
-import printSchemaFromBuild from './config/printSchemaFromBuild';
+import { Request, Router } from "express";
+import { graphqlHTTP } from "express-graphql";
+import { formatError } from "graphql";
+import { express as voyager } from "graphql-voyager/middleware";
+// import { auth } from "./auth";
+// import { Context } from "./context";
+// import env from "./env";
+import schema from "./graphql/schema";
+// import { session } from "./session";
+import { env } from 'process';
 
-const app = express();
-setupDB(v => console.log(v));
+export const api = Router();
 
-app.use(cors());
-app.use(
-  '/graphql',
-  graphqlHTTP({
+// api.use(session);
+// api.use(auth);
+
+// Generates interactive UML diagram for the API schema
+// https://github.com/APIs-guru/graphql-voyager
+if (env.APP_ENV !== "production") {
+  api.use("/graphql/model", voyager({ endpointUrl: "/graphql" }));
+}
+
+api.use(
+  "/graphql",
+  graphqlHTTP((req) => ({
     schema,
-    graphiql: true,
-    pretty: true
-  })
+    // context: new Context(req as Request),
+    graphiql: env.APP_ENV !== "production",
+    pretty: env.APP_ENV !== "production",
+    customFormatErrorFn: (err) => {
+      console.error(err.originalError || err);
+      return formatError(err);
+    },
+  })),
 );
-
-printSchemaFromBuild(schema);
-
-app.listen(4000, () => console.log('SERVER OK'));

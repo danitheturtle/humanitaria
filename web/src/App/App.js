@@ -1,35 +1,34 @@
 import React from 'react';
-import { graphql, QueryRenderer } from 'react-relay';
+import { graphql, RelayEnvironmentProvider, useQueryLoader } from 'react-relay';
+import environment from '../environment';
 import MainPage from './containers/MainPage';
 
-import environment from '../environment';
-
-class App extends React.Component {
-  render() {
-    return (
-      <QueryRenderer
-        environment={environment}
-        query={graphql`
-          query AppQuery {
-            notes {
-              _id
-              content
-            }
-          }
-        `}
-        variables={{}}
-        render={({ error, props }) => {
-          if (error) {
-            return <div>Error!</div>;
-          }
-          if (!props) {
-            return <div>Loading...</div>;
-          }
-          return <MainPage {...props} />;
-        }}
-      />
-    );
+const AppQuery = graphql`
+  query AppQuery {
+    notes {
+      _id
+      content
+    }
   }
+`;
+
+const App = (props) => {
+  const [appQueryRef, loadAppQuery] = useQueryLoader(AppQuery, props.initialQueryRef);
+
+  React.useEffect(() => {
+    //load data for the root-level query
+    loadAppQuery({});
+  }, [loadAppQuery]);
+
+  return appQueryRef !== null ? <MainPage queryRef={appQueryRef}/> : <div>loading</div>;
 }
 
-export default App;
+const Root = () => {
+  return (
+    <RelayEnvironmentProvider environment={environment}>
+      <App />
+    </RelayEnvironmentProvider>
+  )
+}
+
+export default Root;

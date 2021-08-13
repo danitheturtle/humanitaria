@@ -1,5 +1,7 @@
 import { GraphQLSchema, GraphQLObjectType } from 'graphql';
 import { NotesQuery } from './query/NotesQuery';
+import { printSchema } from 'graphql';
+import fs from 'fs';
 import {
   CreateNoteMutation,
   UpdateNoteMutation,
@@ -23,5 +25,13 @@ const MutationType = new GraphQLObjectType({
 });
 
 const schema = new GraphQLSchema({ query: QueryType, mutation: MutationType });
+
+export const updateSchema = () => {
+  fs.writeFile('../../schema.graphql', printSchema(schema), function(err) {
+    if (err) {
+      return console.log(err);
+    }
+  });
+};
 
 export default schema;
