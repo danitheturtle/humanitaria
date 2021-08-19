@@ -5,9 +5,8 @@ import { express as voyager } from "graphql-voyager/middleware";
 // import { auth } from "./auth";
 // import { Context } from "./context";
 // import env from "./env";
-import schema from "./graphql/schema";
+import schema from "./graph/schema";
 // import { session } from "./session";
-import { env } from 'process';
 
 export const api = Router();
 
@@ -16,7 +15,7 @@ export const api = Router();
 
 // Generates interactive UML diagram for the API schema
 // https://github.com/APIs-guru/graphql-voyager
-if (env.APP_ENV !== "production") {
+if (process.env.APP_ENV !== "production") {
   api.use("/graphql/model", voyager({ endpointUrl: "/graphql" }));
 }
 
@@ -25,10 +24,10 @@ api.use(
   graphqlHTTP((req) => ({
     schema,
     // context: new Context(req as Request),
-    graphiql: env.APP_ENV !== "production",
-    pretty: env.APP_ENV !== "production",
+    graphiql: process.env.APP_ENV !== "production",
+    pretty: process.APP_ENV !== "production",
     customFormatErrorFn: (err) => {
-      console.error(err.originalError || err);
+      console.error(err?.originalError || err);
       return formatError(err);
     },
   })),

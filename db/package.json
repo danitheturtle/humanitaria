@@ -4,10 +4,27 @@
   "description": "",
   "main": "",
   "scripts": {
-    "start": "mongod -f ./mongod.conf",
-    "stop": "mongod --shutdown -f ./mongod.conf"
+    "version": "knex migrate:currentVersion",
+    "make": "knex migrate:make --env=dev",
+    "migrate": "knex migrate:latest",
+    "rollback": "knex migrate:rollback",
+    "seed": "knex seed:run",
+    "psql": "sudo psql -U postgres",
+    "reset": "node ./scripts/reset"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "cross-spawn": "^7.0.3",
+    "env": "workspace:*",
+    "express": "^4.17.1",
+    "faker": "^5.5.3",
+    "knex": "^0.21.21",
+    "minimist": "^1.2.5",
+    "nanoid": "^3.1.25",
+    "pg": "^8.7.1",
+    "postgres": "^1.0.2",
+    "prettier": "^2.3.2"
+  }
 }

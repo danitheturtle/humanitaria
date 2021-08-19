@@ -5,6 +5,7 @@
   "private": true,
   "description": "",
   "workspaces": [
+    "env",
     "api",
     "web",
     "db"
