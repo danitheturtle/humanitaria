@@ -1,23 +1,20 @@
-import { fromGlobalId, nodeDefinitions } from "graphql-relay";
-import { NoteType } from '../types';
+import { nodeDefinitions, fromGlobalId } from "graphql-relay";
+import { assignNodeType, getNodeType } from './utils';
 import db from '../db';
 
-const { nodeInterface, nodeField, nodesField } = nodeDefinitions(
+export const { nodeInterface, nodeField, nodesField } = nodeDefinitions(
   (globalId) => {
     const { type, id } = fromGlobalId(globalId);
     // if (type === 'User') return db.getUser(id);
-    if (type === 'Note') return db.getNote(id);
+    if (type === 'Note') return db.getNote(id).then(assignNodeType("Note"));
     return null;
   },
   (obj) => {
-    // if (obj.email) {
-    //   return UserType;
-    // }
-    if (obj.content) {
-      return NoteType;
+    switch (getNodeType(obj)) {
+      case "Note":
+        return require("./types").NoteType
+      default:
+        return null;
     }
-    return null;
   },
 );
-
-export default { nodeInterface, nodeField, nodesField };

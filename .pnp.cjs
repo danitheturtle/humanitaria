@@ -4503,6 +4503,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["env", "workspace:env"],
             ["express", "npm:4.17.1"],
             ["express-graphql", "virtual:ee7691b7fe222bc862e834bc8b7315b783d025fcc9aa8908e2cef99be6f00ea1756f1e91455e091b2e603dce99dc311038a8f90019bbb7060e9b850194b7dcb5#npm:0.12.0"],
+            ["faker", "npm:5.5.3"],
             ["graphql", "npm:15.5.1"],
             ["graphql-relay", "virtual:ee7691b7fe222bc862e834bc8b7315b783d025fcc9aa8908e2cef99be6f00ea1756f1e91455e091b2e603dce99dc311038a8f90019bbb7060e9b850194b7dcb5#npm:0.6.0"],
             ["graphql-voyager", "virtual:8a50bebaf06ad4752013630141518c1f79816d60fa97560808851267c1df2493fdecbece124c93b9ab4be650d3fc6e7907d1a1e397dbc787efb3e35a94d9c7f6#npm:1.0.0-rc.31"],

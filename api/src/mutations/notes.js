@@ -2,50 +2,60 @@ import { NoteType } from '../types';
 import {
   GraphQLString,
   GraphQLBoolean,
-  GraphQLInt,
+  GraphQLNonNull,
   GraphQLID
 } from 'graphql';
 import { mutationWithClientMutationId } from "graphql-relay";
-const { datatype } = require("faker");
+import { fromGlobalId } from '../graph/utils';
 import db from '../db';
 
 export const createNote = mutationWithClientMutationId({
   name: 'createNote',
   inputFields: {
-    content: { type: GraphQLString }
+    content: { type: new GraphQLNonNull(GraphQLString) }
   },
   outputFields: {
     note: {
       type: NoteType,
-      resolve: async payload => await db.getNote(payload.id)
+      resolve: async payload => {
+        return await db.getNote(payload.id)
+      }
     }
-  }
+  },
   mutateAndGetPayload: ({ content }/*, ctx, info*/) => {
-    return await db.createNote({ content });
+    return db.createNote({ content });
   }
 });
 
-export const DeleteNoteMutation = {
-  type: GraphQLID,
-  args: {
-    id: { type: GraphQLID }
+export const deleteNote = mutationWithClientMutationId({
+  name: 'deleteNote',
+  inputFields: {
+    id: { type: new GraphQLNonNull(GraphQLID) }
   },
-  resolve: async (self, { id }) => {
-    await db.table("notes").where("id", id).del();
-    return _id;
-  }
-};
-
-export const UpdateNoteMutation = {
-  type: noteType,
-  args: {
-    _id: { type: GraphQLID },
-    content: { type: GraphQLString }
+  outputFields: {
+    note: {
+      type: NoteType,
+      resolve: payload => payload
+    }
   },
-  resolve: async (_, { _id, content }) => {
-    const noteService = new NoteService();
-    const updatedNote = await noteService.updateNote(_id, { content });
-
-    return updatedNote;
+  mutateAndGetPayload: ({ id }) => {
+    return db.deleteNote(fromGlobalId(id, "Note"))
   }
-};
+});
+
+export const updateNote = mutationWithClientMutationId({
+  name: 'updateNote',
+  inputFields: {
+    id: { type: new GraphQLNonNull(GraphQLID) },
+    content: { type: new GraphQLNonNull(GraphQLString) }
+  },
+  outputFields: {
+    note: {
+      type: NoteType,
+      resolve: payload => payload
+    }
+  },
+  mutateAndGetPayload: ({ id, content }) => {
+    return db.updateNote({ id: fromGlobalId(id, "Note"), content });
+  }
+});

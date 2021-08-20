@@ -1,10 +1,11 @@
 {
   "name": "api",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
   "scripts": {
     "start:compiled": "node ../dist/api/server.js",
     "start": "nodemon --watch ./src ./src/server.js --exec babel-node",
+    "debug": "nodemon --inspect --watch ./src ./src/server.js --exec babel-node --env=dev",
     "build": "rm -rf ../dist/api && babel ./src --out-dir ../dist/api"
   },
   "keywords": [],
@@ -17,6 +18,7 @@
     "env": "workspace:*",
     "express": "^4.17.1",
     "express-graphql": "^0.12.0",
+    "faker": "^5.5.3",
     "graphql": "^15.5.0",
     "graphql-relay": "^0.6.0",
     "graphql-voyager": "^1.0.0-rc.31",

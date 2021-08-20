@@ -1,9 +1,10 @@
+require('env');
 import express from 'express';
 import cors from 'cors';
 import process from 'process';
-import { updateSchema } from './schema';
+import { updateSchema } from './graph/schema';
 import { api } from './router';
-require("env");
+
 
 const port = process.env.PORT || 4000;
 const app = express();

@@ -1,5 +1,5 @@
-import { GraphQLID } from 'graphql';
-import { fromGlobalId } from 'graphql-relay';
+import { GraphQLID, GraphQLList } from 'graphql';
+import { fromGlobalId } from '../graph/utils';
 import { NoteType } from '../types';
 import db from '../db';
 
@@ -16,7 +16,7 @@ export const note = {
   type: NoteType,
   args: { id: { type: GraphQLID } },
   resolve: async (_, args) => {
-    const noteId = fromGlobalId(args.id).id;
-    return await db.getNote(noteId);
+    const id = fromGlobalId(args.id);
+    return await db.getNote(id);
   }
 }

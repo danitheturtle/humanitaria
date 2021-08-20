@@ -6,12 +6,12 @@ import { nodeInterface } from '../graph/nodeDefinitions';
 export const NoteType = new GraphQLObjectType({
   name: 'Note',
   interfaces: [nodeInterface],
-  fields: {
+  fields: () => ({
     id: globalIdField('Note'),
     content: { type: GraphQLString },
     // user: {
     //   type: UserType,
     //   resolve: (source) => db.getUser(source.userId)
     // }
-  }
+  })
 });

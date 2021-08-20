@@ -13,7 +13,7 @@ const resolve = (filename) => path.resolve(__dirname, filename);
 /**
  * Loads environment variables from .env files.
  */
-module.exports.load = function load(envName) {
+module.exports.loadEnv = function loadEnv(envName) {
   const env = [
     dotenv.config({ path: resolve(`.env`) }).parsed,
     dotenv.config({ path: resolve(`.env.${envName}`) }).parsed
@@ -45,4 +45,4 @@ module.exports.load = function load(envName) {
   return { ...env };
 };
 
-module.exports.load(envName);
+module.exports.loadEnv(envName)

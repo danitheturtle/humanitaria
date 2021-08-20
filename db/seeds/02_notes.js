@@ -1,6 +1,6 @@
 const fs = require("fs");
 const prettier = require("prettier");
-const { name, date, image, datatype, random } = require("faker");
+const { name, date, image, random } = require("faker");
 
 const jsonFile = `${__filename.substring(0, __filename.lastIndexOf("."))}.json`;
 
@@ -18,11 +18,9 @@ module.exports.seed = async (db) => {
     console.log("Generating notes.json...");
 
     notes = Array.from({ length: 100 }).map(() => {
-      const id = datatype.uuid();
       const content = random.words(20);
 
       return {
-        id,
         content
       };
     });
