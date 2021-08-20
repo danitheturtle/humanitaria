@@ -132,7 +132,7 @@ module.exports = function config(envName, options) {
       // Generates an `index.html` file with the <script> injected.
       new HtmlWebpackPlugin({
         inject: true,
-        template: path.resolve(__dirname, "public/index.html"),
+        template: path.resolve(__dirname, "src/public/index.html"),
         ...(isEnvProduction && {
           minify: {
             removeComments: true,
@@ -152,8 +152,8 @@ module.exports = function config(envName, options) {
         new CopyWebpackPlugin({
           patterns: [
             {
-              from: "./public",
-              filter: (filename) => filename !== path.resolve(__dirname, "public/index.html"),
+              from: "./src/public",
+              filter: (filename) => filename !== path.resolve(__dirname, "src/public/index.html"),
               noErrorOnMissing: true,
             },
           ],
@@ -176,7 +176,7 @@ module.exports = function config(envName, options) {
    */
   const devServer = {
     compress: true,
-    static: "./public",
+    static: "./src/public",
     historyApiFallback: {
       disableDotRule: true,
     },

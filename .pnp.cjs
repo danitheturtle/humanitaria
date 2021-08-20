@@ -8492,6 +8492,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["history", [
+        ["npm:5.0.1", {
+          "packageLocation": "./.yarn/cache/history-npm-5.0.1-9d92578d48-ec14960f42.zip/node_modules/history/",
+          "packageDependencies": [
+            ["history", "npm:5.0.1"],
+            ["@babel/runtime", "npm:7.15.3"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["hoist-non-react-statics", [
         ["npm:2.5.5", {
           "packageLocation": "./.yarn/cache/hoist-non-react-statics-npm-2.5.5-e15c7ba611-ee2d05e5c7.zip/node_modules/hoist-non-react-statics/",
@@ -15563,6 +15573,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["css-loader", "virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:6.2.0"],
             ["env", "workspace:env"],
             ["graphql", "npm:15.5.1"],
+            ["history", "npm:5.0.1"],
             ["html-webpack-plugin", "virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:5.3.2"],
             ["http-proxy-middleware", "npm:1.3.1"],
             ["pnp-webpack-plugin", "npm:1.7.0"],

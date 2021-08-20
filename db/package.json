@@ -4,6 +4,8 @@
   "description": "",
   "main": "",
   "scripts": {
+    "start": "sudo service postgresql start",
+    "stop": "sudo service postgresql stop",
     "version": "knex migrate:currentVersion",
     "make": "knex migrate:make --env=dev",
     "migrate": "knex migrate:latest",
