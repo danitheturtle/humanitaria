@@ -6,6 +6,7 @@ const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin"
 const TerserPlugin = require("terser-webpack-plugin");
 const { WebpackManifestPlugin } = require("webpack-manifest-plugin");
 const pkg = require("./package.json");
+require('env');
 
 /**
  * @param {Record<string, boolean> | undefined} envName
@@ -21,7 +22,7 @@ module.exports = function config(envName, options) {
   
   process.env.BABEL_ENV = options.env;
   process.env.BROWSERSLIST_ENV = options.env;
-
+  
   /**
    * Client-side application bundle.
    *
@@ -148,6 +149,17 @@ module.exports = function config(envName, options) {
           },
         }),
       }),
+      //Load ENV
+      new webpack.DefinePlugin(
+        Object.entries(process.env).map(
+          ([k, v]) => ([`env.${k}`, `"${v}"` ])
+        ).filter(
+          ([k]) => !k.includes('SECRET') && !k.includes('PASSWORD')
+        ).reduce(
+          (acc, [envVarKey, envVarVal]) => { acc[envVarKey] = envVarVal; return acc; },
+          {}
+        )
+      ),
       !isDevServer &&
         new CopyWebpackPlugin({
           patterns: [

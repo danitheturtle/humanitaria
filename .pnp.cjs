@@ -12445,6 +12445,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["path-to-regexp", "npm:0.1.7"]
           ],
           "linkType": "HARD",
+        }],
+        ["npm:6.2.0", {
+          "packageLocation": "./.yarn/cache/path-to-regexp-npm-6.2.0-efbac3c1ff-a6aca74d2d.zip/node_modules/path-to-regexp/",
+          "packageDependencies": [
+            ["path-to-regexp", "npm:6.2.0"]
+          ],
+          "linkType": "HARD",
         }]
       ]],
       ["path-type", [
@@ -15576,6 +15583,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["history", "npm:5.0.1"],
             ["html-webpack-plugin", "virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:5.3.2"],
             ["http-proxy-middleware", "npm:1.3.1"],
+            ["path-to-regexp", "npm:6.2.0"],
             ["pnp-webpack-plugin", "npm:1.7.0"],
             ["react", "npm:17.0.2"],
             ["react-dom", "virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:17.0.2"],

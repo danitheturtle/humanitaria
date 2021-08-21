@@ -1,15 +1,14 @@
+// import env from 'webpack' /* note: this is done automatically at compile time */
 import React from 'react';
 import ReactDOM from 'react-dom';
-//import { createBrowserHistory } from 'history';
-//import history from "history/browser";
-import App from './App';
+import { createBrowserHistory } from 'history';
 import { createRelayEnvironment } from './relay';
+import App from './App';
 
 const relayEnvironment = createRelayEnvironment({
-  baseUrl: "http://localhost:4000"
+  baseUrl: `${env.SERVER_ORIGIN}:${env.SERVER_PORT}`
 });
-
-const history = {}//createBrowserHistory();
+const history = createBrowserHistory();
 
 ReactDOM.render(
   <App relayEnvironment={relayEnvironment} history={history} />, 

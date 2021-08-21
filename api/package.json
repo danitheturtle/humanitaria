@@ -5,7 +5,7 @@
   "scripts": {
     "start:compiled": "node ../dist/api/server.js",
     "start": "nodemon --watch ./src ./src/server.js --exec babel-node",
-    "debug": "nodemon --inspect --watch ./src ./src/server.js --exec babel-node --env=dev",
+    "debug": "nodemon --inspect --watch ./src ./src/server.js --exec babel-node --env=development",
     "build": "rm -rf ../dist/api && babel ./src --out-dir ../dist/api"
   },
   "keywords": [],

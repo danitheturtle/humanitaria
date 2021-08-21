@@ -5,8 +5,7 @@ import process from 'process';
 import { updateSchema } from './graph/schema';
 import { api } from './router';
 
-
-const port = process.env.PORT || 4000;
+const port = process.env.SERVER_PORT || 4000;
 const app = express();
 
 app.use(cors());
@@ -16,7 +15,7 @@ app.get("/", (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`[api] http://localhost:${port}/`);
+  console.log(`[api] ${process.env.SERVER_ORIGIN}:${port}/`);
   console.log({ env: process.env.APP_ENV, version: process.env.VERSION, db: process.env.PGDATABASE });
   updateSchema();
 });

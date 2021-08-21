@@ -8,24 +8,24 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
-export type AppQueryVariables = {||};
-export type AppQueryResponse = {|
+export type homeQueryVariables = {||};
+export type homeQueryResponse = {|
   +notes: ?$ReadOnlyArray<?{|
-    +_id: ?string,
+    +id: string,
     +content: ?string,
   |}>
 |};
-export type AppQuery = {|
-  variables: AppQueryVariables,
-  response: AppQueryResponse,
+export type homeQuery = {|
+  variables: homeQueryVariables,
+  response: homeQueryResponse,
 |};
 */
 
 
 /*
-query AppQuery {
+query homeQuery {
   notes {
-    _id
+    id
     content
   }
 }
@@ -45,7 +45,7 @@ var v0 = [
         "alias": null,
         "args": null,
         "kind": "ScalarField",
-        "name": "_id",
+        "name": "id",
         "storageKey": null
       },
       {
@@ -64,7 +64,7 @@ return {
     "argumentDefinitions": [],
     "kind": "Fragment",
     "metadata": null,
-    "name": "AppQuery",
+    "name": "homeQuery",
     "selections": (v0/*: any*/),
     "type": "Query",
     "abstractKey": null
@@ -73,20 +73,20 @@ return {
   "operation": {
     "argumentDefinitions": [],
     "kind": "Operation",
-    "name": "AppQuery",
+    "name": "homeQuery",
     "selections": (v0/*: any*/)
   },
   "params": {
-    "cacheID": "898fa45cd52fc575a5f8784e94a5a190",
+    "cacheID": "126edf014d6fe039db2531c0a32165f4",
     "id": null,
     "metadata": {},
-    "name": "AppQuery",
+    "name": "homeQuery",
     "operationKind": "query",
-    "text": "query AppQuery {\n  notes {\n    _id\n    content\n  }\n}\n"
+    "text": "query homeQuery {\n  notes {\n    id\n    content\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'f49ea50a81661eb7e7cd272cbfb88f4d';
+(node/*: any*/).hash = '2794895de9e7f6d776b396eaeba2615e';
 
 module.exports = node;

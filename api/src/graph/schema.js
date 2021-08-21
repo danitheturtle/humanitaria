@@ -1,6 +1,7 @@
 import { GraphQLSchema, GraphQLObjectType } from 'graphql';
 import { printSchema } from 'graphql';
 import fs from 'fs';
+import path from 'path';
 import { nodeField, nodesField } from './nodeDefinitions';
 import * as mutations from '../mutations';
 import * as queries from '../queries';
@@ -25,7 +26,7 @@ const schema = new GraphQLSchema({
 });
 
 export const updateSchema = () => {
-  fs.writeFile('../../schema.graphql', printSchema(schema), function(err) {
+  fs.writeFile(path.resolve(__dirname, '..', '..','./schema.graphql'), printSchema(schema), function(err) {
     if (err) {
       return console.log(err);
     }

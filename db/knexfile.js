@@ -1,7 +1,7 @@
 // Update with your config settings.
 
 module.exports = {
-  dev: {
+  development: {
     client: 'pg',
     connection: {
       host: '/var/run/postgresql',
