@@ -188,10 +188,10 @@ module.exports = function config(envName, options) {
    */
   const devServer = {
     compress: true,
-    static: "./src/public",
-    historyApiFallback: {
-      disableDotRule: true,
+    static: {
+      directory: path.resolve(__dirname, "src/public")
     },
+    historyApiFallback: true,
     port: 3000,
     hot: true,
     proxy: [

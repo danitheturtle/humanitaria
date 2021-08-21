@@ -2,9 +2,11 @@ import { match } from 'path-to-regexp';
 import { fetchQuery } from "react-relay";
 import { NotFoundError } from '../errors';
 import homeRoute from './home';
+import landingRoute from './landing';
 
 const routes = [
-  homeRoute
+  homeRoute,
+  landingRoute
 ];
 
 const matchCache = {};
@@ -20,6 +22,7 @@ const matchUrlPath = (route, currentUserPath) => {
 export async function resolveRoute(routerCtx) {
   try {
     const { path, relay } = routerCtx;
+    
     for (let i = 0; i < routes.length; i++) {
       const route = routes[i];
       const evalMatchResult = matchUrlPath(route.path, path);

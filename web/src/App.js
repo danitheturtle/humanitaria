@@ -2,28 +2,6 @@ import React from 'react';
 import { graphql, RelayEnvironmentProvider, useQueryLoader } from 'react-relay';
 import { Action } from 'history';
 import { resolveRoute } from './routes';
-// import MainPage from './containers/MainPage';
-
-// const AppQuery = graphql`
-//   query AppQuery {
-//     notes {
-//       _id
-//       content
-//     }
-//   }
-// `
-
-const AppComponent = (props) => {
-  // const [appQueryRef, loadAppQuery] = useQueryLoader(AppQuery, props.initialQueryRef);
-  // 
-  // React.useEffect(() => {
-  //   //load data for the root-level query
-  //   loadAppQuery({});
-  // }, [loadAppQuery]);
-
-  return <div>loading</div>;
-  /*appQueryRef !== null ? <MainPage queryRef={appQueryRef}/> :*/ ;
-}
 
 export const HistoryContext = React.createContext({ action: Action.Pop, location: { key: "", pathname: "/", search: "" } });
 export const LocationContext = React.createContext({key: "", pathname: "/", search: ""});
@@ -34,8 +12,8 @@ const App = ({ relayEnvironment, history }) => {
   const [route, setRoute] = React.useState(undefined);
   const [error, setError] = React.useState(undefined);
   
-  const renderPathAsRoute = React.useCallback(async location => {
-    resolveRoute({ path: location.pathname, relay: relayEnvironment }).then(newRoute => {
+  const renderPathAsRoute = React.useCallback(async ({ location, action }) => {
+    resolveRoute({ path: location.pathname, relay: relayEnvironment, action }).then(newRoute => {
       if (newRoute.error) console.error(newRoute.error);
       setLocation(location);
       setRoute(newRoute);
@@ -44,12 +22,10 @@ const App = ({ relayEnvironment, history }) => {
   }, []);
   
   React.useEffect(() => {
-    setDisposeHistory(history.listen(renderPathAsRoute));
-    renderPathAsRoute(history.location);
+    const disposeHistory = history.listen(renderPathAsRoute);
+    renderPathAsRoute({ location: history.location, action: Action.Pop });
+    return disposeHistory;
   }, []);
-  React.useEffect(() => {
-    if (disposeHistory) return disposeHistory;
-  }, [disposeHistory]);
   
   React.useEffect(() => {
     if (route?.title) {

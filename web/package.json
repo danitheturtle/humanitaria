@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "relay": "yarn relay-compiler --schema ../api/schema.graphql --src ./src",
-    "start": "webpack serve --env=development",
+    "start": "webpack serve --env=development --history-api-fallback",
     "build": "rm -rf ../dist/web && webpack --env=production"
   },
   "keywords": [],
