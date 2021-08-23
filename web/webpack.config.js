@@ -101,7 +101,7 @@ module.exports = function config(envName, options) {
       rules: [
         {
           test: /\.css$/i,
-          type: 'asset/resource',
+          use: ["style-loader", "css-loader"],
           generator: {
             filename: 'style/[hash][ext][query]'
           }

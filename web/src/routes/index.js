@@ -1,5 +1,5 @@
 import { match } from 'path-to-regexp';
-import { fetchQuery } from "react-relay";
+import { loadQuery } from "react-relay";
 import { NotFoundError } from '../errors';
 import homeRoute from './home';
 import landingRoute from './landing';
@@ -19,7 +19,7 @@ const matchUrlPath = (route, currentUserPath) => {
   return evalMatchResult(currentUserPath);
 };
 
-export async function resolveRoute(routerCtx) {
+export function resolveRoute(routerCtx) {
   try {
     const { path, relay } = routerCtx;
     
@@ -37,11 +37,11 @@ export async function resolveRoute(routerCtx) {
         evalMatchResult.params :
         undefined;
 
-      const data = route.query && await fetchQuery(relay, route.query, variables, {
+      const queryRef = route.query && loadQuery(relay, route.query, variables, {
         fetchPolicy: "store-or-network"
-      }).toPromise();
+      });
 
-      const pageSettings = route.getPageSettings(data, routerCtx);
+      const pageSettings = route.getPageSettings(queryRef, routerCtx);
       if (pageSettings) return { component: route.component, ...pageSettings }
     }
     throw new NotFoundError();

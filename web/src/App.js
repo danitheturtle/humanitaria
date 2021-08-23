@@ -12,13 +12,12 @@ const App = ({ relayEnvironment, history }) => {
   const [route, setRoute] = React.useState(undefined);
   const [error, setError] = React.useState(undefined);
   
-  const renderPathAsRoute = React.useCallback(async ({ location, action }) => {
-    resolveRoute({ path: location.pathname, relay: relayEnvironment, action }).then(newRoute => {
-      if (newRoute.error) console.error(newRoute.error);
-      setLocation(location);
-      setRoute(newRoute);
-      setError(newRoute.error)
-    });
+  const renderPathAsRoute = React.useCallback(({ location, action }) => {
+    const newRoute = resolveRoute({ path: location.pathname, relay: relayEnvironment, action });
+    if (newRoute.error) console.error(newRoute.error);
+    setLocation(location);
+    setRoute(newRoute);
+    setError(newRoute.error);
   }, []);
   
   React.useEffect(() => {
@@ -41,9 +40,11 @@ const App = ({ relayEnvironment, history }) => {
     <RelayEnvironmentProvider environment={relayEnvironment}>
       <HistoryContext.Provider value={history}>
         <LocationContext.Provider value={location}>
-          {route?.component
-            ? React.createElement(route.component, route.props)
-            : null}
+          <React.Suspense fallback={<div>loading</div>}>
+            {route?.component
+              ? React.createElement(route.component, route.props)
+              : null}
+          </React.Suspense>
         </LocationContext.Provider>
       </HistoryContext.Provider>
     </RelayEnvironmentProvider>

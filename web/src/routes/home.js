@@ -8,13 +8,14 @@ export default {
       notes {
         id
         content
+        ...Notes_note
       }
     }
   `,
   component: Home,
-  getPageSettings: (data) => ({
+  getPageSettings: (queryRef) => ({
     title: "Humanitaria",
     description: "A progressive social network for direct action",
-    props: data,
+    props: { queryRef },
   }),
 };
