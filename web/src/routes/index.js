@@ -35,7 +35,7 @@ export function resolveRoute(routerCtx) {
         route.variables :
         Object.keys(evalMatchResult.params).length > 0 ?
         evalMatchResult.params :
-        undefined;
+        {};
 
       const queryRef = route.query && loadQuery(relay, route.query, variables, {
         fetchPolicy: "store-or-network"

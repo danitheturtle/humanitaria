@@ -1,5 +1,5 @@
-import { GraphQLObjectType, GraphQLString, GraphQLID } from 'graphql';
-import { globalIdField } from "graphql-relay";
+import { GraphQLObjectType, GraphQLBoolean, GraphQLString, GraphQLID } from 'graphql';
+import { globalIdField, connectionDefinitions } from "graphql-relay";
 import { nodeInterface } from '../graph/nodeDefinitions';
 // import db from '../db';
 
@@ -15,3 +15,8 @@ export const NoteType = new GraphQLObjectType({
     // }
   })
 });
+
+export const {
+  connectionType: NoteConnection,
+  edgeType: NoteEdge
+} = connectionDefinitions({ name: 'Note', nodeType: NoteType });

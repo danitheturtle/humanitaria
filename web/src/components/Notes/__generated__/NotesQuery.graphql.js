@@ -9,24 +9,24 @@
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
 type Notes_notes$ref = any;
-export type homeQueryVariables = {|
-  count: number,
-  cursor: string,
+export type NotesQueryVariables = {|
+  count?: ?number,
+  cursor?: ?string,
 |};
-export type homeQueryResponse = {|
+export type NotesQueryResponse = {|
   +$fragmentRefs: Notes_notes$ref
 |};
-export type homeQuery = {|
-  variables: homeQueryVariables,
-  response: homeQueryResponse,
+export type NotesQuery = {|
+  variables: NotesQueryVariables,
+  response: NotesQueryResponse,
 |};
 */
 
 
 /*
-query homeQuery(
-  $count: Int!
-  $cursor: String!
+query NotesQuery(
+  $count: Int
+  $cursor: String
 ) {
   ...Notes_notes
 }
@@ -84,7 +84,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "homeQuery",
+    "name": "NotesQuery",
     "selections": [
       {
         "args": null,
@@ -99,7 +99,7 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "homeQuery",
+    "name": "NotesQuery",
     "selections": [
       {
         "alias": null,
@@ -199,16 +199,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "89a0b98c0c0e6b163c1eb7be8a91f64b",
+    "cacheID": "d28ca290bc59ab40ac0a67b5cb4a2ac3",
     "id": null,
     "metadata": {},
-    "name": "homeQuery",
+    "name": "NotesQuery",
     "operationKind": "query",
-    "text": "query homeQuery(\n  $count: Int!\n  $cursor: String!\n) {\n  ...Notes_notes\n}\n\nfragment Note_note on Note {\n  id\n  content\n}\n\nfragment Notes_notes on Query {\n  notes(first: $count, after: $cursor) {\n    edges {\n      node {\n        ...Note_note\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
+    "text": "query NotesQuery(\n  $count: Int\n  $cursor: String\n) {\n  ...Notes_notes\n}\n\nfragment Note_note on Note {\n  id\n  content\n}\n\nfragment Notes_notes on Query {\n  notes(first: $count, after: $cursor) {\n    edges {\n      node {\n        ...Note_note\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'a8beb65bce52f5a958368fe30d8bc587';
+(node/*: any*/).hash = 'e050bf24b05e8f338763d7fa2bccfa69';
 
 module.exports = node;

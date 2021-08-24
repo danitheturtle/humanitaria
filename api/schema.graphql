@@ -10,7 +10,7 @@ type Query {
     """The IDs of objects"""
     ids: [ID!]!
   ): [Node]!
-  notes: [Note]
+  notes(after: String, first: Int, before: String, last: Int): NoteConnection
   note(id: ID): Note
 }
 
@@ -18,6 +18,39 @@ type Query {
 interface Node {
   """The id of the object."""
   id: ID!
+}
+
+"""A connection to a list of items."""
+type NoteConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [NoteEdge]
+}
+
+"""Information about pagination in a connection."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+}
+
+"""An edge in a connection."""
+type NoteEdge {
+  """The item at the end of the edge"""
+  node: Note
+
+  """A cursor for use in pagination"""
+  cursor: String!
 }
 
 type Note implements Node {
@@ -33,7 +66,7 @@ type Mutation {
 }
 
 type createNotePayload {
-  note: Note
+  noteEdge: NoteEdge
   clientMutationId: String
 }
 

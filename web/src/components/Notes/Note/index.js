@@ -2,10 +2,10 @@ import React from 'react';
 import { GraphQLObjectType, GraphQLID } from 'graphql';
 import { graphql, useFragment, useMutation } from 'react-relay';
 
-export const Note = ({ note, refresh }) => {
+export const Note = ({ note, connectionId }) => {
   const noteData = useFragment(
     graphql`
-      fragment Notes_note on Note {
+      fragment Note_note on Note {
         id
         content
       }
@@ -13,10 +13,10 @@ export const Note = ({ note, refresh }) => {
     note
   );
   const [commit, isInFlight] = useMutation(graphql`
-    mutation NoteDeleteMutation($input: deleteNoteInput!) {
+    mutation NoteDeleteMutation($input: deleteNoteInput!, $connections: [ID!]!) {
       deleteNote(input: $input) {
         note {
-          id
+          id @deleteEdge(connections: $connections)
         }
       }
     }
@@ -24,10 +24,11 @@ export const Note = ({ note, refresh }) => {
   
   const handleDelete = () => {
     commit({
-      variables: { input: { id: noteData.id } },
-      updater: (relayStore, { deleteNote }) => {
-        relayStore.delete(deleteNote?.note?.id);
-        refresh();
+      variables: {
+        input: {
+          id: noteData.id
+        },
+        connections: [connectionId]
       }
     });
   }
