@@ -4497,6 +4497,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/preset-env", "virtual:8a50bebaf06ad4752013630141518c1f79816d60fa97560808851267c1df2493fdecbece124c93b9ab4be650d3fc6e7907d1a1e397dbc787efb3e35a94d9c7f6#npm:7.15.0"],
             ["babel-plugin-relay", "virtual:8a50bebaf06ad4752013630141518c1f79816d60fa97560808851267c1df2493fdecbece124c93b9ab4be650d3fc6e7907d1a1e397dbc787efb3e35a94d9c7f6#npm:11.0.2"],
             ["body-parser", "npm:1.19.0"],
+            ["cookie", "npm:0.4.1"],
             ["core-js", "npm:3.16.2"],
             ["cors", "npm:2.8.5"],
             ["db", "workspace:db"],
@@ -5989,6 +5990,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/cookie-npm-0.4.0-4b3d629e45-760384ba0a.zip/node_modules/cookie/",
           "packageDependencies": [
             ["cookie", "npm:0.4.0"]
+          ],
+          "linkType": "HARD",
+        }],
+        ["npm:0.4.1", {
+          "packageLocation": "./.yarn/cache/cookie-npm-0.4.1-cc5e2ebb42-bd7c47f5d9.zip/node_modules/cookie/",
+          "packageDependencies": [
+            ["cookie", "npm:0.4.1"]
           ],
           "linkType": "HARD",
         }]

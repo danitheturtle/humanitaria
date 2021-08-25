@@ -7,19 +7,21 @@ const dbRef = knex(config[process.env.APP_ENV]);
 export default {
   dbRef,
   getNotesConnection: async (cursorId, dirComparator, count) => {
-    const [data, [{ max: maxId }], [{ min: minId }]] = await Promise.all([
+    const [data, [{ max: maxId }],
+      [{ min: minId }]
+    ] = await Promise.all([
       dbRef.from("notes")
-        .where('id', dirComparator, cursorId)
-        .select('*')
-        .orderBy('id', dirComparator === '>' ? 'asc' : 'desc')
-        .limit(count),
+      .where('id', dirComparator, cursorId)
+      .select('*')
+      .orderBy('id', dirComparator === '>' ? 'asc' : 'desc')
+      .limit(count),
       dbRef.from('notes').max('id'),
       dbRef.from('notes').min('id')
     ]);
     if (dirComparator === '<') data.reverse();
-    const maxQueryCursor = data[data.length-1].id;
+    const maxQueryCursor = data[data.length - 1].id;
     const minQueryCursor = data[0].id;
-    
+
     return {
       data: data,
       hasNextPage: maxId > maxQueryCursor,
@@ -56,5 +58,14 @@ export default {
       .update(noteData)
       .returning(Object.keys(noteData));
     return updatedNote;
+  },
+  getUser: async (user) => {
+    const { id, username } = user;
+    const [userData] = !!id ?
+      await dbRef.from("users").where("id", id) :
+      (!!username ?
+        await dbRef.from("users").where("username", username) : []
+      );
+    return userData;
   }
 }
