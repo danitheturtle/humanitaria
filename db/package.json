@@ -7,12 +7,12 @@
     "start": "sudo service postgresql start",
     "stop": "sudo service postgresql stop",
     "version": "knex migrate:currentVersion",
-    "make": "knex migrate:make --env=dev",
+    "make": "knex migrate:make --env=development",
     "migrate": "knex migrate:latest",
     "rollback": "knex migrate:rollback",
     "seed": "knex seed:run",
     "psql": "sudo psql -U postgres",
-    "reset": "node ./scripts/reset"
+    "reset": "node ./scripts/reset --env=development"
   },
   "keywords": [],
   "author": "",

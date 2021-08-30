@@ -15,6 +15,7 @@
     "@babel/runtime": "^7.14.8",
     "@material-ui/core": "5.0.0-alpha.29",
     "@material-ui/icons": "5.0.0-alpha.28",
+    "bcrypt": "^5.0.1",
     "env": "workspace:*",
     "graphql": "^15.5.1",
     "history": "^5.0.1",

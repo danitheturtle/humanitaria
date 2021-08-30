@@ -12,6 +12,8 @@ type Query {
   ): [Node]!
   notes(after: String, first: Int, before: String, last: Int): NoteConnection
   note(id: ID): Note
+  me: User
+  user(input: UserInput): User
 }
 
 """An object with an ID"""
@@ -59,10 +61,35 @@ type Note implements Node {
   content: String
 }
 
+type User implements Node {
+  id: ID!
+  index: Int!
+  username: String!
+  email: String!
+  password: String!
+  picture: String
+  name: String
+  legal_name: String
+  timezone: String
+  locale: String
+  last_login: String
+  email_verified: Boolean
+  admin: Boolean
+}
+
+input UserInput {
+  username: String
+  email: String
+  id: ID
+}
+
 type Mutation {
   createNote(input: createNoteInput!): createNotePayload
   deleteNote(input: deleteNoteInput!): deleteNotePayload
   updateNote(input: updateNoteInput!): updateNotePayload
+  signIn(input: signInInput!): signInPayload
+  signOut(input: signOutInput!): signOutPayload
+  createAccount(input: createAccountInput!): createAccountPayload
 }
 
 type createNotePayload {
@@ -93,5 +120,36 @@ type updateNotePayload {
 input updateNoteInput {
   id: ID!
   content: String!
+  clientMutationId: String
+}
+
+type signInPayload {
+  me: User
+  clientMutationId: String
+}
+
+input signInInput {
+  usernameOrEmail: String
+  passwordHash: String
+  clientMutationId: String
+}
+
+type signOutPayload {
+  clientMutationId: String
+}
+
+input signOutInput {
+  clientMutationId: String
+}
+
+type createAccountPayload {
+  me: User
+  clientMutationId: String
+}
+
+input createAccountInput {
+  username: String!
+  email: String!
+  passwordHash: String!
   clientMutationId: String
 }

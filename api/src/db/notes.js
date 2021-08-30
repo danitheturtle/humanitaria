@@ -1,11 +1,4 @@
-require('env');
-import fs from "fs";
-import knex from "knex";
-import config from "../../db/knexfile";
-
-const dbRef = knex(config[process.env.APP_ENV]);
-export default {
-  dbRef,
+export const notesApi = (dbRef) => ({
   getNotesConnection: async (cursorId, dirComparator, count) => {
     const [data, [{ max: maxId }],
       [{ min: minId }]
@@ -40,7 +33,7 @@ export default {
     const [newNote] = await dbRef
       .table("notes")
       .insert(noteData)
-      .returning(["id", ...Object.keys(noteData)]);
+      .returning("*");
     return newNote
   },
   deleteNote: async (id) => {
@@ -56,16 +49,7 @@ export default {
       .table("notes")
       .where("id", id)
       .update(noteData)
-      .returning(Object.keys(noteData));
+      .returning("*");
     return updatedNote;
-  },
-  getUser: async (user) => {
-    const { id, username } = user;
-    const [userData] = !!id ?
-      await dbRef.from("users").where("id", id) :
-      (!!username ?
-        await dbRef.from("users").where("username", username) : []
-      );
-    return userData;
   }
-}
+});
