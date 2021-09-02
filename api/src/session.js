@@ -11,7 +11,7 @@ async function getUser(req) {
         issuer: process.env.APP_ORIGIN,
         audience: process.env.APP_NAME
       });
-      const user = await db.getUser({ id: token.sub });
+      const user = await db.getUser({ uid: token.sub });
       return user || null;
     } catch (err) {
       console.error(err);
@@ -24,7 +24,7 @@ async function signIn(req, res, user) {
   if (!user) return null;
   [user] = await db.dbRef
     .table('users')
-    .where({ id: user.id })
+    .where({ uid: user.uid })
     .update({ last_login: Date.now() })
     .returning("*");
   if (!user) {
@@ -34,7 +34,7 @@ async function signIn(req, res, user) {
   const sessioniCookie = jwt.sign({}, process.env.JWT_SECRET, {
     issuer: process.env.APP_ORIGIN,
     audience: process.env.APP_NAME,
-    subject: user.id,
+    subject: user.uid,
     expiresIn: process.env.JWT_EXPIRES
   });
   res.setHeader("Set-Cookie", cookie.serialize(process.env.JWT_COOKIE, sessioniCookie, {

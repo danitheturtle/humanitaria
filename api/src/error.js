@@ -16,15 +16,11 @@ export class ForbiddenError extends Error {
 
 export class InputError extends Error {
   constructor(message = "400 Bad Request", inputId) {
-    if (message instanceof Array) {
-      super(message.join('; '));
-      this.messageList = message;
-    } else {
-      super(message);
-      this.messageList = [message];
-    }
-    this.code = 403;
-    this.errorOnInput = inputId;
+    super(message);
+    this.code = 400;
+    this.forInputWithId = inputId;
     Object.setPrototypeOf(this, new.target.prototype);
   }
 }
+
+export const validatorResultToErrorList = (errorList, inputId) => errorList.map(err => new InputError(err, inputId));

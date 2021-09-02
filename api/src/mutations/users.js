@@ -1,22 +1,79 @@
-import { GraphQLObjectType, GraphQLInt, GraphQLBoolean, GraphQLID, GraphQLString, GraphQLNonNull } from 'graphql';  
+import { GraphQLObjectType, GraphQLInt, GraphQLList, GraphQLBoolean, GraphQLID, GraphQLString, GraphQLNonNull } from 'graphql';  
 import { mutationWithClientMutationId } from "graphql-relay";
-import { InputError, ForbiddenError } from '../error';
-import { UserType } from '../types';
+import { InputError, ForbiddenError, validatorResultToErrorList } from '../error';
+import { validateAndCleanInput } from '../utils/validators';
+import { UserType, ErrorType } from '../types';
+import db from '../db';
+
+export const createUser = mutationWithClientMutationId({
+  name: 'createUser',
+  inputFields: {
+    username: { type: new GraphQLNonNull(GraphQLString) },
+    email: { type: new GraphQLNonNull(GraphQLString) },
+    passwordHash: { type: new GraphQLNonNull(GraphQLString) }
+  },
+  outputFields: {
+    me: { type: UserType }
+  },
+  mutateAndGetPayload: async (args, ctx) => {
+    const [cleanedInput, validationResult] = validateAndCleanInput(args, ['username', 'email', 'passwordHash']);
+    if (validationResult.email || validationResult.passwordHash || validationResult.username) {
+      throw new Error("Validation error");
+    }
+    const matchingUsername = await ctx.getUserByUsername(cleanedInput.username);
+    if (matchingUsername) { throw new Error("Username already exists"); }
+    const matchingVerifiedEmail = await db.getUserWithVerifiedEmail(cleanedInput.email);
+    if (matchingVerifiedEmail) { throw new Error("Email already registered"); }
+    
+    let newId, idUsed;
+    do {
+      newId = newUserId();
+      idUsed = await ctx.getUserById(newId);
+    } while (idUsed);
+    cleanedInput.uid = newId;
+    const newAccount = await db.createUser(cleanedInput);
+    ctx.cacheUser(newAccount);
+    return { me: newAccount }
+  }
+});
 
 const includeField = (fieldName, inputId, includedFields, cleanedInput, validationResult, partialErrors) => {
   if (cleanedInput[fieldName]) {
     if (validationResult[fieldName]) {
-      partialErrors.push(new InputError(validationResult[fieldName], inputId));
+      partialErrors.push.apply(partialErrors, validatorResultToErrorList(validationResult[fieldName], inputId));
     } else {
       includedFields[fieldName] = cleanedInput[fieldName];
     }
   }
 }
 
+export const deleteUser = mutationWithClientMutationId({
+  name: 'deleteUser',
+  inputFields: {
+    uid: { type: GraphQLID }
+  },
+  outputFields: {
+    user: {
+      type: UserType,
+      resolve: payload => payload
+    }
+  },
+  mutateAndGetPayload: async (args, ctx) => {
+    const [cleanedInput, validationResult] = validateAndCleanInput(args);
+    if (validationResult.uid) return new Error("UID is required to delete user");
+    ctx.ensureAuthorized(ctxUser => ctxUser.id === args.id);
+    const userExists = await ctx.getUserByUID(cleanedInput.uid);
+    if (!userExists) throw new Error("No user with that UID");
+    const deletedUser = await db.deleteUser(cleanedInput);
+    ctx.deleteUser(deletedUser);
+    return { user: deletedUser };
+  }
+});
+
 export const updateUser = mutationWithClientMutationId({
   name: 'updateUser',
   inputFields: {
-    id: { type: new GraphQLNonNull(GraphQLID) }, //this isn't changing, just used to lookup the user
+    uid: { type: new GraphQLNonNull(GraphQLID) }, //this isn't changing, just used to lookup the user
     passwordHash: { type: new GraphQLNonNull(GraphQLID) },
     username: { type: GraphQLString },
     email: { type: GraphQLString },
@@ -29,22 +86,21 @@ export const updateUser = mutationWithClientMutationId({
   },
   outputFields: {
     me: { type: UserType },
-    partialErrors: { type: InputError }
+    partialErrors: { type: new GraphQLList(ErrorType) }
   },
   mutateAndGetPayload: async (args, ctx) => {
-    const [cleanedInput, validationResult] = validateAndCleanInput(args, ['id', 'passwordHash']);
-    if (validationResult.id) throw new Error('User id required to update user data');
-    ctx.ensureAuthorized(loggedInUser => cleanedInput.id === loggedInUser?.id);
-    const user = ctx.getUserById(cleanedInput.id);
-    //todo: add replay attack protection to the password hash system
+    const [cleanedInput, validationResult] = validateAndCleanInput(args, ['uid', 'passwordHash']);
+    if (validationResult.uid) throw new Error('User id required to update user data');
+    ctx.ensureAuthorized(loggedInUser => cleanedInput.uid === loggedInUser?.uid);
+    const user = await ctx.getUserByUID(cleanedInput.uid);
     if (user.password !== cleanedInput.passwordHash) throw new ForbiddenError('Cannot update user, incorrect password');
     
     const partialErrors = [];
-    const updateArgs = { id: cleanedInput.id };
+    const updateArgs = { uid: cleanedInput.uid };
     //username
     if (cleanedInput.username) {
       if (validationResult.username){
-        partialErrors.push(new InputError(validationResult.username, 'username'));
+        partialErrors.push.apply(partialErrors, validatorResultToErrorList(validationResult.username, 'username'));
       } else {
         const matchingUsername = await ctx.getUserByUsername(cleanedInput.username);
         if (matchingUsername) {
@@ -57,7 +113,7 @@ export const updateUser = mutationWithClientMutationId({
     //email
     if (cleanedInput.email) {
       if (validationResult.email) {
-        partialErrors.push(new InputError(validationResult.email, 'email'));
+        partialErrors.push.apply(partialErrors, validatorResultToErrorList(validationResult.email, 'email'));
       } else {
         const matchingVerifiedEmail = await db.getUserWithVerifiedEmail(cleanedInput.email);
         if (matchingVerifiedEmail) {
@@ -70,7 +126,7 @@ export const updateUser = mutationWithClientMutationId({
     //password
     if (cleanedInput.newPasswordHash) {
       if (validationResult.newPasswordHash) {
-        partialErrors.push(new InputError(validationResult.newPasswordHash, 'password'));
+        partialErrors.push.apply(partialErrors, validatorResultToErrorList(validationResult.newPasswordHash, 'newPasswordHash'));
       } else {
         if (cleanedInput.newPasswordHash === user.password) {
           partialErrors.push(new InputError("New password cannot be the same as old password", 'password'))
@@ -84,9 +140,8 @@ export const updateUser = mutationWithClientMutationId({
     includeField('legal_name', 'legal_name', updateArgs, cleanedInput, validationResult, partialErrors);
     includeField('timezone', 'timezone', updateArgs, cleanedInput, validationResult, partialErrors);
     includeField('locale', 'locale', updateArgs, cleanedInput, validationResult, partialErrors);
-    
-    const updatedUserData = db.updateUser(updateArgs);
+    const updatedUserData = await db.updateUser(updateArgs);
     ctx.cacheUser(updatedUserData);
-    return { me: updateUserData, partialErrors: partialErrors };
+    return { me: updatedUserData, partialErrors: partialErrors };
   }
 });

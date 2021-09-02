@@ -12,8 +12,8 @@ module.exports.up = async (db) => {
   await db.raw(`CREATE DOMAIN user_id AS TEXT CHECK(VALUE ~ '^[0-9a-z]{9}$')`);
 
   await db.schema.createTable("users", (table) => {
-    table.increments("index").primary();
-    table.specificType("id", "user_id").notNullable().unique();
+    table.increments("id").primary();
+    table.specificType("uid", "user_id").notNullable().unique();
     table.specificType("username", "username").notNullable().unique();
     table.specificType("email", "email").index();
     table.boolean("email_verified").notNullable().defaultTo(false);

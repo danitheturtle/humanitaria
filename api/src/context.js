@@ -1,10 +1,12 @@
 import { Request } from 'express';
 import { ForbiddenError, UnauthorizedError } from './error';
+import { fromGlobalId } from './graph/utils';
 import db from './db';
 
 export class Context {
   static userCache = {
     byId: {},
+    byUID: {},
     byUsername: {},
     byEmail: {}
   }
@@ -36,9 +38,17 @@ export class Context {
   cacheUser(userData) { return Context.cacheUser(userData); }
   static cacheUser(userData) {
     Context.userCache.byId[userData.id] = userData;
+    Context.userCache.byUID[userData.uid] = userData;
     Context.userCache.byUsername[userData.username] = userData;
     Context.userCache.byEmail[userData.email] = userData;
     return userData;
+  }
+  deleteUser(userData) { return Context.deleteUser(userData); }
+  static deleteUser(userData) {
+    delete Context.userCache.byId[userData.id];
+    delete Context.userCache.byUID[userData.uid];
+    delete Context.userCache.byUsername[userData.username];
+    delete Context.userCache.byEmail[userData.email];
   }
   
   async getUserById(id) { return await Context.getUserById(id); }
@@ -52,6 +62,19 @@ export class Context {
       }
     }
     return Context.userCache.byId[id];
+  }
+  
+  async getUserByUID(uid) { return await Context.getUserByUID(uid); }
+  static async getUserByUID(uid) {
+    if (!Context.userCache.byUID[uid]) {
+      const userData = await db.getUser({ uid });
+      if (userData) {
+        Context.cacheUser(userData);
+      } else {
+        return undefined;
+      }
+    }
+    return Context.userCache.byUID[uid];
   }
   
   async getUserByUsername(username) { return await Context.getUserByUsername(username); }

@@ -7,11 +7,17 @@ export const UserType = new GraphQLObjectType({
   name: 'User',
   interfaces: [nodeInterface],
   fields: () => ({
-    id: { type: new GraphQLNonNull(GraphQLID) },
-    index: { type: new GraphQLNonNull(GraphQLInt) },
+    id: globalIdField('User'),
+    uid: { type: new GraphQLNonNull(GraphQLID) },
     username: { type: new GraphQLNonNull(GraphQLString) },
     email: { type: new GraphQLNonNull(GraphQLString) },
-    password: { type: new GraphQLNonNull(GraphQLString) },
+    password: {
+      type: new GraphQLNonNull(GraphQLString),
+      resolve: (self, _, ctx) => {
+        ctx.ensureAuthorized(ctxUser => ctxUser.id === self.id);
+        return self.password;
+      }
+    },
     picture: { type: GraphQLString },
     name: { type: GraphQLString },
     legal_name: { type: GraphQLString },

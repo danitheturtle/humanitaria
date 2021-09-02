@@ -11,9 +11,9 @@ type Query {
     ids: [ID!]!
   ): [Node]!
   notes(after: String, first: Int, before: String, last: Int): NoteConnection
-  note(id: ID): Note
+  note(input: noteInput): Note
   me: User
-  user(input: UserInput): User
+  user(input: userInput): User
 }
 
 """An object with an ID"""
@@ -61,9 +61,14 @@ type Note implements Node {
   content: String
 }
 
+input noteInput {
+  id: ID
+}
+
 type User implements Node {
+  """The ID of an object"""
   id: ID!
-  index: Int!
+  uid: ID!
   username: String!
   email: String!
   password: String!
@@ -77,10 +82,11 @@ type User implements Node {
   admin: Boolean
 }
 
-input UserInput {
+input userInput {
+  id: ID
   username: String
   email: String
-  id: ID
+  uid: ID
 }
 
 type Mutation {
@@ -89,7 +95,9 @@ type Mutation {
   updateNote(input: updateNoteInput!): updateNotePayload
   signIn(input: signInInput!): signInPayload
   signOut(input: signOutInput!): signOutPayload
-  createAccount(input: createAccountInput!): createAccountPayload
+  createUser(input: createUserInput!): createUserPayload
+  deleteUser(input: deleteUserInput!): deleteUserPayload
+  updateUser(input: updateUserInput!): updateUserPayload
 }
 
 type createNotePayload {
@@ -142,14 +150,50 @@ input signOutInput {
   clientMutationId: String
 }
 
-type createAccountPayload {
+type createUserPayload {
   me: User
   clientMutationId: String
 }
 
-input createAccountInput {
+input createUserInput {
   username: String!
   email: String!
   passwordHash: String!
+  clientMutationId: String
+}
+
+type deleteUserPayload {
+  user: User
+  clientMutationId: String
+}
+
+input deleteUserInput {
+  uid: ID
+  clientMutationId: String
+}
+
+type updateUserPayload {
+  me: User
+  partialErrors: [Error]
+  clientMutationId: String
+}
+
+type Error {
+  code: Int
+  message: String
+  forInputWithId: String
+}
+
+input updateUserInput {
+  uid: ID!
+  passwordHash: ID!
+  username: String
+  email: String
+  newPasswordHash: String
+  picture: String
+  name: String
+  legal_name: String
+  timezone: String
+  locale: String
   clientMutationId: String
 }

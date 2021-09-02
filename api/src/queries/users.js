@@ -1,5 +1,6 @@
 import { GraphQLNonNull, GraphQLInputObjectType, GraphQLID, GraphQLString } from 'graphql';
 import { UserType } from '../types';
+import { fromGlobalId } from '../graph/utils';
 
 export const me = {
   type: UserType,
@@ -13,22 +14,26 @@ export const user = {
   args: {
     input: {
       type: new GraphQLInputObjectType({
-        name: 'UserInput',
+        name: 'userInput',
         fields: {
+          id: { type: GraphQLID },
           username: { type: GraphQLString },
           email: { type: GraphQLString },
-          id: { type: GraphQLID }
+          uid: { type: GraphQLID }
         }
       })
     }
   },
   resolve: async (_, args, ctx) => {
     if (args.input.id) {
-      return ctx.getUserById(args.input.id);
+      const userIndex = fromGlobalId(args.input.id, 'User');
+      return await ctx.getUserById(userIndex);
+    } else if (args.input.uid) {
+      return await ctx.getUserByUID(args.input.uid);
     } else if (args.input.username) {
-      return ctx.getUserByUsername(args.input.username);
+      return await ctx.getUserByUsername(args.input.username);
     } else if (args.input.email) {
-      return ctx.getUserByEmail(args.input.email);
+      return await ctx.getUserByEmail(args.input.email);
     }
   }
 }

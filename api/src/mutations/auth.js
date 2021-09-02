@@ -7,7 +7,6 @@ import { UserType } from '../types';
 import { idCharacters } from '../utils/validators';
 import { validateAndCleanInput, validCharacters } from '../utils/validators';
 import db from '../db';
-const newUserId = nanoid.customAlphabet(idCharacters, 9);
 
 export const signIn = mutationWithClientMutationId({
   name: 'signIn',
@@ -64,35 +63,3 @@ export const signOut = mutationWithClientMutationId({
     ctx.signOut();
   }
 });
-
-export const createAccount = mutationWithClientMutationId({
-  name: 'createAccount',
-  inputFields: {
-    username: { type: new GraphQLNonNull(GraphQLString) },
-    email: { type: new GraphQLNonNull(GraphQLString) },
-    passwordHash: { type: new GraphQLNonNull(GraphQLString) }
-  },
-  outputFields: {
-    me: { type: UserType }
-  },
-  mutateAndGetPayload: async (args, ctx) => {
-    const [cleanedInput, validationResult] = validateAndCleanInput(args, ['username', 'email', 'passwordHash']);
-    if (validationResult.email || validationResult.passwordHash || validationResult.username) {
-      throw new Error("Validation error");
-    }
-    const matchingUsername = await ctx.getUserByUsername(cleanedInput.username);
-    if (matchingUsername) { throw new Error("Username already exists"); }
-    const matchingVerifiedEmail = await db.getUserWithVerifiedEmail(cleanedInput.email);
-    if (matchingVerifiedEmail) { throw new Error("Email already registered"); }
-    
-    let newId, idUsed;
-    do {
-      newId = newUserId();
-      idUsed = await ctx.getUserById(newId);
-    } while (idUsed);
-    cleanedInput.id = newId;
-    const newAccount = db.createUser(cleanedInput);
-    ctx.cacheUser(newAccount);
-    return { me: newAccount }
-  }
-})

@@ -25,12 +25,13 @@ module.exports.seed = async (db) => {
     const emails = new Set();
     
     users = Array.from({ length: 200 }).map(() => {
-      const id = newUserId();
+      const uid = newUserId();
       const gender = name.gender();
       const firstName = name.firstName(gender);
       const lastName = name.lastName(gender);
       let username = internet.userName(firstName, lastName);
       let email = internet.email(firstName, lastName).toLowerCase();
+      const password = "password";
       const createdAt = date.recent(365);
 
       // Ensures that the username is unique
@@ -45,9 +46,11 @@ module.exports.seed = async (db) => {
       usernames.add(username);
 
       return {
-        id,
+        uid,
         username,
         email,
+        password,
+        email_verified: true,
         name: `${firstName} ${lastName}`,
         legal_name: `${firstName} ${lastName}`,
         picture: image.avatar(),
