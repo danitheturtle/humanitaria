@@ -6,7 +6,7 @@ const lowercase = "abcdefghijklmnopqrstuvwxyz";
 const alphabet = lowercase + uppercase;
 const numbers = "0123456789";
 export const validCharacters = alphabet + numbers + allowedSpecialCharacters
-export const usernameChars = alphabet + numbers + "-_";
+export const usernameChars = alphabet + numbers + "\-\_";
 export const idCharacters = lowercase + numbers;
 
 const sanitizersByKey = {

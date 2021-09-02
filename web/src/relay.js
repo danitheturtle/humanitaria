@@ -10,7 +10,8 @@ export const createRelayEnvironment = (config) => {
       // ...(config.request && Array.from(config.request.headers).reduce((acc, [k, v]) => ({ ...acc, [k]: v}), {})),
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({ query: operation.text, variables })
+    body: JSON.stringify({ query: operation.text, variables }),
+    credentials: 'same-origin'
   }).then(res => res.json()));
   return new Environment({
     store,

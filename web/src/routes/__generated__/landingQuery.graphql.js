@@ -8,13 +8,14 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
-type Notes_notes$ref = any;
-export type landingQueryVariables = {|
-  count: number,
-  cursor: string,
-|};
+export type landingQueryVariables = {||};
 export type landingQueryResponse = {|
-  +$fragmentRefs: Notes_notes$ref
+  +me: ?{|
+    +id: string,
+    +uid: string,
+    +username: string,
+    +email: ?string,
+  |}
 |};
 export type landingQuery = {|
   variables: landingQueryVariables,
@@ -24,32 +25,12 @@ export type landingQuery = {|
 
 
 /*
-query landingQuery(
-  $count: Int!
-  $cursor: String!
-) {
-  ...Notes_notes
-}
-
-fragment Note_note on Note {
-  id
-  content
-}
-
-fragment Notes_notes on Query {
-  notes(first: $count, after: $cursor) {
-    edges {
-      node {
-        ...Note_note
-        id
-        __typename
-      }
-      cursor
-    }
-    pageInfo {
-      endCursor
-      hasNextPage
-    }
+query landingQuery {
+  me {
+    id
+    uid
+    username
+    email
   }
 }
 */
@@ -57,158 +38,73 @@ fragment Notes_notes on Query {
 const node/*: ConcreteRequest*/ = (function(){
 var v0 = [
   {
-    "defaultValue": null,
-    "kind": "LocalArgument",
-    "name": "count"
-  },
-  {
-    "defaultValue": null,
-    "kind": "LocalArgument",
-    "name": "cursor"
-  }
-],
-v1 = [
-  {
-    "kind": "Variable",
-    "name": "after",
-    "variableName": "cursor"
-  },
-  {
-    "kind": "Variable",
-    "name": "first",
-    "variableName": "count"
+    "alias": null,
+    "args": null,
+    "concreteType": "User",
+    "kind": "LinkedField",
+    "name": "me",
+    "plural": false,
+    "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "id",
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "uid",
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "username",
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "email",
+        "storageKey": null
+      }
+    ],
+    "storageKey": null
   }
 ];
 return {
   "fragment": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": [],
     "kind": "Fragment",
     "metadata": null,
     "name": "landingQuery",
-    "selections": [
-      {
-        "args": null,
-        "kind": "FragmentSpread",
-        "name": "Notes_notes"
-      }
-    ],
+    "selections": (v0/*: any*/),
     "type": "Query",
     "abstractKey": null
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": [],
     "kind": "Operation",
     "name": "landingQuery",
-    "selections": [
-      {
-        "alias": null,
-        "args": (v1/*: any*/),
-        "concreteType": "NoteConnection",
-        "kind": "LinkedField",
-        "name": "notes",
-        "plural": false,
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "NoteEdge",
-            "kind": "LinkedField",
-            "name": "edges",
-            "plural": true,
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "Note",
-                "kind": "LinkedField",
-                "name": "node",
-                "plural": false,
-                "selections": [
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "id",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "content",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "__typename",
-                    "storageKey": null
-                  }
-                ],
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "cursor",
-                "storageKey": null
-              }
-            ],
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "PageInfo",
-            "kind": "LinkedField",
-            "name": "pageInfo",
-            "plural": false,
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "endCursor",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "hasNextPage",
-                "storageKey": null
-              }
-            ],
-            "storageKey": null
-          }
-        ],
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": (v1/*: any*/),
-        "filters": null,
-        "handle": "connection",
-        "key": "RootConnection_notes",
-        "kind": "LinkedHandle",
-        "name": "notes"
-      }
-    ]
+    "selections": (v0/*: any*/)
   },
   "params": {
-    "cacheID": "9c7e5c0455c5af863ef77c152d852e74",
+    "cacheID": "8f6788c569ec40a5b7150d26c608dd95",
     "id": null,
     "metadata": {},
     "name": "landingQuery",
     "operationKind": "query",
-    "text": "query landingQuery(\n  $count: Int!\n  $cursor: String!\n) {\n  ...Notes_notes\n}\n\nfragment Note_note on Note {\n  id\n  content\n}\n\nfragment Notes_notes on Query {\n  notes(first: $count, after: $cursor) {\n    edges {\n      node {\n        ...Note_note\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
+    "text": "query landingQuery {\n  me {\n    id\n    uid\n    username\n    email\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '4ac5230dce0058b4ad06c883ca022da9';
+(node/*: any*/).hash = '3b6db57063555ae3fb11494eb6161a85';
 
 module.exports = node;

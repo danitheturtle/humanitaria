@@ -28,7 +28,7 @@ export const usersApi = (dbRef) => ({
     const newUserData = {
       uid: userSeed.uid,
       username: userSeed.username,
-      email: userSeed.email,
+      email: userSeed.email ? userSeed.email : "",
       password: userSeed.passwordHash,
       picture: "",
       name: "",

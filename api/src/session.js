@@ -25,7 +25,7 @@ async function signIn(req, res, user) {
   [user] = await db.dbRef
     .table('users')
     .where({ uid: user.uid })
-    .update({ last_login: Date.now() })
+    .update({ last_login: new Date().toISOString() })
     .returning("*");
   if (!user) {
     req.user = null;

@@ -5,7 +5,7 @@ import { GraphQLString, GraphQLNonNull } from "graphql";
 import { whitelist, isEmpty, isEmail, normalizeEmail, trim } from 'validator';
 import { UserType } from '../types';
 import { idCharacters } from '../utils/validators';
-import { validateAndCleanInput, validCharacters } from '../utils/validators';
+import { validateAndCleanInput, usernameChars } from '../utils/validators';
 import db from '../db';
 
 export const signIn = mutationWithClientMutationId({
@@ -18,7 +18,7 @@ export const signIn = mutationWithClientMutationId({
     me: { type: UserType }
   },
   mutateAndGetPayload: async ({ usernameOrEmail, passwordHash }, ctx) => {
-    const loginName = whitelist(trim(usernameOrEmail), validCharacters);
+    const loginName = whitelist(trim(usernameOrEmail), usernameChars);
     if (isEmpty(loginName)) throw new Error("Invalid or missing user string");
     
     const userSelector = [];
@@ -36,18 +36,25 @@ export const signIn = mutationWithClientMutationId({
     
     if (isEmpty(passwordHash)) throw new Error("Missing password")
     
-    const users = db.dbRef
+    const users = await db.dbRef
       .table("users")
       .where(...userSelector)
       .whereNotNull("password")
       .orderBy("email_verified", "asc")
-      .select();
-      
-    for (const user of users) {
-      const valid = passwordHash === user.password;
+      .select('*');
+    if (users instanceof Array) {
+      for (const user of users) {
+        const valid = passwordHash === user.password;
+        if (valid) {
+          const me = await ctx.signIn(user);
+          return { me };
+        }
+      }
+    } else {
+      const valid = passwordHash === users.password;
       if (valid) {
-        const me = await ctx.signIn(user);
-        return { me };
+        const me = await ctx.signIn(users);
+        return { me }
       }
     }
     throw new Error("Wrong Email or Password")

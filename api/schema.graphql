@@ -70,8 +70,8 @@ type User implements Node {
   id: ID!
   uid: ID!
   username: String!
-  email: String!
   password: String!
+  email: String
   picture: String
   name: String
   legal_name: String
@@ -157,8 +157,8 @@ type createUserPayload {
 
 input createUserInput {
   username: String!
-  email: String!
   passwordHash: String!
+  email: String
   clientMutationId: String
 }
 

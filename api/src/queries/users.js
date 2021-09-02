@@ -5,6 +5,7 @@ import { fromGlobalId } from '../graph/utils';
 export const me = {
   type: UserType,
   resolve: async (_, args, ctx) => {
+    ctx.ensureAuthorized();
     return ctx.user
   }
 }

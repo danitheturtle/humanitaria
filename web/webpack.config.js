@@ -2,7 +2,7 @@ const path = require("path");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
-const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
+// const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const { WebpackManifestPlugin } = require("webpack-manifest-plugin");
 const pkg = require("./package.json");
@@ -13,15 +13,16 @@ require('env');
  * @param {{ env: "production" | "development" }} options
  * @returns {import("webpack").Configuration}
  */
-module.exports = function config(envName, options) {
-  const isEnvProduction = options.env === "production";
-  const isEnvDevelopment = options.env === "development";
+module.exports = function config(envArg) {
+  const isEnvProduction = envArg.production;
+  const isEnvDevelopment = envArg.development;
   const isDevServer = isEnvDevelopment && process.argv.includes("serve");
+  
   //profiling prod environment to debug issues?
   const isEnvProductionProfile = isEnvProduction && process.argv.includes("--profile");
   
-  process.env.BABEL_ENV = options.env;
-  process.env.BROWSERSLIST_ENV = options.env;
+  process.env.BABEL_ENV = isEnvDevelopment ? 'development' : 'production';
+  process.env.BROWSERSLIST_ENV = isEnvDevelopment ? 'development' : 'production';
   
   /**
    * Client-side application bundle.
@@ -119,7 +120,7 @@ module.exports = function config(envName, options) {
             sourceType: "module",
             plugins: [
               "relay",
-              isDevServer && "react-refresh/babel",
+              // isDevServer && "react-refresh/babel",
             ].filter(Boolean),
             cacheDirectory: `../.cache/${pkg.name}.babel-loader`,
             cacheCompression: false,
@@ -171,7 +172,7 @@ module.exports = function config(envName, options) {
           ],
         }),
       isDevServer && new webpack.HotModuleReplacementPlugin(),
-      isDevServer && new ReactRefreshWebpackPlugin(),
+      // isDevServer && new ReactRefreshWebpackPlugin(),
       new WebpackManifestPlugin({
         fileName: "assets.json",
         publicPath: "/",
@@ -191,15 +192,21 @@ module.exports = function config(envName, options) {
     static: {
       directory: path.resolve(__dirname, "src/public")
     },
+    port: 8080,
     historyApiFallback: true,
-    port: 3000,
     hot: true,
-    proxy: [
-      {
-        context: ["/graphql"],
-        target: "http://localhost:8080",
+    proxy: {
+      '/graphql': {
+        target: `${process.env.SERVER_ORIGIN}:${process.env.SERVER_PORT}`,
+        secure: false,
+        changeOrigin: true,
+        // onProxyReq: proxyReq => {
+        //   if (proxyReq.getHeader('origin')) {
+        //     proxyReq.setHeader('origin', 'http://localhost:3000')
+        //   }
+        // }
       }
-    ],
+    },
   };
 
   return isDevServer ? { ...appConfig, devServer } : appConfig;

@@ -14,7 +14,13 @@ export type homeQueryVariables = {|
   cursor: string,
 |};
 export type homeQueryResponse = {|
-  +$fragmentRefs: Notes_notes$ref
+  +me: ?{|
+    +id: string,
+    +uid: string,
+    +username: string,
+    +email: ?string,
+  |},
+  +$fragmentRefs: Notes_notes$ref,
 |};
 export type homeQuery = {|
   variables: homeQueryVariables,
@@ -28,6 +34,12 @@ query homeQuery(
   $count: Int!
   $cursor: String!
 ) {
+  me {
+    id
+    uid
+    username
+    email
+  }
   ...Notes_notes
 }
 
@@ -67,7 +79,47 @@ var v0 = [
     "name": "cursor"
   }
 ],
-v1 = [
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v2 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "User",
+  "kind": "LinkedField",
+  "name": "me",
+  "plural": false,
+  "selections": [
+    (v1/*: any*/),
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "uid",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "username",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "email",
+      "storageKey": null
+    }
+  ],
+  "storageKey": null
+},
+v3 = [
   {
     "kind": "Variable",
     "name": "after",
@@ -86,6 +138,7 @@ return {
     "metadata": null,
     "name": "homeQuery",
     "selections": [
+      (v2/*: any*/),
       {
         "args": null,
         "kind": "FragmentSpread",
@@ -101,9 +154,10 @@ return {
     "kind": "Operation",
     "name": "homeQuery",
     "selections": [
+      (v2/*: any*/),
       {
         "alias": null,
-        "args": (v1/*: any*/),
+        "args": (v3/*: any*/),
         "concreteType": "NoteConnection",
         "kind": "LinkedField",
         "name": "notes",
@@ -125,13 +179,7 @@ return {
                 "name": "node",
                 "plural": false,
                 "selections": [
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "id",
-                    "storageKey": null
-                  },
+                  (v1/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -189,7 +237,7 @@ return {
       },
       {
         "alias": null,
-        "args": (v1/*: any*/),
+        "args": (v3/*: any*/),
         "filters": null,
         "handle": "connection",
         "key": "RootConnection_notes",
@@ -199,16 +247,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "89a0b98c0c0e6b163c1eb7be8a91f64b",
+    "cacheID": "bab38b07faf5f8fd361a2e21ab8e9491",
     "id": null,
     "metadata": {},
     "name": "homeQuery",
     "operationKind": "query",
-    "text": "query homeQuery(\n  $count: Int!\n  $cursor: String!\n) {\n  ...Notes_notes\n}\n\nfragment Note_note on Note {\n  id\n  content\n}\n\nfragment Notes_notes on Query {\n  notes(first: $count, after: $cursor) {\n    edges {\n      node {\n        ...Note_note\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
+    "text": "query homeQuery(\n  $count: Int!\n  $cursor: String!\n) {\n  me {\n    id\n    uid\n    username\n    email\n  }\n  ...Notes_notes\n}\n\nfragment Note_note on Note {\n  id\n  content\n}\n\nfragment Notes_notes on Query {\n  notes(first: $count, after: $cursor) {\n    edges {\n      node {\n        ...Note_note\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'a8beb65bce52f5a958368fe30d8bc587';
+(node/*: any*/).hash = '1d190f2065ebe655189d3e62567ec92e';
 
 module.exports = node;

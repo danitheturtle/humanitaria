@@ -6,7 +6,7 @@ import { createRelayEnvironment } from './relay';
 import App from './App';
 
 const relayEnvironment = createRelayEnvironment({
-  baseUrl: `${env.SERVER_ORIGIN}:${env.SERVER_PORT}`
+  baseUrl: ""
 });
 const history = createBrowserHistory();
 

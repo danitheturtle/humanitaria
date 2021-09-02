@@ -10,7 +10,6 @@ export const UserType = new GraphQLObjectType({
     id: globalIdField('User'),
     uid: { type: new GraphQLNonNull(GraphQLID) },
     username: { type: new GraphQLNonNull(GraphQLString) },
-    email: { type: new GraphQLNonNull(GraphQLString) },
     password: {
       type: new GraphQLNonNull(GraphQLString),
       resolve: (self, _, ctx) => {
@@ -18,6 +17,7 @@ export const UserType = new GraphQLObjectType({
         return self.password;
       }
     },
+    email: { type: GraphQLString },
     picture: { type: GraphQLString },
     name: { type: GraphQLString },
     legal_name: { type: GraphQLString },

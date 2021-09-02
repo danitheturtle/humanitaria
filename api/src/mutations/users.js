@@ -1,36 +1,40 @@
 import { GraphQLObjectType, GraphQLInt, GraphQLList, GraphQLBoolean, GraphQLID, GraphQLString, GraphQLNonNull } from 'graphql';  
 import { mutationWithClientMutationId } from "graphql-relay";
+import nanoid from 'nanoid';
 import { InputError, ForbiddenError, validatorResultToErrorList } from '../error';
-import { validateAndCleanInput } from '../utils/validators';
+import { validateAndCleanInput, idCharacters } from '../utils/validators';
 import { UserType, ErrorType } from '../types';
 import db from '../db';
+const newUserId = nanoid.customAlphabet(idCharacters, 9);
 
 export const createUser = mutationWithClientMutationId({
   name: 'createUser',
   inputFields: {
     username: { type: new GraphQLNonNull(GraphQLString) },
-    email: { type: new GraphQLNonNull(GraphQLString) },
-    passwordHash: { type: new GraphQLNonNull(GraphQLString) }
+    passwordHash: { type: new GraphQLNonNull(GraphQLString) },
+    email: { type: GraphQLString }
   },
   outputFields: {
     me: { type: UserType }
   },
   mutateAndGetPayload: async (args, ctx) => {
-    const [cleanedInput, validationResult] = validateAndCleanInput(args, ['username', 'email', 'passwordHash']);
-    if (validationResult.email || validationResult.passwordHash || validationResult.username) {
+    const [cleanedInput, validationResult] = validateAndCleanInput(args, ['username', 'passwordHash']);
+    if ((cleanedInput.email && validationResult.email) || validationResult.passwordHash || validationResult.username) {
       throw new Error("Validation error");
     }
     const matchingUsername = await ctx.getUserByUsername(cleanedInput.username);
     if (matchingUsername) { throw new Error("Username already exists"); }
-    const matchingVerifiedEmail = await db.getUserWithVerifiedEmail(cleanedInput.email);
-    if (matchingVerifiedEmail) { throw new Error("Email already registered"); }
+    if (cleanedInput.email) {
+      const matchingVerifiedEmail = await db.getUserWithVerifiedEmail(cleanedInput.email);
+      if (matchingVerifiedEmail) { throw new Error("Email already registered"); }
+    }
     
-    let newId, idUsed;
+    let newUID, uidUsed;
     do {
-      newId = newUserId();
-      idUsed = await ctx.getUserById(newId);
-    } while (idUsed);
-    cleanedInput.uid = newId;
+      newUID = newUserId();
+      uidUsed = await ctx.getUserByUID(newUID);
+    } while (uidUsed);
+    cleanedInput.uid = newUID;
     const newAccount = await db.createUser(cleanedInput);
     ctx.cacheUser(newAccount);
     return { me: newAccount }

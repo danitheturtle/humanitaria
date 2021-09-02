@@ -6,6 +6,12 @@ export default {
   path: "/",
   query: graphql`
     query homeQuery($count: Int!, $cursor: String!) {
+      me {
+        id
+        uid
+        username
+        email
+      }
       ...Notes_notes
     }
   `,
