@@ -10,9 +10,9 @@
 import type { ReaderFragment } from 'relay-runtime';
 type Note_note$ref = any;
 import type { FragmentReference } from "relay-runtime";
-declare export opaque type Notes_notes$ref: FragmentReference;
-declare export opaque type Notes_notes$fragmentType: Notes_notes$ref;
-export type Notes_notes = {|
+declare export opaque type NotesRoot_notes$ref: FragmentReference;
+declare export opaque type NotesRoot_notes$fragmentType: NotesRoot_notes$ref;
+export type NotesRoot_notes = {|
   +notes: ?{|
     +edges: ?$ReadOnlyArray<?{|
       +node: ?{|
@@ -20,12 +20,12 @@ export type Notes_notes = {|
       |}
     |}>
   |},
-  +$refType: Notes_notes$ref,
+  +$refType: NotesRoot_notes$ref,
 |};
-export type Notes_notes$data = Notes_notes;
-export type Notes_notes$key = {
-  +$data?: Notes_notes$data,
-  +$fragmentRefs: Notes_notes$ref,
+export type NotesRoot_notes$data = NotesRoot_notes;
+export type NotesRoot_notes$key = {
+  +$data?: NotesRoot_notes$data,
+  +$fragmentRefs: NotesRoot_notes$ref,
   ...
 };
 */
@@ -66,17 +66,17 @@ return {
         "path": (v0/*: any*/)
       },
       "fragmentPathInResult": [],
-      "operation": require('./NotesQuery.graphql.js')
+      "operation": require('./NotesRootQuery.graphql.js')
     }
   },
-  "name": "Notes_notes",
+  "name": "NotesRoot_notes",
   "selections": [
     {
       "alias": "notes",
       "args": null,
       "concreteType": "NoteConnection",
       "kind": "LinkedField",
-      "name": "__RootConnection_notes_connection",
+      "name": "__RootNotesConnection_notes_connection",
       "plural": false,
       "selections": [
         {
@@ -154,6 +154,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'e050bf24b05e8f338763d7fa2bccfa69';
+(node/*: any*/).hash = 'edcbbc0d4f1695a6696af3ee9bef8d50';
 
 module.exports = node;

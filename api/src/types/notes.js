@@ -1,7 +1,8 @@
 import { GraphQLObjectType, GraphQLBoolean, GraphQLString, GraphQLID } from 'graphql';
 import { globalIdField, connectionDefinitions } from "graphql-relay";
 import { nodeInterface } from '../graph/nodeDefinitions';
-// import db from '../db';
+import { UserType } from '../types';
+import db from '../db';
 
 export const NoteType = new GraphQLObjectType({
   name: 'Note',
@@ -9,14 +10,14 @@ export const NoteType = new GraphQLObjectType({
   fields: () => ({
     id: globalIdField('Note'),
     content: { type: GraphQLString },
-    // user: {
-    //   type: UserType,
-    //   resolve: (source) => db.getUser(source.userId)
-    // }
+    user: {
+      type: UserType,
+      resolve: (source) => db.getUser({ uid: source.uid })
+    }
   })
 });
 
 export const {
-  connectionType: NoteConnection,
-  edgeType: NoteEdge
+  connectionType: QueryNotesConnection,
+  edgeType: QueryNotesEdge
 } = connectionDefinitions({ name: 'Note', nodeType: NoteType });

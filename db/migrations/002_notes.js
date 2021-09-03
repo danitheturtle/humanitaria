@@ -2,6 +2,7 @@
 exports.up = async function(db) {
   await db.schema.createTable("notes", (table) => {
     table.increments('id');
+    table.specificType("uid", "user_id").notNullable();
     table.string('content');
   });
 };

@@ -1,7 +1,8 @@
 import { GraphQLObjectType, GraphQLInt, GraphQLBoolean, GraphQLID, GraphQLString, GraphQLNonNull } from 'graphql';
-import { globalIdField, connectionDefinitions } from "graphql-relay";
+import { globalIdField, connectionArgs, connectionDefinitions } from "graphql-relay";
 import { nodeInterface } from '../graph/nodeDefinitions';
-// import db from '../db';
+import { NoteType } from '../types';
+import db from '../db';
 
 export const UserType = new GraphQLObjectType({
   name: 'User',
@@ -12,9 +13,9 @@ export const UserType = new GraphQLObjectType({
     username: { type: new GraphQLNonNull(GraphQLString) },
     password: {
       type: new GraphQLNonNull(GraphQLString),
-      resolve: (self, _, ctx) => {
-        ctx.ensureAuthorized(ctxUser => ctxUser.id === self.id);
-        return self.password;
+      resolve: (source, _, ctx) => {
+        ctx.ensureAuthorized(ctxUser => ctxUser.uid === source.uid);
+        return source.password;
       }
     },
     email: { type: GraphQLString },
@@ -26,6 +27,30 @@ export const UserType = new GraphQLObjectType({
     last_login: { type: GraphQLString },
     email_verified: { type: GraphQLBoolean },
     admin: { type: GraphQLBoolean },
+    notes: {
+      type: UserNotesConnection,
+      args: connectionArgs,
+      resolve: async (source, args) => {
+        const userConnectionFilter = queries => (
+          queries.map(query => query.where('uid', source.uid))
+        );
+        const cursorId = parseInt(args.after || args.before || "0");
+        const dirComparator = !!args.after ? '>' : '<';
+        const dbResult = await db.getNotesConnection(cursorId, dirComparator, args.first || args.last, userConnectionFilter);
+        return {
+          pageInfo: {
+            hasNextPage: dbResult.hasNextPage,
+            hasPreviousPage: dbResult.hasPreviousPage,
+            startCursor: String(dbResult.startCursor),
+            endCursor: String(dbResult.endCursor)
+          },
+          edges: dbResult.data.map(n => ({
+            cursor: String(n.id),
+            node: n
+          }))
+        }
+      }
+    }
     //userSettings: UserSettingsObject
   })
 });
@@ -44,7 +69,11 @@ export const UserType = new GraphQLObjectType({
 //   }
 // })
 
+// export const {
+//   connectionType: UserConnection,
+//   edgeType: UserEdge
+// } = connectionDefinitions({ name: 'User', nodeType: UserType });
 export const {
-  connectionType: UserConnection,
-  edgeType: UserEdge
-} = connectionDefinitions({ name: 'User', nodeType: UserType });
+  connectionType: UserNotesConnection,
+  edgeType: UserNotesEdge
+} = connectionDefinitions({ name: 'UserNotes', nodeType: NoteType })

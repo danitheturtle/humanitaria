@@ -59,10 +59,7 @@ type Note implements Node {
   """The ID of an object"""
   id: ID!
   content: String
-}
-
-input noteInput {
-  id: ID
+  user: User
 }
 
 type User implements Node {
@@ -80,6 +77,29 @@ type User implements Node {
   last_login: String
   email_verified: Boolean
   admin: Boolean
+  notes(after: String, first: Int, before: String, last: Int): UserNotesConnection
+}
+
+"""A connection to a list of items."""
+type UserNotesConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [UserNotesEdge]
+}
+
+"""An edge in a connection."""
+type UserNotesEdge {
+  """The item at the end of the edge"""
+  node: Note
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+input noteInput {
+  id: ID
 }
 
 input userInput {

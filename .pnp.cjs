@@ -3826,6 +3826,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["@types/relay-runtime", [
+        ["npm:11.0.3", {
+          "packageLocation": "./.yarn/cache/@types-relay-runtime-npm-11.0.3-37752b1d0f-c8ede80308.zip/node_modules/@types/relay-runtime/",
+          "packageDependencies": [
+            ["@types/relay-runtime", "npm:11.0.3"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["@types/responselike", [
         ["npm:1.0.0", {
           "packageLocation": "./.yarn/cache/@types-responselike-npm-1.0.0-85dd08af42-e99fc7cc62.zip/node_modules/@types/responselike/",
@@ -13569,6 +13578,27 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["relay-connection-handler-plus", [
+        ["npm:0.1.2", {
+          "packageLocation": "./.yarn/cache/relay-connection-handler-plus-npm-0.1.2-8a7db317a0-f3cc5de06d.zip/node_modules/relay-connection-handler-plus/",
+          "packageDependencies": [
+            ["relay-connection-handler-plus", "npm:0.1.2"]
+          ],
+          "linkType": "SOFT",
+        }],
+        ["virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:0.1.2", {
+          "packageLocation": "./.yarn/__virtual__/relay-connection-handler-plus-virtual-0de5c110dd/0/cache/relay-connection-handler-plus-npm-0.1.2-8a7db317a0-f3cc5de06d.zip/node_modules/relay-connection-handler-plus/",
+          "packageDependencies": [
+            ["relay-connection-handler-plus", "virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:0.1.2"],
+            ["@types/relay-runtime", "npm:11.0.3"],
+            ["relay-runtime", "npm:11.0.2"]
+          ],
+          "packagePeers": [
+            "relay-runtime"
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["relay-runtime", [
         ["npm:11.0.2", {
           "packageLocation": "./.yarn/cache/relay-runtime-npm-11.0.2-c3b3a84bb1-aa6507f4cc.zip/node_modules/relay-runtime/",
@@ -15544,6 +15574,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-relay", "virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:11.0.2"],
             ["relay-compiler", "virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:11.0.2"],
             ["relay-config", "virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:11.0.2"],
+            ["relay-connection-handler-plus", "virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:0.1.2"],
             ["relay-runtime", "npm:11.0.2"],
             ["style-loader", "virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:3.2.1"],
             ["terser-webpack-plugin", "virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:5.1.4"],

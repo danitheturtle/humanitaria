@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { GraphQLObjectType, GraphQLID } from 'graphql';
 import { graphql, useFragment, useMutation } from 'react-relay';
 
-export const Note = ({ note, connectionId }) => {
+export const Note = ({ note, connections }) => {
   const [editingNote, setEditingNote] = useState(false);
   const [editNoteValue, setEditNoteValue] = useState('');
   const noteData = useFragment(
@@ -46,7 +46,7 @@ export const Note = ({ note, connectionId }) => {
         input: {
           id: noteData.id
         },
-        connections: [connectionId]
+        connections
       }
     });
   }

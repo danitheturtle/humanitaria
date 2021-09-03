@@ -1,19 +1,21 @@
 export const notesApi = (dbRef) => ({
-  getNotesConnection: async (cursorId, dirComparator, count) => {
-    const [data, [{ max: maxId }],
-      [{ min: minId }]
-    ] = await Promise.all([
-      dbRef.from("notes")
-      .where('id', dirComparator, cursorId)
-      .select('*')
-      .orderBy('id', dirComparator === '>' ? 'asc' : 'desc')
-      .limit(count),
-      dbRef.from('notes').max('id'),
-      dbRef.from('notes').min('id')
+  getNotesConnection: async (cursorId, dirComparator, count, connectionFilter) => {
+    const notesQuery = dbRef.from("notes").where('id', dirComparator, cursorId);
+    const maxQuery = dbRef.from('notes');
+    const minQuery = dbRef.from('notes');
+    
+    if (typeof connectionFilter === 'function') connectionFilter([notesQuery, maxQuery, minQuery]);
+    
+    const [data = [], [{ max: maxId }], [{ min: minId }] ] = await Promise.all([
+      notesQuery.select('*')
+        .orderBy('id', dirComparator === '>' ? 'asc' : 'desc')
+        .limit(count),
+      maxQuery.max('id'),
+      minQuery.min('id')
     ]);
     if (dirComparator === '<') data.reverse();
-    const maxQueryCursor = data[data.length - 1].id;
-    const minQueryCursor = data[0].id;
+    const maxQueryCursor = data[data.length - 1]?.id;
+    const minQueryCursor = data[0]?.id;
 
     return {
       data: data,

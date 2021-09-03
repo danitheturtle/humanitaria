@@ -1,4 +1,4 @@
-import { NoteType, NoteEdge } from '../types';
+import { NoteType, QueryNotesEdge } from '../types';
 import {
   GraphQLString,
   GraphQLBoolean,
@@ -16,15 +16,15 @@ export const createNote = mutationWithClientMutationId({
   },
   outputFields: {
     noteEdge: {
-      type: NoteEdge,
-      resolve: payload => ({
-        cursor: payload.id,
-        node: payload
+      type: QueryNotesEdge,
+      resolve: source => ({
+        cursor: source.id,
+        node: source
       })
     }
   },
-  mutateAndGetPayload: ({ content }/*, ctx, info*/) => {
-    return db.createNote({ content });
+  mutateAndGetPayload: ({ content }, ctx/*, info*/) => {
+    return db.createNote({ content, uid: ctx.user.uid });
   }
 });
 

@@ -10,9 +10,9 @@ export default {
         id
         uid
         username
-        email
       }
-      ...Notes_notes
+      ...NotesRoot_notes
+      ...NotesUser_notes
     }
   `,
   component: Home,

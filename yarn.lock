@@ -2352,6 +2352,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/relay-runtime@npm:>=9.1.0":
+  version: 11.0.3
+  resolution: "@types/relay-runtime@npm:11.0.3"
+  checksum: c8ede80308876eb30b756686a7564653c8c068d0c79bf66afcf2ad726ba9822c2d1bd128850de30f68c51790f694637d0f8f8758ae8e5d56dae379e94b7d1541
+  languageName: node
+  linkType: hard
+
 "@types/responselike@npm:^1.0.0":
   version: 1.0.0
   resolution: "@types/responselike@npm:1.0.0"
@@ -10537,6 +10544,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"relay-connection-handler-plus@npm:^0.1.2":
+  version: 0.1.2
+  resolution: "relay-connection-handler-plus@npm:0.1.2"
+  dependencies:
+    "@types/relay-runtime": ">=9.1.0"
+  peerDependencies:
+    relay-runtime: ">=9.0.0"
+  checksum: f3cc5de06d3528856970924b7d62b93f0e172d6b10c194f30f64a5ce1db8c3bb152e39f2ade1e4e8c44e3e5d3eb3f9e8e5cb7409d913d611a1e457cba49b0da9
+  languageName: node
+  linkType: hard
+
 "relay-runtime@npm:11.0.2, relay-runtime@npm:^11.0.2":
   version: 11.0.2
   resolution: "relay-runtime@npm:11.0.2"
@@ -12290,6 +12308,7 @@ resolve@^2.0.0-next.3:
     react-relay: ^11.0.2
     relay-compiler: ^11.0.2
     relay-config: ^11.0.1
+    relay-connection-handler-plus: ^0.1.2
     relay-runtime: ^11.0.2
     style-loader: ^3.0.0
     terser-webpack-plugin: ^5.1.1

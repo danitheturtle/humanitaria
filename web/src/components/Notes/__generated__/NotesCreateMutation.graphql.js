@@ -13,8 +13,7 @@ export type createNoteInput = {|
   clientMutationId?: ?string,
 |};
 export type NotesCreateMutationVariables = {|
-  input: createNoteInput,
-  connections: $ReadOnlyArray<string>,
+  input: createNoteInput
 |};
 export type NotesCreateMutationResponse = {|
   +createNote: ?{|
@@ -58,45 +57,42 @@ mutation NotesCreateMutation(
 */
 
 const node/*: ConcreteRequest*/ = (function(){
-var v0 = {
-  "defaultValue": null,
-  "kind": "LocalArgument",
-  "name": "connections"
-},
-v1 = {
-  "defaultValue": null,
-  "kind": "LocalArgument",
-  "name": "input"
-},
-v2 = [
+var v0 = [
+  {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "input"
+  }
+],
+v1 = [
   {
     "kind": "Variable",
     "name": "input",
     "variableName": "input"
   }
 ],
-v3 = {
+v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "cursor",
   "storageKey": null
 },
-v4 = {
+v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 },
-v5 = {
+v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "username",
   "storageKey": null
 },
-v6 = {
+v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -105,17 +101,14 @@ v6 = {
 };
 return {
   "fragment": {
-    "argumentDefinitions": [
-      (v0/*: any*/),
-      (v1/*: any*/)
-    ],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
     "name": "NotesCreateMutation",
     "selections": [
       {
         "alias": null,
-        "args": (v2/*: any*/),
+        "args": (v1/*: any*/),
         "concreteType": "createNotePayload",
         "kind": "LinkedField",
         "name": "createNote",
@@ -129,7 +122,7 @@ return {
             "name": "noteEdge",
             "plural": false,
             "selections": [
-              (v3/*: any*/),
+              (v2/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -138,7 +131,7 @@ return {
                 "name": "node",
                 "plural": false,
                 "selections": [
-                  (v4/*: any*/),
+                  (v3/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -147,11 +140,11 @@ return {
                     "name": "user",
                     "plural": false,
                     "selections": [
-                      (v5/*: any*/)
+                      (v4/*: any*/)
                     ],
                     "storageKey": null
                   },
-                  (v6/*: any*/)
+                  (v5/*: any*/)
                 ],
                 "storageKey": null
               }
@@ -167,16 +160,13 @@ return {
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": [
-      (v1/*: any*/),
-      (v0/*: any*/)
-    ],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "NotesCreateMutation",
     "selections": [
       {
         "alias": null,
-        "args": (v2/*: any*/),
+        "args": (v1/*: any*/),
         "concreteType": "createNotePayload",
         "kind": "LinkedField",
         "name": "createNote",
@@ -190,7 +180,7 @@ return {
             "name": "noteEdge",
             "plural": false,
             "selections": [
-              (v3/*: any*/),
+              (v2/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -199,7 +189,7 @@ return {
                 "name": "node",
                 "plural": false,
                 "selections": [
-                  (v4/*: any*/),
+                  (v3/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -208,33 +198,17 @@ return {
                     "name": "user",
                     "plural": false,
                     "selections": [
-                      (v5/*: any*/),
-                      (v4/*: any*/)
+                      (v4/*: any*/),
+                      (v3/*: any*/)
                     ],
                     "storageKey": null
                   },
-                  (v6/*: any*/)
+                  (v5/*: any*/)
                 ],
                 "storageKey": null
               }
             ],
             "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "filters": null,
-            "handle": "appendEdge",
-            "key": "",
-            "kind": "LinkedHandle",
-            "name": "noteEdge",
-            "handleArgs": [
-              {
-                "kind": "Variable",
-                "name": "connections",
-                "variableName": "connections"
-              }
-            ]
           }
         ],
         "storageKey": null
@@ -252,6 +226,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '93de2ba10f414d90095db837293391d4';
+(node/*: any*/).hash = '0db02b47b1cbe90d81d267b04aa9e421';
 
 module.exports = node;

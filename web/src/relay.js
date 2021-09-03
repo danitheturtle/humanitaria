@@ -1,3 +1,4 @@
+import ConnectionHandler from 'relay-connection-handler-plus';
 import { Environment, Network, RecordSource, Store } from 'relay-runtime';
 
 export const createRelayEnvironment = (config) => {
@@ -13,7 +14,17 @@ export const createRelayEnvironment = (config) => {
     body: JSON.stringify({ query: operation.text, variables }),
     credentials: 'same-origin'
   }).then(res => res.json()));
+  
+  const handlerProvider = handle => {
+    switch(handle) {
+      case 'connection':
+        return ConnectionHandler;
+      default:
+        throw new Error('no handler configured');
+    }
+  }
   return new Environment({
+    handlerProvider,
     store,
     network
   });

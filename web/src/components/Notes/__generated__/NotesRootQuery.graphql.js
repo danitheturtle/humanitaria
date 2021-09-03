@@ -8,27 +8,27 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
-type Notes_notes$ref = any;
-export type NotesQueryVariables = {|
+type NotesRoot_notes$ref = any;
+export type NotesRootQueryVariables = {|
   count?: ?number,
   cursor?: ?string,
 |};
-export type NotesQueryResponse = {|
-  +$fragmentRefs: Notes_notes$ref
+export type NotesRootQueryResponse = {|
+  +$fragmentRefs: NotesRoot_notes$ref
 |};
-export type NotesQuery = {|
-  variables: NotesQueryVariables,
-  response: NotesQueryResponse,
+export type NotesRootQuery = {|
+  variables: NotesRootQueryVariables,
+  response: NotesRootQueryResponse,
 |};
 */
 
 
 /*
-query NotesQuery(
+query NotesRootQuery(
   $count: Int
   $cursor: String
 ) {
-  ...Notes_notes
+  ...NotesRoot_notes
 }
 
 fragment Note_note on Note {
@@ -40,7 +40,7 @@ fragment Note_note on Note {
   }
 }
 
-fragment Notes_notes on Query {
+fragment NotesRoot_notes on Query {
   notes(first: $count, after: $cursor) {
     edges {
       node {
@@ -95,12 +95,12 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "NotesQuery",
+    "name": "NotesRootQuery",
     "selections": [
       {
         "args": null,
         "kind": "FragmentSpread",
-        "name": "Notes_notes"
+        "name": "NotesRoot_notes"
       }
     ],
     "type": "Query",
@@ -110,7 +110,7 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "NotesQuery",
+    "name": "NotesRootQuery",
     "selections": [
       {
         "alias": null,
@@ -216,23 +216,23 @@ return {
         "args": (v1/*: any*/),
         "filters": null,
         "handle": "connection",
-        "key": "RootConnection_notes",
+        "key": "RootNotesConnection_notes",
         "kind": "LinkedHandle",
         "name": "notes"
       }
     ]
   },
   "params": {
-    "cacheID": "4e4c34e2e4015e7f3e60e3eddfc3f730",
+    "cacheID": "932dc17a374da670de4ad57c313285f4",
     "id": null,
     "metadata": {},
-    "name": "NotesQuery",
+    "name": "NotesRootQuery",
     "operationKind": "query",
-    "text": "query NotesQuery(\n  $count: Int\n  $cursor: String\n) {\n  ...Notes_notes\n}\n\nfragment Note_note on Note {\n  id\n  content\n  user {\n    username\n    id\n  }\n}\n\nfragment Notes_notes on Query {\n  notes(first: $count, after: $cursor) {\n    edges {\n      node {\n        ...Note_note\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
+    "text": "query NotesRootQuery(\n  $count: Int\n  $cursor: String\n) {\n  ...NotesRoot_notes\n}\n\nfragment Note_note on Note {\n  id\n  content\n  user {\n    username\n    id\n  }\n}\n\nfragment NotesRoot_notes on Query {\n  notes(first: $count, after: $cursor) {\n    edges {\n      node {\n        ...Note_note\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'e050bf24b05e8f338763d7fa2bccfa69';
+(node/*: any*/).hash = 'edcbbc0d4f1695a6696af3ee9bef8d50';
 
 module.exports = node;

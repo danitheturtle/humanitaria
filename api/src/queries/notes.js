@@ -1,11 +1,11 @@
 import { GraphQLID, GraphQLInputObjectType, GraphQLList } from 'graphql';
 import { connectionArgs } from 'graphql-relay';
 import { fromGlobalId } from '../graph/utils';
-import { NoteConnection, NoteType } from '../types';
+import { QueryNotesConnection, NoteType } from '../types';
 import db from '../db';
 
 export const notes = {
-  type: NoteConnection,
+  type: QueryNotesConnection,
   args: connectionArgs,
   resolve: async (_, args) => {
     const cursorId = parseInt(args.after || args.before || "0");
