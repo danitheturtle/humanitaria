@@ -20,6 +20,9 @@ export type NoteUpdateMutationResponse = {|
   +updateNote: ?{|
     +note: ?{|
       +id: string,
+      +user: ?{|
+        +username: string
+      |},
       +content: ?string,
     |}
   |}
@@ -38,6 +41,10 @@ mutation NoteUpdateMutation(
   updateNote(input: $input) {
     note {
       id
+      user {
+        username
+        id
+      }
       content
     }
   }
@@ -54,55 +61,76 @@ var v0 = [
 ],
 v1 = [
   {
-    "alias": null,
-    "args": [
-      {
-        "kind": "Variable",
-        "name": "input",
-        "variableName": "input"
-      }
-    ],
-    "concreteType": "updateNotePayload",
-    "kind": "LinkedField",
-    "name": "updateNote",
-    "plural": false,
-    "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "concreteType": "Note",
-        "kind": "LinkedField",
-        "name": "note",
-        "plural": false,
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "id",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "content",
-            "storageKey": null
-          }
-        ],
-        "storageKey": null
-      }
-    ],
-    "storageKey": null
+    "kind": "Variable",
+    "name": "input",
+    "variableName": "input"
   }
-];
+],
+v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "username",
+  "storageKey": null
+},
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "content",
+  "storageKey": null
+};
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
     "name": "NoteUpdateMutation",
-    "selections": (v1/*: any*/),
+    "selections": [
+      {
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": "updateNotePayload",
+        "kind": "LinkedField",
+        "name": "updateNote",
+        "plural": false,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Note",
+            "kind": "LinkedField",
+            "name": "note",
+            "plural": false,
+            "selections": [
+              (v2/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "User",
+                "kind": "LinkedField",
+                "name": "user",
+                "plural": false,
+                "selections": [
+                  (v3/*: any*/)
+                ],
+                "storageKey": null
+              },
+              (v4/*: any*/)
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      }
+    ],
     "type": "Mutation",
     "abstractKey": null
   },
@@ -111,19 +139,57 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "NoteUpdateMutation",
-    "selections": (v1/*: any*/)
+    "selections": [
+      {
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": "updateNotePayload",
+        "kind": "LinkedField",
+        "name": "updateNote",
+        "plural": false,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Note",
+            "kind": "LinkedField",
+            "name": "note",
+            "plural": false,
+            "selections": [
+              (v2/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "User",
+                "kind": "LinkedField",
+                "name": "user",
+                "plural": false,
+                "selections": [
+                  (v3/*: any*/),
+                  (v2/*: any*/)
+                ],
+                "storageKey": null
+              },
+              (v4/*: any*/)
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      }
+    ]
   },
   "params": {
-    "cacheID": "eac0072b481dd99a2c52efffb729dace",
+    "cacheID": "5a4e5274f379e3e5ed1cbb49c3bffa68",
     "id": null,
     "metadata": {},
     "name": "NoteUpdateMutation",
     "operationKind": "mutation",
-    "text": "mutation NoteUpdateMutation(\n  $input: updateNoteInput!\n) {\n  updateNote(input: $input) {\n    note {\n      id\n      content\n    }\n  }\n}\n"
+    "text": "mutation NoteUpdateMutation(\n  $input: updateNoteInput!\n) {\n  updateNote(input: $input) {\n    note {\n      id\n      user {\n        username\n        id\n      }\n      content\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '78d97dae3ee6e6e1f1d2ad8681a94d1a';
+(node/*: any*/).hash = 'b7a61f10ece051d2891dab5e0bcf7d48';
 
 module.exports = node;

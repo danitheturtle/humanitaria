@@ -32,6 +32,9 @@ export const Notes = ({ queryData }) => {
           cursor,
           node {
             id
+            user {
+              username
+            }
             content
           }
         }

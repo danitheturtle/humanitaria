@@ -46,6 +46,10 @@ query homeQuery(
 fragment Note_note on Note {
   id
   content
+  user {
+    username
+    id
+  }
 }
 
 fragment Notes_notes on Query {
@@ -89,6 +93,13 @@ v1 = {
 v2 = {
   "alias": null,
   "args": null,
+  "kind": "ScalarField",
+  "name": "username",
+  "storageKey": null
+},
+v3 = {
+  "alias": null,
+  "args": null,
   "concreteType": "User",
   "kind": "LinkedField",
   "name": "me",
@@ -102,13 +113,7 @@ v2 = {
       "name": "uid",
       "storageKey": null
     },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "username",
-      "storageKey": null
-    },
+    (v2/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -119,7 +124,7 @@ v2 = {
   ],
   "storageKey": null
 },
-v3 = [
+v4 = [
   {
     "kind": "Variable",
     "name": "after",
@@ -138,7 +143,7 @@ return {
     "metadata": null,
     "name": "homeQuery",
     "selections": [
-      (v2/*: any*/),
+      (v3/*: any*/),
       {
         "args": null,
         "kind": "FragmentSpread",
@@ -154,10 +159,10 @@ return {
     "kind": "Operation",
     "name": "homeQuery",
     "selections": [
-      (v2/*: any*/),
+      (v3/*: any*/),
       {
         "alias": null,
-        "args": (v3/*: any*/),
+        "args": (v4/*: any*/),
         "concreteType": "NoteConnection",
         "kind": "LinkedField",
         "name": "notes",
@@ -185,6 +190,19 @@ return {
                     "args": null,
                     "kind": "ScalarField",
                     "name": "content",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "User",
+                    "kind": "LinkedField",
+                    "name": "user",
+                    "plural": false,
+                    "selections": [
+                      (v2/*: any*/),
+                      (v1/*: any*/)
+                    ],
                     "storageKey": null
                   },
                   {
@@ -237,7 +255,7 @@ return {
       },
       {
         "alias": null,
-        "args": (v3/*: any*/),
+        "args": (v4/*: any*/),
         "filters": null,
         "handle": "connection",
         "key": "RootConnection_notes",
@@ -247,12 +265,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "bab38b07faf5f8fd361a2e21ab8e9491",
+    "cacheID": "f4844ab510c66b6419860807c9569ea9",
     "id": null,
     "metadata": {},
     "name": "homeQuery",
     "operationKind": "query",
-    "text": "query homeQuery(\n  $count: Int!\n  $cursor: String!\n) {\n  me {\n    id\n    uid\n    username\n    email\n  }\n  ...Notes_notes\n}\n\nfragment Note_note on Note {\n  id\n  content\n}\n\nfragment Notes_notes on Query {\n  notes(first: $count, after: $cursor) {\n    edges {\n      node {\n        ...Note_note\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
+    "text": "query homeQuery(\n  $count: Int!\n  $cursor: String!\n) {\n  me {\n    id\n    uid\n    username\n    email\n  }\n  ...Notes_notes\n}\n\nfragment Note_note on Note {\n  id\n  content\n  user {\n    username\n    id\n  }\n}\n\nfragment Notes_notes on Query {\n  notes(first: $count, after: $cursor) {\n    edges {\n      node {\n        ...Note_note\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
   }
 };
 })();

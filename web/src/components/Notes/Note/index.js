@@ -10,6 +10,9 @@ export const Note = ({ note, connectionId }) => {
       fragment Note_note on Note {
         id
         content
+        user {
+          username
+        }
       }
     `,
     note
@@ -27,7 +30,10 @@ export const Note = ({ note, connectionId }) => {
     mutation NoteUpdateMutation($input: updateNoteInput!) {
       updateNote(input: $input) {
         note {
-          id,
+          id
+          user {
+            username
+          }
           content
         }
       }
@@ -72,7 +78,7 @@ export const Note = ({ note, connectionId }) => {
   </div>;
   
   return <div className="Note">
-    <div className="Note-id">{noteData.id}</div>
+    <div className="Note-id">{noteData?.user?.username}</div>
     { editingNote ? 
       <input className="Note-content" type="text" onChange={handleEditChange} value={editNoteValue} /> : 
       <div className="Note-content">{noteData.content}</div> 
