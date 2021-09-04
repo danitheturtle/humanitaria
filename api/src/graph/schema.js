@@ -5,6 +5,7 @@ import path from 'path';
 import { nodeField, nodesField } from './nodeDefinitions';
 import * as mutations from '../mutations';
 import * as queries from '../queries';
+import * as subscriptions from '../subscriptions';
 
 const RootQueryType = new GraphQLObjectType({
   name: 'Query',
@@ -20,9 +21,15 @@ const RootMutationType = new GraphQLObjectType({
   fields: mutations
 });
 
+const RootSubscriptionType = new GraphQLObjectType({
+  name: 'Subscription',
+  fields: subscriptions
+})
+
 const schema = new GraphQLSchema({
   query: RootQueryType,
-  mutation: RootMutationType
+  mutation: RootMutationType,
+  subscription: RootSubscriptionType
 });
 
 export const updateSchema = () => {

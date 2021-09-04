@@ -2878,7 +2878,9 @@ __metadata:
     faker: ^5.5.3
     graphql: ^15.5.0
     graphql-relay: ^0.6.0
+    graphql-relay-subscription: ^0.3.1
     graphql-voyager: ^1.0.0-rc.31
+    graphql-ws: ^5.4.1
     jsonwebtoken: ^8.5.1
     knex: ^0.95.4
     minimist: ^1.2.5
@@ -2887,6 +2889,7 @@ __metadata:
     pg: ^8.5.1
     pretty-error: ^3.0.3
     validator: ^13.6.0
+    ws: ^8.2.1
   languageName: unknown
   linkType: soft
 
@@ -6058,6 +6061,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"graphql-relay-subscription@npm:^0.3.1":
+  version: 0.3.1
+  resolution: "graphql-relay-subscription@npm:0.3.1"
+  peerDependencies:
+    graphql: ">=0.10.0"
+  checksum: 291f85550c2a7688148a78ae49904388821f1c5cd82b395e180945fba3dbd3f68669e9b38ed298c6f5a6c0ed996c93a17d1c0a659e626469acdcb1f14a118d14
+  languageName: node
+  linkType: hard
+
 "graphql-relay@npm:^0.6.0":
   version: 0.6.0
   resolution: "graphql-relay@npm:0.6.0"
@@ -6087,6 +6099,15 @@ __metadata:
     react: ">=15.4.2"
     react-dom: ">=15.4.2"
   checksum: 80e826eeb42d286540447723ea35a463a3a155287914a45e24b69f31617d8ca74c0c43bdaa64123bf4ed046e68f7e31feca7661c06288551040f3e5b96c48fed
+  languageName: node
+  linkType: hard
+
+"graphql-ws@npm:^5.4.1":
+  version: 5.4.1
+  resolution: "graphql-ws@npm:5.4.1"
+  peerDependencies:
+    graphql: ">=0.11 <=16"
+  checksum: 64b236d3931574812bdf353211043736d54a7d72d0e0f5a58288b57c67dab27fcab9fbf9d8f28c6b92d16870413e317cc49d2ceb7e1db8e0112caf755421bad0
   languageName: node
   linkType: hard
 
@@ -12298,6 +12319,7 @@ resolve@^2.0.0-next.3:
     css-loader: ^6.2.0
     env: "workspace:*"
     graphql: ^15.5.1
+    graphql-ws: ^5.4.1
     history: ^5.0.1
     html-webpack-plugin: ^5.3.2
     http-proxy-middleware: ^1.1.0
@@ -12680,6 +12702,21 @@ resolve@^2.0.0-next.3:
     utf-8-validate:
       optional: true
   checksum: 423dc0d859fa74020f5555140905b862470a60ea1567bb9ad55a087263d7718b9c94f69678be1cee9868925c570f1e6fc79d09f90c39057bc63fa2edbb2c547b
+  languageName: node
+  linkType: hard
+
+"ws@npm:^8.2.1":
+  version: 8.2.1
+  resolution: "ws@npm:8.2.1"
+  peerDependencies:
+    bufferutil: ^4.0.1
+    utf-8-validate: ^5.0.2
+  peerDependenciesMeta:
+    bufferutil:
+      optional: true
+    utf-8-validate:
+      optional: true
+  checksum: 22906903c7952790a911627f99e3419d8f251a6a540d9ba4f334a7e0865d7ea7026d8ad23829c3c0f2843a9f15bdb91c646e7f8853a5a5ba25a57dea2cf7d416
   languageName: node
   linkType: hard
 

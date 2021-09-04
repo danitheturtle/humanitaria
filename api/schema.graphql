@@ -217,3 +217,17 @@ input updateUserInput {
   locale: String
   clientMutationId: String
 }
+
+type Subscription {
+  countToNumber(input: countToNumberInput!): countToNumberPayload
+}
+
+type countToNumberPayload {
+  number: Int
+  clientSubscriptionId: String
+}
+
+input countToNumberInput {
+  number: Int
+  clientSubscriptionId: String
+}

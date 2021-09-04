@@ -6,7 +6,8 @@ import { createRelayEnvironment } from './relay';
 import App from './App';
 
 const relayEnvironment = createRelayEnvironment({
-  baseUrl: ""
+  baseUrl: "",
+  wsUrl: env.SOCKET_ORIGIN
 });
 const history = createBrowserHistory();
 

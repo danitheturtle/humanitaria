@@ -18,6 +18,7 @@
     "bcrypt": "^5.0.1",
     "env": "workspace:*",
     "graphql": "^15.5.1",
+    "graphql-ws": "^5.4.1",
     "history": "^5.0.1",
     "path-to-regexp": "^6.2.0",
     "pnp-webpack-plugin": "^1.7.0",
