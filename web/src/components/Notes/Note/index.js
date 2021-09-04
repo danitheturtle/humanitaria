@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { GraphQLObjectType, GraphQLID } from 'graphql';
+import ConnectionHandler from 'relay-connection-handler-plus';
 import { graphql, useFragment, useMutation } from 'react-relay';
 
 export const Note = ({ note, connections }) => {
@@ -18,10 +19,10 @@ export const Note = ({ note, connections }) => {
     note
   );
   const [commitDeletion, isBeingDeleted] = useMutation(graphql`
-    mutation NoteDeleteMutation($input: deleteNoteInput!, $connections: [ID!]!) {
+    mutation NoteDeleteMutation($input: deleteNoteInput!) {
       deleteNote(input: $input) {
         note {
-          id @deleteEdge(connections: $connections)
+          id
         }
       }
     }
@@ -47,6 +48,15 @@ export const Note = ({ note, connections }) => {
           id: noteData.id
         },
         connections
+      },
+      updater: store => {
+        const deletedId = store.getRootField('deleteNote').getLinkedRecord('note').getValue('id');
+        connections.map(id => {
+          const conRef = store.get(id);
+          return conRef;
+        }).forEach(connectionRef => {
+          ConnectionHandler.deleteNode(connectionRef, deletedId)
+        })
       }
     });
   }

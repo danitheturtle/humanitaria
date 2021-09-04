@@ -13,8 +13,7 @@ export type deleteNoteInput = {|
   clientMutationId?: ?string,
 |};
 export type NoteDeleteMutationVariables = {|
-  input: deleteNoteInput,
-  connections: $ReadOnlyArray<string>,
+  input: deleteNoteInput
 |};
 export type NoteDeleteMutationResponse = {|
   +deleteNote: ?{|
@@ -43,116 +42,66 @@ mutation NoteDeleteMutation(
 */
 
 const node/*: ConcreteRequest*/ = (function(){
-var v0 = {
-  "defaultValue": null,
-  "kind": "LocalArgument",
-  "name": "connections"
-},
-v1 = {
-  "defaultValue": null,
-  "kind": "LocalArgument",
-  "name": "input"
-},
-v2 = [
+var v0 = [
   {
-    "kind": "Variable",
-    "name": "input",
-    "variableName": "input"
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "input"
   }
 ],
-v3 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "id",
-  "storageKey": null
-};
-return {
-  "fragment": {
-    "argumentDefinitions": [
-      (v0/*: any*/),
-      (v1/*: any*/)
+v1 = [
+  {
+    "alias": null,
+    "args": [
+      {
+        "kind": "Variable",
+        "name": "input",
+        "variableName": "input"
+      }
     ],
-    "kind": "Fragment",
-    "metadata": null,
-    "name": "NoteDeleteMutation",
+    "concreteType": "deleteNotePayload",
+    "kind": "LinkedField",
+    "name": "deleteNote",
+    "plural": false,
     "selections": [
       {
         "alias": null,
-        "args": (v2/*: any*/),
-        "concreteType": "deleteNotePayload",
+        "args": null,
+        "concreteType": "Note",
         "kind": "LinkedField",
-        "name": "deleteNote",
+        "name": "note",
         "plural": false,
         "selections": [
           {
             "alias": null,
             "args": null,
-            "concreteType": "Note",
-            "kind": "LinkedField",
-            "name": "note",
-            "plural": false,
-            "selections": [
-              (v3/*: any*/)
-            ],
+            "kind": "ScalarField",
+            "name": "id",
             "storageKey": null
           }
         ],
         "storageKey": null
       }
     ],
+    "storageKey": null
+  }
+];
+return {
+  "fragment": {
+    "argumentDefinitions": (v0/*: any*/),
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "NoteDeleteMutation",
+    "selections": (v1/*: any*/),
     "type": "Mutation",
     "abstractKey": null
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": [
-      (v1/*: any*/),
-      (v0/*: any*/)
-    ],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "NoteDeleteMutation",
-    "selections": [
-      {
-        "alias": null,
-        "args": (v2/*: any*/),
-        "concreteType": "deleteNotePayload",
-        "kind": "LinkedField",
-        "name": "deleteNote",
-        "plural": false,
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "Note",
-            "kind": "LinkedField",
-            "name": "note",
-            "plural": false,
-            "selections": [
-              (v3/*: any*/),
-              {
-                "alias": null,
-                "args": null,
-                "filters": null,
-                "handle": "deleteEdge",
-                "key": "",
-                "kind": "ScalarHandle",
-                "name": "id",
-                "handleArgs": [
-                  {
-                    "kind": "Variable",
-                    "name": "connections",
-                    "variableName": "connections"
-                  }
-                ]
-              }
-            ],
-            "storageKey": null
-          }
-        ],
-        "storageKey": null
-      }
-    ]
+    "selections": (v1/*: any*/)
   },
   "params": {
     "cacheID": "5d2e69eb059f2a8670a0f5f8208dad47",
@@ -165,6 +114,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '61d04ae37599a4cc7bd9b926051dd8fa';
+(node/*: any*/).hash = '6142fe9c04ef1aa8915329d883df2603';
 
 module.exports = node;
