@@ -14,6 +14,7 @@ declare export opaque type Note_note$fragmentType: Note_note$ref;
 export type Note_note = {|
   +id: string,
   +content: ?string,
+  +likes: ?number,
   +user: ?{|
     +username: string
   |},
@@ -51,6 +52,13 @@ const node/*: ReaderFragment*/ = {
     {
       "alias": null,
       "args": null,
+      "kind": "ScalarField",
+      "name": "likes",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
       "concreteType": "User",
       "kind": "LinkedField",
       "name": "user",
@@ -71,6 +79,6 @@ const node/*: ReaderFragment*/ = {
   "abstractKey": null
 };
 // prettier-ignore
-(node/*: any*/).hash = 'e75fa04d6c7923dc23c0873598575dbd';
+(node/*: any*/).hash = 'c2f60a5dcaa20daf3985b93cc6a6826c';
 
 module.exports = node;

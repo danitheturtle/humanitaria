@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { GraphQLObjectType, GraphQLID } from 'graphql';
 import ConnectionHandler from 'relay-connection-handler-plus';
-import { graphql, useFragment, useMutation } from 'react-relay';
+import { graphql, useFragment, useMutation, useSubscription} from 'react-relay';
 
 export const Note = ({ note, connections }) => {
   const [editingNote, setEditingNote] = useState(false);
@@ -11,6 +11,7 @@ export const Note = ({ note, connections }) => {
       fragment Note_note on Note {
         id
         content
+        likes
         user {
           username
         }
@@ -36,6 +37,16 @@ export const Note = ({ note, connections }) => {
             username
           }
           content
+        }
+      }
+    }
+  `);
+  const [commitLike, isBeingLiked] = useMutation(graphql`
+    mutation NoteLikeMutation($input: likeNoteInput!) {
+      likeNote(input: $input) {
+        note {
+          id
+          likes
         }
       }
     }
@@ -83,6 +94,16 @@ export const Note = ({ note, connections }) => {
     }
   }
   
+  const handleLike = () => {
+    commitLike({
+      variables: {
+        input: {
+          id: noteData.id
+        }
+      }
+    });
+  }
+  
   if (isBeingDeleted || isBeingEdited || !noteData) return <div className="Note">
     <div className="Note-updating">loading</div>
   </div>;
@@ -91,9 +112,10 @@ export const Note = ({ note, connections }) => {
     <div className="Note-id">{noteData?.user?.username}</div>
     { editingNote ? 
       <input className="Note-content" type="text" onChange={handleEditChange} value={editNoteValue} /> : 
-      <div className="Note-content">{noteData.content}</div> 
+      <div className="Note-content">{noteData.content}<div className="Note-likes">{noteData.likes}</div></div>
     }
     <button className="Note-edit-btn" onClick={handleEdit}>{editingNote ? 'Save' : 'Edit'}</button>
     <button className="Note-delete-btn" onClick={handleDelete}>Delete</button>
+    <button className="Note-like-btn" onClick={handleLike}>Like</button>
   </div>
 };

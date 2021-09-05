@@ -34,6 +34,7 @@ query NotesRootQuery(
 fragment Note_note on Note {
   id
   content
+  likes
   user {
     username
     id
@@ -147,6 +148,13 @@ return {
                   {
                     "alias": null,
                     "args": null,
+                    "kind": "ScalarField",
+                    "name": "likes",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
                     "concreteType": "User",
                     "kind": "LinkedField",
                     "name": "user",
@@ -223,12 +231,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "932dc17a374da670de4ad57c313285f4",
+    "cacheID": "22ca1765487a49b705f3230fde49cad4",
     "id": null,
     "metadata": {},
     "name": "NotesRootQuery",
     "operationKind": "query",
-    "text": "query NotesRootQuery(\n  $count: Int\n  $cursor: String\n) {\n  ...NotesRoot_notes\n}\n\nfragment Note_note on Note {\n  id\n  content\n  user {\n    username\n    id\n  }\n}\n\nfragment NotesRoot_notes on Query {\n  notes(first: $count, after: $cursor) {\n    edges {\n      node {\n        ...Note_note\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
+    "text": "query NotesRootQuery(\n  $count: Int\n  $cursor: String\n) {\n  ...NotesRoot_notes\n}\n\nfragment Note_note on Note {\n  id\n  content\n  likes\n  user {\n    username\n    id\n  }\n}\n\nfragment NotesRoot_notes on Query {\n  notes(first: $count, after: $cursor) {\n    edges {\n      node {\n        ...Note_note\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
   }
 };
 })();

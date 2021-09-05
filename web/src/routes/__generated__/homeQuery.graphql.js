@@ -46,6 +46,7 @@ query homeQuery(
 fragment Note_note on Note {
   id
   content
+  likes
   user {
     username
     id
@@ -151,6 +152,13 @@ v5 = [
         "args": null,
         "kind": "ScalarField",
         "name": "content",
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "likes",
         "storageKey": null
       },
       {
@@ -329,12 +337,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "0ba9eaf8355c6053b29e76ac39580796",
+    "cacheID": "c4ae7e4614234121cd1d5650f37ee160",
     "id": null,
     "metadata": {},
     "name": "homeQuery",
     "operationKind": "query",
-    "text": "query homeQuery(\n  $count: Int!\n  $cursor: String!\n) {\n  me {\n    id\n    uid\n    username\n  }\n  ...NotesRoot_notes\n  ...NotesUser_notes\n}\n\nfragment Note_note on Note {\n  id\n  content\n  user {\n    username\n    id\n  }\n}\n\nfragment NotesRoot_notes on Query {\n  notes(first: $count, after: $cursor) {\n    edges {\n      node {\n        ...Note_note\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment NotesUser_notes on Query {\n  me {\n    id\n    notes(first: $count, after: $cursor) {\n      edges {\n        node {\n          ...Note_note\n          id\n          __typename\n        }\n        cursor\n      }\n      pageInfo {\n        endCursor\n        hasNextPage\n      }\n    }\n  }\n}\n"
+    "text": "query homeQuery(\n  $count: Int!\n  $cursor: String!\n) {\n  me {\n    id\n    uid\n    username\n  }\n  ...NotesRoot_notes\n  ...NotesUser_notes\n}\n\nfragment Note_note on Note {\n  id\n  content\n  likes\n  user {\n    username\n    id\n  }\n}\n\nfragment NotesRoot_notes on Query {\n  notes(first: $count, after: $cursor) {\n    edges {\n      node {\n        ...Note_note\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment NotesUser_notes on Query {\n  me {\n    id\n    notes(first: $count, after: $cursor) {\n      edges {\n        node {\n          ...Note_note\n          id\n          __typename\n        }\n        cursor\n      }\n      pageInfo {\n        endCursor\n        hasNextPage\n      }\n    }\n  }\n}\n"
   }
 };
 })();

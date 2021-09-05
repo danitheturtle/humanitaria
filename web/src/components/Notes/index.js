@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import ConnectionHandler from 'relay-connection-handler-plus';
-import { usePaginationFragment, useMutation } from 'react-relay';
+import { usePaginationFragment, useMutation, useSubscription } from 'react-relay';
 import { Note } from './Note';
 import * as homeQuery from '../../routes/__generated__/homeQuery.graphql';
 require('./index.css');
@@ -60,6 +60,22 @@ export const Notes = ({ queryData }) => {
     }
   `);
   
+  const likeSubConfig = useMemo(() => ({
+    variables: { input: {} },
+    subscription: graphql`
+      subscription NotesUpdatedSubscription($input: noteUpdatedInput!) {
+        noteUpdated(input:$input) {
+          note {
+            id
+            likes
+            content
+          }
+        }
+      }
+    `
+  }), []);
+  useSubscription(likeSubConfig);
+    
   const handleButtonClick = () => {
     if (!isInFlight) {
       commit({

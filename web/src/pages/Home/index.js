@@ -14,7 +14,7 @@ export const Home = ({ queryRef }) => {
   return <div>
     <h2>home page</h2>
     <Link to="/landing">Landing</Link>
-    <CountToNumber/>
+    {/* <CountToNumber/> */}
     <SignOut refetch={() => { window.location.reload(); }}/>
     <Suspense fallback={<div>loading notes</div>}>
       <Notes queryData={homeQueryData} />

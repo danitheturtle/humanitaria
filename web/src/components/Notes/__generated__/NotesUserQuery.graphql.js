@@ -34,6 +34,7 @@ query NotesUserQuery(
 fragment Note_note on Note {
   id
   content
+  likes
   user {
     username
     id
@@ -159,6 +160,13 @@ return {
                       {
                         "alias": null,
                         "args": null,
+                        "kind": "ScalarField",
+                        "name": "likes",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
                         "concreteType": "User",
                         "kind": "LinkedField",
                         "name": "user",
@@ -238,12 +246,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "46806ca704cbbd55e64664d063663863",
+    "cacheID": "9a3570210385efcdc58ca2d43952d4c7",
     "id": null,
     "metadata": {},
     "name": "NotesUserQuery",
     "operationKind": "query",
-    "text": "query NotesUserQuery(\n  $count: Int\n  $cursor: String\n) {\n  ...NotesUser_notes\n}\n\nfragment Note_note on Note {\n  id\n  content\n  user {\n    username\n    id\n  }\n}\n\nfragment NotesUser_notes on Query {\n  me {\n    id\n    notes(first: $count, after: $cursor) {\n      edges {\n        node {\n          ...Note_note\n          id\n          __typename\n        }\n        cursor\n      }\n      pageInfo {\n        endCursor\n        hasNextPage\n      }\n    }\n  }\n}\n"
+    "text": "query NotesUserQuery(\n  $count: Int\n  $cursor: String\n) {\n  ...NotesUser_notes\n}\n\nfragment Note_note on Note {\n  id\n  content\n  likes\n  user {\n    username\n    id\n  }\n}\n\nfragment NotesUser_notes on Query {\n  me {\n    id\n    notes(first: $count, after: $cursor) {\n      edges {\n        node {\n          ...Note_note\n          id\n          __typename\n        }\n        cursor\n      }\n      pageInfo {\n        endCursor\n        hasNextPage\n      }\n    }\n  }\n}\n"
   }
 };
 })();
