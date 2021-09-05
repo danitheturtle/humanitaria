@@ -1,7 +1,8 @@
 import { Request } from 'express';
-import { ForbiddenError, UnauthorizedError } from './error';
-import { fromGlobalId } from './graph/utils';
-import db from './db';
+import { ForbiddenError, UnauthorizedError } from '../error';
+import { fromGlobalId } from '../graph/utils';
+import db from '../db';
+import session from '../session';
 
 export class Context {
   static userCache = {
@@ -11,8 +12,9 @@ export class Context {
     byEmail: {}
   }
   
-  constructor(req) {
+  constructor(req, pubsubProvider) {
     this.req = req;
+    this.pubsub = pubsubProvider;
   }
   
   get user() {
@@ -27,10 +29,18 @@ export class Context {
     this.req.signOut();
   }
   
+  subscribe(subscriptionTypeOrTypes) {
+    return this.pubsub.asyncIterator(subscriptionTypeOrTypes);
+  }
+  //publish an event to listening subscribers. standard http queries/mutations can trigger these
+  publish(...args) {
+    this.pubsub.publish(...args);
+  }
+  
   ensureAuthorized(authCallback) {
-    if (process.env.APP_ENV === 'development') return;
-    if (!this.req.user) throw new UnauthorizedError();
-    if (authCallback && !authCallback(this.req.user)) {
+    //if (process.env.APP_ENV === 'development') return;
+    if (!this.user) throw new UnauthorizedError();
+    if (authCallback && !authCallback(this.user)) {
       throw new ForbiddenError();
     }
   }

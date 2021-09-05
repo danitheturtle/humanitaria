@@ -1,4 +1,4 @@
-import { GraphQLObjectType, GraphQLBoolean, GraphQLString, GraphQLID } from 'graphql';
+import { GraphQLObjectType, GraphQLBoolean, GraphQLString, GraphQLInt, GraphQLID } from 'graphql';
 import { globalIdField, connectionDefinitions } from "graphql-relay";
 import { nodeInterface } from '../graph/nodeDefinitions';
 import { UserType } from '../types';
@@ -10,6 +10,7 @@ export const NoteType = new GraphQLObjectType({
   fields: () => ({
     id: globalIdField('Note'),
     content: { type: GraphQLString },
+    likes: { type: GraphQLInt },
     user: {
       type: UserType,
       resolve: (source) => db.getUser({ uid: source.uid })

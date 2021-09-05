@@ -23,6 +23,7 @@ module.exports.seed = async (db) => {
       const userIndex = datatype.number(users.length);
       return {
         uid: users[userIndex].uid,
+        likes: datatype.number(20),
         content
       };
     });

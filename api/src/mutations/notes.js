@@ -21,10 +21,13 @@ export const createNote = mutationWithClientMutationId({
         cursor: source.id,
         node: source
       })
-    }
+    },
+    empty: { type: GraphQLString, resolve: source => "" }
   },
-  mutateAndGetPayload: ({ content }, ctx/*, info*/) => {
-    return db.createNote({ content, uid: ctx.user.uid });
+  mutateAndGetPayload: async ({ content }, ctx/*, info*/) => {
+    const createdNote = await db.createNote({ content, uid: ctx.user.uid });
+    ctx.publish('noteCreated', createdNote);
+    return createdNote;
   }
 });
 
@@ -56,7 +59,25 @@ export const updateNote = mutationWithClientMutationId({
       resolve: payload => payload
     }
   },
-  mutateAndGetPayload: ({ id, content }) => {
-    return db.updateNote({ id: fromGlobalId(id, "Note"), content });
+  mutateAndGetPayload: async ({ id, content }, ctx) => {
+    const updatedNote = await db.updateNote({ id: fromGlobalId(id, "Note"), content });
+    ctx.publish('noteUpdated', { note: updatedNote });
+    return updatedNote;
   }
 });
+
+export const likeNote = mutationWithClientMutationId({
+  name: 'likeNote',
+  inputFields: {
+    id: { type: new GraphQLNonNull(GraphQLID) }
+  },
+  outputFields: {
+    note: { type: NoteType }
+  },
+  mutateAndGetPayload: async ({ id }, ctx) => {
+    const likedNote = await db.getNote(fromGlobalId(id, "Note"));
+    const updatedNote = await db.updateNote({ id: fromGlobalId(id, "Note"), likes: likedNote.likes + 1 });
+    ctx.publish('noteUpdated', { note: updatedNote })
+    return { note: updatedNote };
+  }
+})

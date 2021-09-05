@@ -4482,8 +4482,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["express-graphql", "virtual:ee7691b7fe222bc862e834bc8b7315b783d025fcc9aa8908e2cef99be6f00ea1756f1e91455e091b2e603dce99dc311038a8f90019bbb7060e9b850194b7dcb5#npm:0.12.0"],
             ["faker", "npm:5.5.3"],
             ["graphql", "npm:15.5.1"],
+            ["graphql-redis-subscriptions", "virtual:ee7691b7fe222bc862e834bc8b7315b783d025fcc9aa8908e2cef99be6f00ea1756f1e91455e091b2e603dce99dc311038a8f90019bbb7060e9b850194b7dcb5#npm:2.4.0"],
             ["graphql-relay", "virtual:ee7691b7fe222bc862e834bc8b7315b783d025fcc9aa8908e2cef99be6f00ea1756f1e91455e091b2e603dce99dc311038a8f90019bbb7060e9b850194b7dcb5#npm:0.6.0"],
             ["graphql-relay-subscription", "virtual:ee7691b7fe222bc862e834bc8b7315b783d025fcc9aa8908e2cef99be6f00ea1756f1e91455e091b2e603dce99dc311038a8f90019bbb7060e9b850194b7dcb5#npm:0.3.1"],
+            ["graphql-subscriptions", "virtual:ee7691b7fe222bc862e834bc8b7315b783d025fcc9aa8908e2cef99be6f00ea1756f1e91455e091b2e603dce99dc311038a8f90019bbb7060e9b850194b7dcb5#npm:1.2.1"],
             ["graphql-voyager", "virtual:8a50bebaf06ad4752013630141518c1f79816d60fa97560808851267c1df2493fdecbece124c93b9ab4be650d3fc6e7907d1a1e397dbc787efb3e35a94d9c7f6#npm:1.0.0-rc.31"],
             ["graphql-ws", "virtual:ee7691b7fe222bc862e834bc8b7315b783d025fcc9aa8908e2cef99be6f00ea1756f1e91455e091b2e603dce99dc311038a8f90019bbb7060e9b850194b7dcb5#npm:5.4.1"],
             ["jsonwebtoken", "npm:8.5.1"],
@@ -5720,6 +5722,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["cluster-key-slot", [
+        ["npm:1.1.0", {
+          "packageLocation": "./.yarn/cache/cluster-key-slot-npm-1.1.0-c895b3234e-fc953c7520.zip/node_modules/cluster-key-slot/",
+          "packageDependencies": [
+            ["cluster-key-slot", "npm:1.1.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["co", [
         ["npm:4.6.0", {
           "packageLocation": "./.yarn/cache/co-npm-4.6.0-03f2d1feb6-5210d92230.zip/node_modules/co/",
@@ -6620,6 +6631,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/delegates-npm-1.0.0-9b1942d75f-a51744d9b5.zip/node_modules/delegates/",
           "packageDependencies": [
             ["delegates", "npm:1.0.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["denque", [
+        ["npm:1.5.1", {
+          "packageLocation": "./.yarn/cache/denque-npm-1.5.1-2dd42d2dcb-4375ad19d5.zip/node_modules/denque/",
+          "packageDependencies": [
+            ["denque", "npm:1.5.1"]
           ],
           "linkType": "HARD",
         }]
@@ -8298,6 +8318,30 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["graphql-redis-subscriptions", [
+        ["npm:2.4.0", {
+          "packageLocation": "./.yarn/cache/graphql-redis-subscriptions-npm-2.4.0-3559e118dd-981b999353.zip/node_modules/graphql-redis-subscriptions/",
+          "packageDependencies": [
+            ["graphql-redis-subscriptions", "npm:2.4.0"]
+          ],
+          "linkType": "SOFT",
+        }],
+        ["virtual:ee7691b7fe222bc862e834bc8b7315b783d025fcc9aa8908e2cef99be6f00ea1756f1e91455e091b2e603dce99dc311038a8f90019bbb7060e9b850194b7dcb5#npm:2.4.0", {
+          "packageLocation": "./.yarn/__virtual__/graphql-redis-subscriptions-virtual-4b93e346ac/0/cache/graphql-redis-subscriptions-npm-2.4.0-3559e118dd-981b999353.zip/node_modules/graphql-redis-subscriptions/",
+          "packageDependencies": [
+            ["graphql-redis-subscriptions", "virtual:ee7691b7fe222bc862e834bc8b7315b783d025fcc9aa8908e2cef99be6f00ea1756f1e91455e091b2e603dce99dc311038a8f90019bbb7060e9b850194b7dcb5#npm:2.4.0"],
+            ["@types/graphql-subscriptions", null],
+            ["graphql-subscriptions", "virtual:ee7691b7fe222bc862e834bc8b7315b783d025fcc9aa8908e2cef99be6f00ea1756f1e91455e091b2e603dce99dc311038a8f90019bbb7060e9b850194b7dcb5#npm:1.2.1"],
+            ["ioredis", "npm:4.27.9"],
+            ["iterall", "npm:1.3.0"]
+          ],
+          "packagePeers": [
+            "@types/graphql-subscriptions",
+            "graphql-subscriptions"
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["graphql-relay", [
         ["npm:0.6.0", {
           "packageLocation": "./.yarn/cache/graphql-relay-npm-0.6.0-fc47a08f8d-1b0a9d168f.zip/node_modules/graphql-relay/",
@@ -8335,6 +8379,29 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["graphql-relay-subscription", "virtual:ee7691b7fe222bc862e834bc8b7315b783d025fcc9aa8908e2cef99be6f00ea1756f1e91455e091b2e603dce99dc311038a8f90019bbb7060e9b850194b7dcb5#npm:0.3.1"],
             ["@types/graphql", null],
             ["graphql", "npm:15.5.1"]
+          ],
+          "packagePeers": [
+            "@types/graphql",
+            "graphql"
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["graphql-subscriptions", [
+        ["npm:1.2.1", {
+          "packageLocation": "./.yarn/cache/graphql-subscriptions-npm-1.2.1-6f6629f38d-2b9533c677.zip/node_modules/graphql-subscriptions/",
+          "packageDependencies": [
+            ["graphql-subscriptions", "npm:1.2.1"]
+          ],
+          "linkType": "SOFT",
+        }],
+        ["virtual:ee7691b7fe222bc862e834bc8b7315b783d025fcc9aa8908e2cef99be6f00ea1756f1e91455e091b2e603dce99dc311038a8f90019bbb7060e9b850194b7dcb5#npm:1.2.1", {
+          "packageLocation": "./.yarn/__virtual__/graphql-subscriptions-virtual-a5ff5d669f/0/cache/graphql-subscriptions-npm-1.2.1-6f6629f38d-2b9533c677.zip/node_modules/graphql-subscriptions/",
+          "packageDependencies": [
+            ["graphql-subscriptions", "virtual:ee7691b7fe222bc862e834bc8b7315b783d025fcc9aa8908e2cef99be6f00ea1756f1e91455e091b2e603dce99dc311038a8f90019bbb7060e9b850194b7dcb5#npm:1.2.1"],
+            ["@types/graphql", null],
+            ["graphql", "npm:15.5.1"],
+            ["iterall", "npm:1.3.0"]
           ],
           "packagePeers": [
             "@types/graphql",
@@ -9097,6 +9164,26 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["ioredis", [
+        ["npm:4.27.9", {
+          "packageLocation": "./.yarn/cache/ioredis-npm-4.27.9-f47c6ecf1a-0472f20366.zip/node_modules/ioredis/",
+          "packageDependencies": [
+            ["ioredis", "npm:4.27.9"],
+            ["cluster-key-slot", "npm:1.1.0"],
+            ["debug", "virtual:c9bc8b4682dae1ac36fcb97c7fccfb86af01a1f6fc48eaf83d9bd00fb14f9e1f641a2409ef7e079b4e0ed4a16267412a60166cc456172f4a4f9469cc6ef7c07b#npm:4.3.2"],
+            ["denque", "npm:1.5.1"],
+            ["lodash.defaults", "npm:4.2.0"],
+            ["lodash.flatten", "npm:4.4.0"],
+            ["lodash.isarguments", "npm:3.1.0"],
+            ["p-map", "npm:2.1.0"],
+            ["redis-commands", "npm:1.7.0"],
+            ["redis-errors", "npm:1.2.0"],
+            ["redis-parser", "npm:3.0.0"],
+            ["standard-as-callback", "npm:2.1.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["ip", [
         ["npm:1.1.5", {
           "packageLocation": "./.yarn/cache/ip-npm-1.1.5-af36318aa6-30133981f0.zip/node_modules/ip/",
@@ -9752,6 +9839,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["istanbul-reports", "npm:3.0.2"],
             ["html-escaper", "npm:2.0.2"],
             ["istanbul-lib-report", "npm:3.0.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["iterall", [
+        ["npm:1.3.0", {
+          "packageLocation": "./.yarn/cache/iterall-npm-1.3.0-a2cb04809f-c78b99678f.zip/node_modules/iterall/",
+          "packageDependencies": [
+            ["iterall", "npm:1.3.0"]
           ],
           "linkType": "HARD",
         }]
@@ -11063,11 +11159,38 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["lodash.defaults", [
+        ["npm:4.2.0", {
+          "packageLocation": "./.yarn/cache/lodash.defaults-npm-4.2.0-c5dea025ab-8492325823.zip/node_modules/lodash.defaults/",
+          "packageDependencies": [
+            ["lodash.defaults", "npm:4.2.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["lodash.flatten", [
+        ["npm:4.4.0", {
+          "packageLocation": "./.yarn/cache/lodash.flatten-npm-4.4.0-495935e617-0ac34a393d.zip/node_modules/lodash.flatten/",
+          "packageDependencies": [
+            ["lodash.flatten", "npm:4.4.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["lodash.includes", [
         ["npm:4.3.0", {
           "packageLocation": "./.yarn/cache/lodash.includes-npm-4.3.0-3a2f6fa22c-71092c1305.zip/node_modules/lodash.includes/",
           "packageDependencies": [
             ["lodash.includes", "npm:4.3.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["lodash.isarguments", [
+        ["npm:3.1.0", {
+          "packageLocation": "./.yarn/cache/lodash.isarguments-npm-3.1.0-9e74d350b8-ae1526f3eb.zip/node_modules/lodash.isarguments/",
+          "packageDependencies": [
+            ["lodash.isarguments", "npm:3.1.0"]
           ],
           "linkType": "HARD",
         }]
@@ -12248,6 +12371,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["p-map", [
+        ["npm:2.1.0", {
+          "packageLocation": "./.yarn/cache/p-map-npm-2.1.0-d9e865dc7c-9e3ad3c9f6.zip/node_modules/p-map/",
+          "packageDependencies": [
+            ["p-map", "npm:2.1.0"]
+          ],
+          "linkType": "HARD",
+        }],
         ["npm:4.0.0", {
           "packageLocation": "./.yarn/cache/p-map-npm-4.0.0-4677ae07c7-cb0ab21ec0.zip/node_modules/p-map/",
           "packageDependencies": [
@@ -13431,6 +13561,34 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["redis-commands", [
+        ["npm:1.7.0", {
+          "packageLocation": "./.yarn/cache/redis-commands-npm-1.7.0-528f61f9d8-d1ff7fbcb5.zip/node_modules/redis-commands/",
+          "packageDependencies": [
+            ["redis-commands", "npm:1.7.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["redis-errors", [
+        ["npm:1.2.0", {
+          "packageLocation": "./.yarn/cache/redis-errors-npm-1.2.0-a81fd9b0f1-f28ac26921.zip/node_modules/redis-errors/",
+          "packageDependencies": [
+            ["redis-errors", "npm:1.2.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["redis-parser", [
+        ["npm:3.0.0", {
+          "packageLocation": "./.yarn/cache/redis-parser-npm-3.0.0-7ebe40abcb-89290ae530.zip/node_modules/redis-parser/",
+          "packageDependencies": [
+            ["redis-parser", "npm:3.0.0"],
+            ["redis-errors", "npm:1.2.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["regenerate", [
         ["npm:1.4.2", {
           "packageLocation": "./.yarn/cache/regenerate-npm-1.4.2-b296c5b63a-3317a09b2f.zip/node_modules/regenerate/",
@@ -14462,6 +14620,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [
             ["stack-utils", "npm:2.0.3"],
             ["escape-string-regexp", "npm:2.0.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["standard-as-callback", [
+        ["npm:2.1.0", {
+          "packageLocation": "./.yarn/cache/standard-as-callback-npm-2.1.0-8e47620bd4-88bec83ee2.zip/node_modules/standard-as-callback/",
+          "packageDependencies": [
+            ["standard-as-callback", "npm:2.1.0"]
           ],
           "linkType": "HARD",
         }]

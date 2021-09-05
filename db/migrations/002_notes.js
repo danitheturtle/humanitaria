@@ -4,6 +4,7 @@ exports.up = async function(db) {
     table.increments('id');
     table.specificType("uid", "user_id").notNullable();
     table.string('content');
+    table.integer('likes').defaultTo(0);
   });
 };
 

@@ -1,5 +1,6 @@
 import cookie from 'cookie';
 import jwt from 'jsonwebtoken';
+import { Context } from './context';
 import db from './db';
 
 async function getUser(req) {
@@ -11,7 +12,7 @@ async function getUser(req) {
         issuer: process.env.APP_ORIGIN,
         audience: process.env.APP_NAME
       });
-      const user = await db.getUser({ uid: token.sub });
+      const user = await Context.getUserByUID(token.sub); // await db.getUser({ uid: token.sub });
       return user || null;
     } catch (err) {
       console.error(err);
@@ -57,7 +58,7 @@ export default async function session(req, res, next) {
     req.user = await getUser(req);
     req.signIn = signIn.bind(undefined, req, res);
     req.signOut = signOut.bind(undefined, req, res);
-    if (req.query.authorize !== undefined && !req.user) {
+    if (req?.query?.authorize !== undefined && !req.user) {
       res.status(401);
       res.end();
     } else {

@@ -1,21 +1,14 @@
 import { subscriptionWithClientId } from 'graphql-relay-subscription';
 import { GraphQLID, GraphQLNonNull } from 'graphql';
-import { QueryNotesEdge } from '../'
+import { NoteType, QueryNotesEdge } from '../types';
 
-export const noteLiked = subscriptionWithClientId({
-  name: 'noteLiked',
-  inputFields: {
-    id: { type: new GraphQLNonNull(GraphQLID) }
-  },
+export const noteUpdated = subscriptionWithClientId({
+  name: 'noteUpdated',
+  inputFields: {},
   outputFields: {
-    number: { type: GraphQLInt }
+    note: { type: NoteType }
   },
-  async *subscribe({ number }) {
-    for (let counter=1; counter <= number; counter++) {
-      yield { number: counter };
-      await new Promise(res => setTimeout(res, 1000));
-    }
-  }
+  subscribe: (_, ctx) => ctx.subscribe('noteUpdated')
 });
 
 export const noteCreated = subscriptionWithClientId({
@@ -29,5 +22,6 @@ export const noteCreated = subscriptionWithClientId({
         node: source
       })
     }
-  }
+  },
+  subscribe: (_, ctx) => ctx.subscribe('noteCreated')
 });

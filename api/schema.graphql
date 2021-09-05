@@ -59,6 +59,7 @@ type Note implements Node {
   """The ID of an object"""
   id: ID!
   content: String
+  likes: Int
   user: User
 }
 
@@ -113,6 +114,7 @@ type Mutation {
   createNote(input: createNoteInput!): createNotePayload
   deleteNote(input: deleteNoteInput!): deleteNotePayload
   updateNote(input: updateNoteInput!): updateNotePayload
+  likeNote(input: likeNoteInput!): likeNotePayload
   signIn(input: signInInput!): signInPayload
   signOut(input: signOutInput!): signOutPayload
   createUser(input: createUserInput!): createUserPayload
@@ -122,6 +124,7 @@ type Mutation {
 
 type createNotePayload {
   noteEdge: NoteEdge
+  empty: String
   clientMutationId: String
 }
 
@@ -148,6 +151,16 @@ type updateNotePayload {
 input updateNoteInput {
   id: ID!
   content: String!
+  clientMutationId: String
+}
+
+type likeNotePayload {
+  note: Note
+  clientMutationId: String
+}
+
+input likeNoteInput {
+  id: ID!
   clientMutationId: String
 }
 
@@ -220,6 +233,8 @@ input updateUserInput {
 
 type Subscription {
   countToNumber(input: countToNumberInput!): countToNumberPayload
+  noteUpdated(input: noteUpdatedInput!): noteUpdatedPayload
+  noteCreated(input: noteCreatedInput!): noteCreatedPayload
 }
 
 type countToNumberPayload {
@@ -229,5 +244,23 @@ type countToNumberPayload {
 
 input countToNumberInput {
   number: Int
+  clientSubscriptionId: String
+}
+
+type noteUpdatedPayload {
+  note: Note
+  clientSubscriptionId: String
+}
+
+input noteUpdatedInput {
+  clientSubscriptionId: String
+}
+
+type noteCreatedPayload {
+  noteEdge: NoteEdge
+  clientSubscriptionId: String
+}
+
+input noteCreatedInput {
   clientSubscriptionId: String
 }
