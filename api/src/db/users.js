@@ -49,7 +49,8 @@ export const usersApi = (dbRef) => ({
     const [deletedUser] = await dbRef
       .from('users')
       .where('uid', uid)
-      .del(['uid']);
+      .del(['uid'])
+      .returning('*');
     return deletedUser;
   },
   updateUser: async (userData) => {

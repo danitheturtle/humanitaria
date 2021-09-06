@@ -17,9 +17,7 @@ export type NoteDeleteMutationVariables = {|
 |};
 export type NoteDeleteMutationResponse = {|
   +deleteNote: ?{|
-    +note: ?{|
-      +id: string
-    |}
+    +clientMutationId: ?string
   |}
 |};
 export type NoteDeleteMutation = {|
@@ -34,9 +32,7 @@ mutation NoteDeleteMutation(
   $input: deleteNoteInput!
 ) {
   deleteNote(input: $input) {
-    note {
-      id
-    }
+    clientMutationId
   }
 }
 */
@@ -67,19 +63,8 @@ v1 = [
       {
         "alias": null,
         "args": null,
-        "concreteType": "Note",
-        "kind": "LinkedField",
-        "name": "note",
-        "plural": false,
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "id",
-            "storageKey": null
-          }
-        ],
+        "kind": "ScalarField",
+        "name": "clientMutationId",
         "storageKey": null
       }
     ],
@@ -104,16 +89,16 @@ return {
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "5d2e69eb059f2a8670a0f5f8208dad47",
+    "cacheID": "e96fc1faf41a611fe82a742fa8b7ecd7",
     "id": null,
     "metadata": {},
     "name": "NoteDeleteMutation",
     "operationKind": "mutation",
-    "text": "mutation NoteDeleteMutation(\n  $input: deleteNoteInput!\n) {\n  deleteNote(input: $input) {\n    note {\n      id\n    }\n  }\n}\n"
+    "text": "mutation NoteDeleteMutation(\n  $input: deleteNoteInput!\n) {\n  deleteNote(input: $input) {\n    clientMutationId\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '6142fe9c04ef1aa8915329d883df2603';
+(node/*: any*/).hash = 'b120ce923af70235dfe153f95a444408';
 
 module.exports = node;

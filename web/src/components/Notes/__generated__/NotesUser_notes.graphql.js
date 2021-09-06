@@ -15,6 +15,7 @@ declare export opaque type NotesUser_notes$fragmentType: NotesUser_notes$ref;
 export type NotesUser_notes = {|
   +me: ?{|
     +id: string,
+    +uid: string,
     +notes: ?{|
       +edges: ?$ReadOnlyArray<?{|
         +node: ?{|
@@ -88,6 +89,13 @@ return {
           "args": null,
           "kind": "ScalarField",
           "name": "id",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "uid",
           "storageKey": null
         },
         {
@@ -176,6 +184,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '9b7bba7754034ccd2e48cb7a64d7072d';
+(node/*: any*/).hash = '17d08960a06d2469730a95dc378ca508';
 
 module.exports = node;

@@ -44,6 +44,7 @@ fragment Note_note on Note {
 fragment NotesUser_notes on Query {
   me {
     id
+    uid
     notes(first: $count, after: $cursor) {
       edges {
         node {
@@ -125,6 +126,13 @@ return {
         "plural": false,
         "selections": [
           (v1/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "uid",
+            "storageKey": null
+          },
           {
             "alias": null,
             "args": (v2/*: any*/),
@@ -246,16 +254,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "9a3570210385efcdc58ca2d43952d4c7",
+    "cacheID": "3191eee97838504dc91ddd8c1e98d6c6",
     "id": null,
     "metadata": {},
     "name": "NotesUserQuery",
     "operationKind": "query",
-    "text": "query NotesUserQuery(\n  $count: Int\n  $cursor: String\n) {\n  ...NotesUser_notes\n}\n\nfragment Note_note on Note {\n  id\n  content\n  likes\n  user {\n    username\n    id\n  }\n}\n\nfragment NotesUser_notes on Query {\n  me {\n    id\n    notes(first: $count, after: $cursor) {\n      edges {\n        node {\n          ...Note_note\n          id\n          __typename\n        }\n        cursor\n      }\n      pageInfo {\n        endCursor\n        hasNextPage\n      }\n    }\n  }\n}\n"
+    "text": "query NotesUserQuery(\n  $count: Int\n  $cursor: String\n) {\n  ...NotesUser_notes\n}\n\nfragment Note_note on Note {\n  id\n  content\n  likes\n  user {\n    username\n    id\n  }\n}\n\nfragment NotesUser_notes on Query {\n  me {\n    id\n    uid\n    notes(first: $count, after: $cursor) {\n      edges {\n        node {\n          ...Note_note\n          id\n          __typename\n        }\n        cursor\n      }\n      pageInfo {\n        endCursor\n        hasNextPage\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '9b7bba7754034ccd2e48cb7a64d7072d';
+(node/*: any*/).hash = '17d08960a06d2469730a95dc378ca508';
 
 module.exports = node;

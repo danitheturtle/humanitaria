@@ -28,6 +28,7 @@ export const Notes = ({ queryData }) => {
     fragment NotesUser_notes on Query @refetchable(queryName: "NotesUserQuery") {
       me {
         id
+        uid
         notes(first: $count, after: $cursor) @connection(key: "UserNotesConnection_notes") {
           edges {
             node {
@@ -40,22 +41,14 @@ export const Notes = ({ queryData }) => {
   `, queryData);
   
   const userId = userNotes?.data?.me?.id;
+  const userUID = userNotes?.data?.me?.uid;
   const { loadNext, hasNext, isLoadingNext, refetch } = viewingMyNotes ? userNotes : rootNotes;
   const notesData = viewingMyNotes ? userNotes?.data?.me?.notes?.edges : rootNotes?.data?.notes?.edges;
 
   const [commit, isInFlight] = useMutation(graphql `
     mutation NotesCreateMutation($input: createNoteInput!) {
       createNote(input: $input) {
-        noteEdge {
-          cursor,
-          node {
-            id
-            user {
-              username
-            }
-            content
-          }
-        }
+        clientMutationId
       }
     }
   `);
@@ -75,7 +68,78 @@ export const Notes = ({ queryData }) => {
     `
   }), []);
   useSubscription(likeSubConfig);
-    
+  
+  const noteCreatedSubConfig = useMemo(() => ({
+    variables: { input: {} },
+    subscription: graphql`
+      subscription NotesCreatedSubscription($input: noteCreatedInput!) {
+        noteCreated(input:$input) {
+          noteEdge {
+            cursor
+            node {
+              id
+              content
+              likes
+              user {
+                username
+                uid
+              }
+            }
+          }
+        }
+      }
+    `,
+    updater: store => {
+      const rootField = store.getRootField('noteCreated');
+      const serverEdge = rootField.getLinkedRecord('noteEdge');
+      const serverCursor = serverEdge.getValue('cursor');
+      const serverNote = serverEdge.getLinkedRecord('node');
+      const serverNoteUserId = serverNote.getLinkedRecord('user').getValue('uid');
+      //get connection
+      const rootCon = ConnectionHandler.getConnection(store.getRoot(), 'RootNotesConnection_notes');
+      const newRootEdge = ConnectionHandler.createEdge(store, rootCon, serverNote, 'QueryNotesEdge');
+      ConnectionHandler.insertEdgeAfter(rootCon, newRootEdge);
+      newRootEdge.setValue(serverCursor, 'cursor');
+      //if userId matches server note's uid
+      if (serverNoteUserId === userUID) {
+        //get user connection
+        const userCon = ConnectionHandler.getConnection(store.get(userId), 'UserNotesConnection_notes');
+        const newUserEdge = ConnectionHandler.createEdge(store, userCon, serverNote, 'UserNotesEdge');
+        ConnectionHandler.insertEdgeAfter(userCon, newUserEdge);
+        newUserEdge.setValue(serverCursor, 'cursor');
+      }
+    }
+  }), [userId, userUID]);
+  useSubscription(noteCreatedSubConfig);
+  
+  const noteDeletedSubConfig = useMemo(() => ({
+    variables: { input: {} },
+    subscription: graphql`
+      subscription NotesDeletedSubscription($input: noteDeletedInput!) {
+        noteDeleted(input:$input) {
+          note {
+            id
+            user {
+              uid
+            }
+          }
+        }
+      }
+    `,
+    updater: store => {
+      const deletedNote = store.getRootField('noteDeleted').getLinkedRecord('note');
+      const deletedNoteId = deletedNote.getValue('id');
+      const deletedNoteUserId = deletedNote.getLinkedRecord('user').getValue('uid');
+      const rootCon = ConnectionHandler.getConnection(store.getRoot(), 'RootNotesConnection_notes');
+      ConnectionHandler.deleteNode(rootCon, deletedNoteId);
+      if (deletedNoteUserId === userUID) {
+        const userCon = ConnectionHandler.getConnection(store.get(userId), 'UserNotesConnection_notes');
+        ConnectionHandler.deleteNode(userCon, deletedNoteId)
+      }
+    }
+  }), [userId, userUID]);
+  useSubscription(noteDeletedSubConfig);
+  
   const handleButtonClick = () => {
     if (!isInFlight) {
       commit({
@@ -83,22 +147,6 @@ export const Notes = ({ queryData }) => {
           input: {
             content: newNoteInput
           }
-        },
-        updater: store => {
-          const rootCon = ConnectionHandler.getConnection(store.get('client:root'), 'RootNotesConnection_notes');
-          const payload = store.getRootField('createNote');
-          const newRootEdge = payload.getLinkedRecord('noteEdge');
-          const prevRootEdges = rootCon.getLinkedRecords('edges');
-          const nextRootEdges = [...prevRootEdges, newRootEdge];
-          rootCon.setLinkedRecords(nextRootEdges, 'edges');
-          
-          const userCon = ConnectionHandler.getConnection(store.get(userId), 'UserNotesConnection_notes');
-          const newNote = newRootEdge.getLinkedRecord('node');
-          const newUserEdge = ConnectionHandler.createEdge(store, userCon, newNote, 'UserNotesEdge');
-          newUserEdge.setValue(newRootEdge.getValue('cursor'), 'cursor');
-          const prevUserEdges = userCon.getLinkedRecords('edges');
-          const nextUserEdges = [...prevUserEdges, newUserEdge];
-          userCon.setLinkedRecords(nextUserEdges, 'edges');
         }
       });
       setNewNoteInput('');

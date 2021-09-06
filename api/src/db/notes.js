@@ -42,7 +42,8 @@ export const notesApi = (dbRef) => ({
     const [deletedNote] = await dbRef
       .from("notes")
       .where("id", id)
-      .del(['id']);
+      .del(['id'])
+      .returning("*");
     return deletedNote;
   },
   updateNote: async (noteData) => {

@@ -17,16 +17,7 @@ export type NotesCreateMutationVariables = {|
 |};
 export type NotesCreateMutationResponse = {|
   +createNote: ?{|
-    +noteEdge: ?{|
-      +cursor: string,
-      +node: ?{|
-        +id: string,
-        +user: ?{|
-          +username: string
-        |},
-        +content: ?string,
-      |},
-    |}
+    +clientMutationId: ?string
   |}
 |};
 export type NotesCreateMutation = {|
@@ -41,17 +32,7 @@ mutation NotesCreateMutation(
   $input: createNoteInput!
 ) {
   createNote(input: $input) {
-    noteEdge {
-      cursor
-      node {
-        id
-        user {
-          username
-          id
-        }
-        content
-      }
-    }
+    clientMutationId
   }
 }
 */
@@ -66,95 +47,37 @@ var v0 = [
 ],
 v1 = [
   {
-    "kind": "Variable",
-    "name": "input",
-    "variableName": "input"
+    "alias": null,
+    "args": [
+      {
+        "kind": "Variable",
+        "name": "input",
+        "variableName": "input"
+      }
+    ],
+    "concreteType": "createNotePayload",
+    "kind": "LinkedField",
+    "name": "createNote",
+    "plural": false,
+    "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "clientMutationId",
+        "storageKey": null
+      }
+    ],
+    "storageKey": null
   }
-],
-v2 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "cursor",
-  "storageKey": null
-},
-v3 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "id",
-  "storageKey": null
-},
-v4 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "username",
-  "storageKey": null
-},
-v5 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "content",
-  "storageKey": null
-};
+];
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
     "name": "NotesCreateMutation",
-    "selections": [
-      {
-        "alias": null,
-        "args": (v1/*: any*/),
-        "concreteType": "createNotePayload",
-        "kind": "LinkedField",
-        "name": "createNote",
-        "plural": false,
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "NoteEdge",
-            "kind": "LinkedField",
-            "name": "noteEdge",
-            "plural": false,
-            "selections": [
-              (v2/*: any*/),
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "Note",
-                "kind": "LinkedField",
-                "name": "node",
-                "plural": false,
-                "selections": [
-                  (v3/*: any*/),
-                  {
-                    "alias": null,
-                    "args": null,
-                    "concreteType": "User",
-                    "kind": "LinkedField",
-                    "name": "user",
-                    "plural": false,
-                    "selections": [
-                      (v4/*: any*/)
-                    ],
-                    "storageKey": null
-                  },
-                  (v5/*: any*/)
-                ],
-                "storageKey": null
-              }
-            ],
-            "storageKey": null
-          }
-        ],
-        "storageKey": null
-      }
-    ],
+    "selections": (v1/*: any*/),
     "type": "Mutation",
     "abstractKey": null
   },
@@ -163,69 +86,19 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "NotesCreateMutation",
-    "selections": [
-      {
-        "alias": null,
-        "args": (v1/*: any*/),
-        "concreteType": "createNotePayload",
-        "kind": "LinkedField",
-        "name": "createNote",
-        "plural": false,
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "NoteEdge",
-            "kind": "LinkedField",
-            "name": "noteEdge",
-            "plural": false,
-            "selections": [
-              (v2/*: any*/),
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "Note",
-                "kind": "LinkedField",
-                "name": "node",
-                "plural": false,
-                "selections": [
-                  (v3/*: any*/),
-                  {
-                    "alias": null,
-                    "args": null,
-                    "concreteType": "User",
-                    "kind": "LinkedField",
-                    "name": "user",
-                    "plural": false,
-                    "selections": [
-                      (v4/*: any*/),
-                      (v3/*: any*/)
-                    ],
-                    "storageKey": null
-                  },
-                  (v5/*: any*/)
-                ],
-                "storageKey": null
-              }
-            ],
-            "storageKey": null
-          }
-        ],
-        "storageKey": null
-      }
-    ]
+    "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "8b1793fb9b7768616c22de3a1029cad9",
+    "cacheID": "04bdb23f829663f5a7057663d5ad899e",
     "id": null,
     "metadata": {},
     "name": "NotesCreateMutation",
     "operationKind": "mutation",
-    "text": "mutation NotesCreateMutation(\n  $input: createNoteInput!\n) {\n  createNote(input: $input) {\n    noteEdge {\n      cursor\n      node {\n        id\n        user {\n          username\n          id\n        }\n        content\n      }\n    }\n  }\n}\n"
+    "text": "mutation NotesCreateMutation(\n  $input: createNoteInput!\n) {\n  createNote(input: $input) {\n    clientMutationId\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '0db02b47b1cbe90d81d267b04aa9e421';
+(node/*: any*/).hash = 'f6e348986e4519fa79fa75d8a558603f';
 
 module.exports = node;

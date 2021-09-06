@@ -25,3 +25,12 @@ export const noteCreated = subscriptionWithClientId({
   },
   subscribe: (_, ctx) => ctx.subscribe('noteCreated')
 });
+
+export const noteDeleted = subscriptionWithClientId({
+  name: 'noteDeleted',
+  inputFields: {},
+  outputFields: {
+    note: { type: NoteType }
+  },
+  subscribe: (_, ctx) => ctx.subscribe('noteDeleted')
+});

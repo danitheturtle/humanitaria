@@ -124,7 +124,6 @@ type Mutation {
 
 type createNotePayload {
   noteEdge: NoteEdge
-  empty: String
   clientMutationId: String
 }
 
@@ -235,6 +234,7 @@ type Subscription {
   countToNumber(input: countToNumberInput!): countToNumberPayload
   noteUpdated(input: noteUpdatedInput!): noteUpdatedPayload
   noteCreated(input: noteCreatedInput!): noteCreatedPayload
+  noteDeleted(input: noteDeletedInput!): noteDeletedPayload
 }
 
 type countToNumberPayload {
@@ -262,5 +262,14 @@ type noteCreatedPayload {
 }
 
 input noteCreatedInput {
+  clientSubscriptionId: String
+}
+
+type noteDeletedPayload {
+  note: Note
+  clientSubscriptionId: String
+}
+
+input noteDeletedInput {
   clientSubscriptionId: String
 }

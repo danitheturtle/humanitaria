@@ -21,8 +21,7 @@ export const createNote = mutationWithClientMutationId({
         cursor: source.id,
         node: source
       })
-    },
-    empty: { type: GraphQLString, resolve: source => "" }
+    }
   },
   mutateAndGetPayload: async ({ content }, ctx/*, info*/) => {
     const createdNote = await db.createNote({ content, uid: ctx.user.uid });
@@ -37,13 +36,12 @@ export const deleteNote = mutationWithClientMutationId({
     id: { type: new GraphQLNonNull(GraphQLID) }
   },
   outputFields: {
-    note: {
-      type: NoteType,
-      resolve: payload => payload
-    }
+    note: { type: NoteType }
   },
-  mutateAndGetPayload: ({ id }) => {
-    return db.deleteNote(fromGlobalId(id, "Note"))
+  mutateAndGetPayload: async ({ id }, ctx) => {
+    const deletedNote = await db.deleteNote(fromGlobalId(id, "Note"));
+    ctx.publish('noteDeleted', { note: deletedNote });
+    return { note: deletedNote };
   }
 });
 
@@ -54,15 +52,12 @@ export const updateNote = mutationWithClientMutationId({
     content: { type: new GraphQLNonNull(GraphQLString) }
   },
   outputFields: {
-    note: {
-      type: NoteType,
-      resolve: payload => payload
-    }
+    note: { type: NoteType }
   },
   mutateAndGetPayload: async ({ id, content }, ctx) => {
     const updatedNote = await db.updateNote({ id: fromGlobalId(id, "Note"), content });
     ctx.publish('noteUpdated', { note: updatedNote });
-    return updatedNote;
+    return { note: updatedNote };
   }
 });
 

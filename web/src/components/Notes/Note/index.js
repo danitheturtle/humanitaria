@@ -22,9 +22,7 @@ export const Note = ({ note, connections }) => {
   const [commitDeletion, isBeingDeleted] = useMutation(graphql`
     mutation NoteDeleteMutation($input: deleteNoteInput!) {
       deleteNote(input: $input) {
-        note {
-          id
-        }
+        clientMutationId
       }
     }
   `);
@@ -57,17 +55,7 @@ export const Note = ({ note, connections }) => {
       variables: {
         input: {
           id: noteData.id
-        },
-        connections
-      },
-      updater: store => {
-        const deletedId = store.getRootField('deleteNote').getLinkedRecord('note').getValue('id');
-        connections.map(id => {
-          const conRef = store.get(id);
-          return conRef;
-        }).forEach(connectionRef => {
-          ConnectionHandler.deleteNode(connectionRef, deletedId)
-        })
+        }
       }
     });
   }
