@@ -6924,6 +6924,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./db/",
           "packageDependencies": [
             ["db", "workspace:db"],
+            ["bcrypt", "npm:5.0.1"],
             ["cross-spawn", "npm:7.0.3"],
             ["env", "workspace:env"],
             ["express", "npm:4.17.1"],

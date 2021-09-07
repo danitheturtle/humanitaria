@@ -4755,6 +4755,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "db@workspace:db"
   dependencies:
+    bcrypt: ^5.0.1
     cross-spawn: ^7.0.3
     env: "workspace:*"
     express: ^4.17.1

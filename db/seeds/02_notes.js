@@ -14,8 +14,13 @@ function stringify(obj) {
  */
 module.exports.seed = async (db) => {
   let notes = fs.existsSync(jsonFile) ? require(jsonFile) : null;
-  let users = JSON.parse(fs.readFileSync(path.resolve(__dirname, '01_users.json')));
- 
+  let users;
+  //wait till users are ready. Non-sync because of password gen
+  while (!users?.[0]?.uid) {
+    users = JSON.parse(fs.readFileSync(path.resolve(__dirname, '01_users.json')));
+    
+  }
+  
   if (!notes) {
     console.log("Generating notes.json...");
     notes = Array.from({ length: 100 }).map(() => {

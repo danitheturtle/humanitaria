@@ -6,6 +6,13 @@ import { UserType } from '../types';
 import { usernameChars } from '../utils/validators';
 import db from '../db';
 
+const comparePasswords = async (userData, inputPassword) => await new Promise((res, rej) => {
+  bcrypt.compare(inputPassword, userData.password, (err, passwordsMatch) => {
+    if (err) rej(err);
+    res(passwordsMatch);
+  });
+});
+
 export const signIn = mutationWithClientMutationId({
   name: 'signIn',
   inputFields: {
@@ -42,14 +49,14 @@ export const signIn = mutationWithClientMutationId({
       .select('*');
     if (users instanceof Array) {
       for (const user of users) {
-        const valid = passwordHash === user.password;
+        const valid = await comparePasswords(user, passwordHash);
         if (valid) {
           const me = await ctx.signIn(user);
           return { me };
         }
       }
     } else {
-      const valid = passwordHash === users.password;
+      const valid = await comparePasswords(users, passwordHash);
       if (valid) {
         const me = await ctx.signIn(users);
         return { me }

@@ -1,4 +1,5 @@
 const fs = require("fs");
+const bcrypt = require("bcrypt");
 const nanoid = require("nanoid");
 const prettier = require("prettier");
 const { name, date, image, internet, random } = require("faker");
@@ -24,14 +25,19 @@ module.exports.seed = async (db) => {
     const usernames = new Set();
     const emails = new Set();
     
-    users = Array.from({ length: 200 }).map(() => {
+    users = await Promise.all(Array.from({ length: 200 }).map(async () => {
       const uid = newUserId();
       const gender = name.gender();
       const firstName = name.firstName(gender);
       const lastName = name.lastName(gender);
       let username = internet.userName(firstName, lastName);
       let email = internet.email(firstName, lastName).toLowerCase();
-      const password = "password";
+      const password = await new Promise((res, rej) => {
+        bcrypt.hash("password", 10, (err, hash) => {
+          if (err) rej(err);
+          res(hash);
+        });
+      });
       const createdAt = date.recent(365);
 
       // Ensures that the username is unique
@@ -58,7 +64,7 @@ module.exports.seed = async (db) => {
         locale: "en-us",
         last_login: Math.random() > 0.5 ? date.between(createdAt, new Date()) : null,
       };
-    });
+    }));
 
     fs.writeFileSync(jsonFile, stringify(users), "utf8");
   }

@@ -1,6 +1,7 @@
 import { GraphQLList, GraphQLID, GraphQLString, GraphQLNonNull } from 'graphql';  
 import { mutationWithClientMutationId } from "graphql-relay";
 import nanoid from 'nanoid';
+import bcrypt from 'bcrypt';
 import { InputError, ForbiddenError, validatorResultToErrorList } from '../error';
 import { validateAndCleanInput, idCharacters } from '../utils/validators';
 import { UserType, ErrorType } from '../types';
@@ -35,6 +36,14 @@ export const createUser = mutationWithClientMutationId({
       uidUsed = await ctx.getUserByUID(newUID);
     } while (uidUsed);
     cleanedInput.uid = newUID;
+    
+    cleanedInput.passwordHash = await new Promise((res, rej) => {
+      bcrypt.hash(cleanedInput.passwordHash, 10, (err, hash) => {
+        if (err) rej(err);
+        res(hash);
+      });
+    });
+    
     const newAccount = await db.createUser(cleanedInput);
     ctx.cacheUser(newAccount);
     return { me: newAccount }
