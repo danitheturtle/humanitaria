@@ -1,4 +1,8 @@
 import React, { useState } from 'react';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 import { graphql, useMutation } from 'react-relay';
 
 export const SignUp = ({ refetch }) => {
@@ -70,40 +74,37 @@ export const SignUp = ({ refetch }) => {
   }
   if (isBeingCreated || isSigningIn) return <div className="loading">loading</div>;
   
-  return <div className="SignUp">
-    <h1 className="title">Humanitaria Sign Up</h1>
-    <div className="signup-form">
-      <div className="field-row">
-        <div className="field-name">{"username*: "}</div>
-        <input
-          name="username"
-          className="field-input"
-          type="text"
-          onChange={handleEditUsername}
-          value={usernameValue}
-        />
-      </div>
-      <div className="field-row">
-        <div className="field-name">{"email: "}</div>
-        <input
-          name="email"
-          className="field-input"
-          type="text"
-          onChange={handleEditEmail}
-          value={emailValue}
-        />
-      </div>
-      <div className="field-row">
-        <div className="field-name">{"password*: "}</div>
-        <input
-          name="password"
-          className="field-input"
-          type="password"
-          onChange={handleEditPassword}
-          value={passwordValue}
-        />
-      </div>
-    </div>
-    <button className="signup-button" onClick={handleSignup}>Sign Up</button>
-  </div>
+  return <Box sx={{}}>
+    <Typography variant="h3" component="h1">Humanitaria Sign Up</Typography>
+    <Typography variant="body1" component="div">
+      <TextField
+        id="username"
+        label="Username"
+        variant="outlined"
+        onChange={handleEditUsername}
+        value={usernameValue}
+        required
+        fullWidth
+      />
+      <TextField
+        id="email"
+        label="Email"
+        variant="outlined"
+        onChange={handleEditEmail}
+        value={emailValue}
+        fullWidth
+      />
+      <TextField
+        id="password"
+        label="Password"
+        variant="outlined"
+        type="password"
+        onChange={handleEditPassword}
+        value={passwordValue}
+        required
+        fullWidth
+      />
+    </Typography>
+    <Button variant="contained" onClick={handleSignup}>Sign Up</Button>
+  </Box>
 };

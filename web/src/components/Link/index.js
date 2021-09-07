@@ -1,10 +1,11 @@
 import React from 'react';
+import MuiLink from '@mui/material/Link';
 import { HistoryContext } from '../../App';
 
 export const Link = ({ to, href, onClick, children, ...props }) => {
   const history = React.useContext(HistoryContext);
   if (href) {
-    return <a className="Link" href={ href } { ...props } >{ children }</a>
+    return <MuiLink href={ href } { ...props } >{ children }</MuiLink>
   } else {
     const handleClick = (e) => {
       if (onClick) onClick(e);
@@ -15,13 +16,13 @@ export const Link = ({ to, href, onClick, children, ...props }) => {
       }
     }
     return (
-      <a { ...props }
-        className="Link" 
+      <MuiLink 
+        { ...props }
         onClick={handleClick} 
         href={ !props.target ? "" : `${location.origin}${to}` }
       >
         { children }
-      </a>
+      </MuiLink>
     );
   }
 }

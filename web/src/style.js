@@ -66,7 +66,7 @@ export const theme = responsiveFontSizes(createTheme({
     }
   },
   typography: {
-    htmlFontSize: 10,
+    htmlFontSize: 16,
     fontFamily: ['Poppins', 'Helvetica', 'Arial', 'sans-serif' ].join(', '),
     fontSize: 14,
     fontWeightLight: 300,
@@ -74,30 +74,44 @@ export const theme = responsiveFontSizes(createTheme({
     fontWeightMedium: 500,
     fontWeightBold: 600,
     h1: {
-      fontSize: 28
+      fontSize: 42
     },
     h2: {
-      fontSize: 24
+      fontSize: 36
     },
     h3: { 
-      fontSize: 20
+      fontSize: 32
     },
     h4: {
-      fontSize: 16
+      fontSize: 28
     },
     h5: {
-      fontSize: 16
+      fontSize: 24
     },
     h6: {
+      fontSize: 20
+    },
+    subtitle1: {
+      fontSize: 18
+    },
+    subtitle2: {
       fontSize: 16
     },
-    subtitle1: {},
-    subtitle2: {},
-    body1: {},
-    body2: {},
-    button: {},
-    caption: {},
-    overline: {}
+    body1: {
+      fontSize: 16
+    },
+    body2: {
+      fontSize: 14
+    },
+    button: {
+      fontSize: 16
+    },
+    caption: {
+      fontSize: 12
+    },
+    overline: {
+      fontSize: 12
+    }
   },
   shape: {
     borderRadius: 0
