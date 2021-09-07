@@ -4,6 +4,10 @@ module.exports = function config(api) {
   const baseConfigResult = baseConfig(api);
   return {
     ...baseConfigResult,
+    plugins: [
+      ...baseConfigResult.plugins,
+      "@emotion"
+    ],
     overrides: [
       ...baseConfigResult.overrides,
       {

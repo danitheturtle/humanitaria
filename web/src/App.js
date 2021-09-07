@@ -1,7 +1,10 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { RelayEnvironmentProvider } from 'react-relay';
 import { Action } from 'history';
+import CssBaseline from '@mui/material/CssBaseline';
+import { ThemeProvider } from '@mui/material/styles';
 import { resolveRoute } from './routes';
+import { theme } from './style';
 
 export const HistoryContext = React.createContext({ action: Action.Pop, location: { key: "", pathname: "/", search: "" } });
 export const LocationContext = React.createContext({key: "", pathname: "/", search: ""});
@@ -39,11 +42,14 @@ const App = ({ relayEnvironment, history }) => {
     <RelayEnvironmentProvider environment={relayEnvironment}>
       <HistoryContext.Provider value={history}>
         <LocationContext.Provider value={location}>
-          <React.Suspense fallback={<div>loading</div>}>
-            {route?.component
-              ? React.createElement(route.component, route.props)
-              : null}
-          </React.Suspense>
+          <CssBaseline />
+          <ThemeProvider theme={theme}>
+            <React.Suspense fallback={<div>loading</div>}>
+              {route?.component
+                ? React.createElement(route.component, route.props)
+                : null}
+            </React.Suspense>
+          </ThemeProvider>
         </LocationContext.Provider>
       </HistoryContext.Provider>
     </RelayEnvironmentProvider>

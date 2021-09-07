@@ -24,7 +24,7 @@ module.exports = {
       presets: ["@babel/preset-react"]
     }
   },
-  plugins: ["jsx-a11y", "react-hooks", "relay", "graphql"],
+  plugins: ["jsx-a11y", "react-hooks", "relay", "graphql", "@emotion"],
   rules: {
     "react/no-children-prop": "off",
     "react/react-in-jsx-scope": "off",
