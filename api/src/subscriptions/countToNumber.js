@@ -9,7 +9,7 @@ export const countToNumber = subscriptionWithClientId({
   outputFields: {
     number: { type: GraphQLInt }
   },
-  async *subscribe({ number }, ctx) {
+  async *subscribe({ number }) {
     for (let counter=1; counter <= number; counter++) {
       yield { number: counter };
       await new Promise(res => setTimeout(res, 1000));

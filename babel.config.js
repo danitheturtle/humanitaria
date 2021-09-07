@@ -17,7 +17,7 @@ module.exports = function config(api) {
     sourceMaps: api.env() === "production",
 
     overrides: [{
-      test: /\.jsx$/,
+      test: /.*\/web\/.*\.js/,
       presets: [
         [
           "@babel/preset-react",

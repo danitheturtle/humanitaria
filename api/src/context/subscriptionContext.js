@@ -1,4 +1,3 @@
-import { withFilter } from 'graphql-subscriptions';
 import { Context } from './index';
 import session from '../session';
 

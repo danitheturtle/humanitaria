@@ -10,8 +10,8 @@
 import type { ConcreteRequest } from 'relay-runtime';
 type NotesRoot_notes$ref = any;
 export type NotesRootQueryVariables = {|
-  count?: ?number,
-  cursor?: ?string,
+  count: number,
+  cursor: string,
 |};
 export type NotesRootQueryResponse = {|
   +$fragmentRefs: NotesRoot_notes$ref
@@ -25,10 +25,10 @@ export type NotesRootQuery = {|
 
 /*
 query NotesRootQuery(
-  $count: Int
-  $cursor: String
+  $count: Int!
+  $cursor: String!
 ) {
-  ...NotesRoot_notes
+  ...NotesRoot_notes_1G22uz
 }
 
 fragment Note_note on Note {
@@ -41,7 +41,7 @@ fragment Note_note on Note {
   }
 }
 
-fragment NotesRoot_notes on Query {
+fragment NotesRoot_notes_1G22uz on Query {
   notes(first: $count, after: $cursor) {
     edges {
       node {
@@ -99,7 +99,18 @@ return {
     "name": "NotesRootQuery",
     "selections": [
       {
-        "args": null,
+        "args": [
+          {
+            "kind": "Variable",
+            "name": "count",
+            "variableName": "count"
+          },
+          {
+            "kind": "Variable",
+            "name": "cursor",
+            "variableName": "cursor"
+          }
+        ],
         "kind": "FragmentSpread",
         "name": "NotesRoot_notes"
       }
@@ -231,16 +242,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "22ca1765487a49b705f3230fde49cad4",
+    "cacheID": "da52fbc61873c0aa4c04ec2f36ab3298",
     "id": null,
     "metadata": {},
     "name": "NotesRootQuery",
     "operationKind": "query",
-    "text": "query NotesRootQuery(\n  $count: Int\n  $cursor: String\n) {\n  ...NotesRoot_notes\n}\n\nfragment Note_note on Note {\n  id\n  content\n  likes\n  user {\n    username\n    id\n  }\n}\n\nfragment NotesRoot_notes on Query {\n  notes(first: $count, after: $cursor) {\n    edges {\n      node {\n        ...Note_note\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
+    "text": "query NotesRootQuery(\n  $count: Int!\n  $cursor: String!\n) {\n  ...NotesRoot_notes_1G22uz\n}\n\nfragment Note_note on Note {\n  id\n  content\n  likes\n  user {\n    username\n    id\n  }\n}\n\nfragment NotesRoot_notes_1G22uz on Query {\n  notes(first: $count, after: $cursor) {\n    edges {\n      node {\n        ...Note_note\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'edcbbc0d4f1695a6696af3ee9bef8d50';
+(node/*: any*/).hash = '980fe9038525cceaf5320c2ca9da24c7';
 
 module.exports = node;

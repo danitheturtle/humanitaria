@@ -3,11 +3,9 @@ const fs = require("fs");
 const path = require("path");
 const dotenv = require("dotenv");
 const minimist = require("minimist");
-const babel = require("@babel/core");
 
 const args = minimist(process.argv.slice(2));
 const envName = args.env || minimist(args._).env || "development";
-const rootPath = path.resolve(__dirname, "..");
 const resolve = (filename) => path.resolve(__dirname, filename);
 
 /**

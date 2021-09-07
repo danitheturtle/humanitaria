@@ -1,5 +1,5 @@
 import React from 'react';
-import { useMutation } from 'react-relay';
+import { graphql, useMutation } from 'react-relay';
 
 export const SignOut = ({ refetch }) => {
   const [commitSignOut, isSigningOut] = useMutation(graphql `

@@ -1,4 +1,4 @@
-import { GraphQLID, GraphQLInputObjectType, GraphQLList } from 'graphql';
+import { GraphQLID, GraphQLInputObjectType } from 'graphql';
 import { connectionArgs } from 'graphql-relay';
 import { fromGlobalId } from '../graph/utils';
 import { QueryNotesConnection, NoteType } from '../types';
@@ -9,7 +9,7 @@ export const notes = {
   args: connectionArgs,
   resolve: async (_, args) => {
     const cursorId = parseInt(args.after || args.before || "0");
-    const dirComparator = !!args.after ? '>' : '<';
+    const dirComparator = args.after ? '>' : '<';
     const dbResult = await db.getNotesConnection(cursorId, dirComparator, args.first || args.last);
     return {
       pageInfo: {

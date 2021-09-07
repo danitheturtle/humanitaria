@@ -1,5 +1,4 @@
 require('env');
-import fs from "fs";
 import knex from "knex";
 import config from "../../../db/knexfile";
 import { notesApi } from './notes';

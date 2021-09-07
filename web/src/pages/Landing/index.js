@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useQueryLoader, usePreloadedQuery, useMutation } from 'react-relay';
+import React from 'react';
+import { useQueryLoader, usePreloadedQuery } from 'react-relay';
 import { Link, SignUp, SignIn, SignOut } from '../../components';
 import * as landingQuery from '../../routes/__generated__/landingQuery.graphql';
 

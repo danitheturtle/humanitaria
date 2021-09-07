@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useMutation } from 'react-relay';
+import { graphql, useMutation } from 'react-relay';
 
 export const SignUp = ({ refetch }) => {
   const [usernameValue, setUsernameValue] = useState('');
@@ -49,7 +49,7 @@ export const SignUp = ({ refetch }) => {
           passwordHash: passwordValue
         }
       },
-      onCompleted: data => {
+      onCompleted: () => {
         refetch({}, { fetchPolicy: 'network-only' });
       }
     })
@@ -63,7 +63,7 @@ export const SignUp = ({ refetch }) => {
           passwordHash: passwordValue
         }
       },
-      onCompleted: data => {
+      onCompleted: () => {
         handleLogin();
       }
     })

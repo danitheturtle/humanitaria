@@ -1,9 +1,7 @@
-import React, { useState, useMemo } from 'react';
-import { GraphQLObjectType, GraphQLID } from 'graphql';
-import ConnectionHandler from 'relay-connection-handler-plus';
-import { graphql, useFragment, useMutation, useSubscription} from 'react-relay';
+import React, { useState } from 'react';
+import { graphql, useFragment, useMutation } from 'react-relay';
 
-export const Note = ({ note, connections }) => {
+export const Note = ({ note }) => {
   const [editingNote, setEditingNote] = useState(false);
   const [editNoteValue, setEditNoteValue] = useState('');
   const noteData = useFragment(
@@ -39,7 +37,7 @@ export const Note = ({ note, connections }) => {
       }
     }
   `);
-  const [commitLike, isBeingLiked] = useMutation(graphql`
+  const [commitLike] = useMutation(graphql`
     mutation NoteLikeMutation($input: likeNoteInput!) {
       likeNote(input: $input) {
         note {

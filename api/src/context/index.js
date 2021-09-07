@@ -1,8 +1,5 @@
-import { Request } from 'express';
 import { ForbiddenError, UnauthorizedError } from '../error';
-import { fromGlobalId } from '../graph/utils';
 import db from '../db';
-import session from '../session';
 
 export class Context {
   static userCache = {

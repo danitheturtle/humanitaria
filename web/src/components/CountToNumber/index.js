@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { useSubscription } from 'react-relay';
+import { graphql, useSubscription } from 'react-relay';
 
 export const CountToNumber = () => {
   const [currentCounterVal, setCurrentCounterVal] = useState(1);

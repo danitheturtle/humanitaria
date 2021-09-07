@@ -1,4 +1,4 @@
-import { Request, Router } from "express";
+import { Router } from "express";
 import { graphqlHTTP } from "express-graphql";
 import { formatError } from "graphql";
 import { express as voyager } from "graphql-voyager/middleware";

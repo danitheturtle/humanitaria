@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const prettier = require("prettier");
-const { name, date, image, datatype, random } = require("faker");
+const { datatype, random } = require("faker");
 
 const jsonFile = `${__filename.substring(0, __filename.lastIndexOf("."))}.json`;
 

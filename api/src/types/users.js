@@ -1,4 +1,4 @@
-import { GraphQLObjectType, GraphQLInt, GraphQLBoolean, GraphQLID, GraphQLString, GraphQLNonNull } from 'graphql';
+import { GraphQLObjectType, GraphQLBoolean, GraphQLID, GraphQLString, GraphQLNonNull } from 'graphql';
 import { globalIdField, connectionArgs, connectionDefinitions } from "graphql-relay";
 import { nodeInterface } from '../graph/nodeDefinitions';
 import { NoteType } from '../types';
@@ -35,7 +35,7 @@ export const UserType = new GraphQLObjectType({
           queries.map(query => query.where('uid', source.uid))
         );
         const cursorId = parseInt(args.after || args.before || "0");
-        const dirComparator = !!args.after ? '>' : '<';
+        const dirComparator = args.after ? '>' : '<';
         const dbResult = await db.getNotesConnection(cursorId, dirComparator, args.first || args.last, userConnectionFilter);
         return {
           pageInfo: {

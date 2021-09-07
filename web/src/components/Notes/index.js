@@ -1,8 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import ConnectionHandler from 'relay-connection-handler-plus';
-import { usePaginationFragment, useMutation, useSubscription } from 'react-relay';
+import { graphql, usePaginationFragment, useMutation, useSubscription } from 'react-relay';
 import { Note } from './Note';
-import * as homeQuery from '../../routes/__generated__/homeQuery.graphql';
 require('./index.css');
 
 export const Notes = ({ queryData }) => {
@@ -13,23 +12,10 @@ export const Notes = ({ queryData }) => {
   const userNotesId = ConnectionHandler.getConnectionID(queryData?.me?.id, 'UserNotesConnection_notes');
   
   const rootNotes = usePaginationFragment(graphql `
-    fragment NotesRoot_notes on Query @refetchable(queryName: "NotesRootQuery") {
-      notes(first: $count, after: $cursor) @connection(key: "RootNotesConnection_notes") {
-        edges {
-          node {
-            ...Note_note
-          }
-        }
-      }
-    }
-  `, queryData);
-  
-  const userNotes = usePaginationFragment(graphql`
-    fragment NotesUser_notes on Query @refetchable(queryName: "NotesUserQuery") {
-      me {
-        id
-        uid
-        notes(first: $count, after: $cursor) @connection(key: "UserNotesConnection_notes") {
+    fragment NotesRoot_notes on Query
+      @refetchable(queryName: "NotesRootQuery")
+      @argumentDefinitions(count: { type: "Int!" }, cursor: { type: "String!" }) {
+        notes(first: $count, after: $cursor) @connection(key: "RootNotesConnection_notes") {
           edges {
             node {
               ...Note_note
@@ -37,12 +23,29 @@ export const Notes = ({ queryData }) => {
           }
         }
       }
-    }
+  `, queryData);
+  
+  const userNotes = usePaginationFragment(graphql`
+    fragment NotesUser_notes on Query 
+      @refetchable(queryName: "NotesUserQuery")
+      @argumentDefinitions(count: { type: "Int!" }, cursor: { type: "String!" }) {
+        me {
+          id
+          uid
+          notes(first: $count, after: $cursor) @connection(key: "UserNotesConnection_notes") {
+            edges {
+              node {
+                ...Note_note
+              }
+            }
+          }
+        }
+      }
   `, queryData);
   
   const userId = userNotes?.data?.me?.id;
   const userUID = userNotes?.data?.me?.uid;
-  const { loadNext, hasNext, isLoadingNext, refetch } = viewingMyNotes ? userNotes : rootNotes;
+  const { loadNext, hasNext, isLoadingNext } = viewingMyNotes ? userNotes : rootNotes;
   const notesData = viewingMyNotes ? userNotes?.data?.me?.notes?.edges : rootNotes?.data?.notes?.edges;
 
   const [commit, isInFlight] = useMutation(graphql `

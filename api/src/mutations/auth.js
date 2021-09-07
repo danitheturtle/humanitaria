@@ -1,11 +1,9 @@
 import bcrypt from 'bcrypt';
-import nanoid from 'nanoid';
 import { mutationWithClientMutationId } from "graphql-relay";
-import { GraphQLString, GraphQLNonNull } from "graphql";
+import { GraphQLString } from "graphql";
 import { whitelist, isEmpty, isEmail, normalizeEmail, trim } from 'validator';
 import { UserType } from '../types';
-import { idCharacters } from '../utils/validators';
-import { validateAndCleanInput, usernameChars } from '../utils/validators';
+import { usernameChars } from '../utils/validators';
 import db from '../db';
 
 export const signIn = mutationWithClientMutationId({

@@ -1,12 +1,12 @@
 import { whitelist, isEmpty, isEmail, normalizeEmail, trim } from 'validator';
 
-const allowedSpecialCharacters = "\~\!\@\#\$\%\^\&\*\(\)\_\-\+\=\{\[\}\]\|\:\;\<\,\>\.\?";
+const allowedSpecialCharacters = "~!@#$%^&*()_-+={[}]|:;<,>./?\\";
 const uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const lowercase = "abcdefghijklmnopqrstuvwxyz";
 const alphabet = lowercase + uppercase;
 const numbers = "0123456789";
 export const validCharacters = alphabet + numbers + allowedSpecialCharacters
-export const usernameChars = alphabet + numbers + "\-\_";
+export const usernameChars = alphabet + numbers + "-_";
 export const idCharacters = lowercase + numbers;
 
 const sanitizersByKey = {
@@ -16,10 +16,10 @@ const sanitizersByKey = {
 }
 //true means error
 const validatorsByKey = {
-  username: val => false,
+  username: () => false,
   email: val => !isEmail(val),
-  passwordHash: val => false,
-  __default: val => false
+  passwordHash: () => false,
+  __default: () => false
 }
 
 const sanitize = (args) => Object.entries(args).reduce((result, [k, v]) => {

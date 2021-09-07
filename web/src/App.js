@@ -1,5 +1,5 @@
-import React from 'react';
-import { graphql, RelayEnvironmentProvider, useQueryLoader } from 'react-relay';
+import React, { useState, useCallback, useEffect } from 'react';
+import { RelayEnvironmentProvider } from 'react-relay';
 import { Action } from 'history';
 import { resolveRoute } from './routes';
 
@@ -7,12 +7,11 @@ export const HistoryContext = React.createContext({ action: Action.Pop, location
 export const LocationContext = React.createContext({key: "", pathname: "/", search: ""});
 
 const App = ({ relayEnvironment, history }) => {
-  const [disposeHistory, setDisposeHistory] = React.useState(undefined);
-  const [location, setLocation] = React.useState(history.location);
-  const [route, setRoute] = React.useState(undefined);
-  const [error, setError] = React.useState(undefined);
+  const [location, setLocation] = useState(history.location);
+  const [route, setRoute] = useState(undefined);
+  const [error, setError] = useState(undefined);
   
-  const renderPathAsRoute = React.useCallback(({ location, action }) => {
+  const renderPathAsRoute = useCallback(({ location, action }) => {
     const newRoute = resolveRoute({ path: location.pathname, relay: relayEnvironment, action });
     if (newRoute.error) console.error(newRoute.error);
     setLocation(location);
@@ -20,13 +19,13 @@ const App = ({ relayEnvironment, history }) => {
     setError(newRoute.error);
   }, []);
   
-  React.useEffect(() => {
+  useEffect(() => {
     const disposeHistory = history.listen(renderPathAsRoute);
     renderPathAsRoute({ location: history.location, action: Action.Pop });
     return disposeHistory;
   }, []);
   
-  React.useEffect(() => {
+  useEffect(() => {
     if (route?.title) {
       document.title = route.title;
     }

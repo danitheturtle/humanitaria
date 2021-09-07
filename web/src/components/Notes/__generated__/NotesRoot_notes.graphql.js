@@ -38,11 +38,13 @@ var v0 = [
 return {
   "argumentDefinitions": [
     {
-      "kind": "RootArgument",
+      "defaultValue": null,
+      "kind": "LocalArgument",
       "name": "count"
     },
     {
-      "kind": "RootArgument",
+      "defaultValue": null,
+      "kind": "LocalArgument",
       "name": "cursor"
     }
   ],
@@ -154,6 +156,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'edcbbc0d4f1695a6696af3ee9bef8d50';
+(node/*: any*/).hash = '980fe9038525cceaf5320c2ca9da24c7';
 
 module.exports = node;

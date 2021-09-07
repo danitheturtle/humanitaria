@@ -11,10 +11,7 @@ import type { ConcreteRequest } from 'relay-runtime';
 export type landingQueryVariables = {||};
 export type landingQueryResponse = {|
   +me: ?{|
-    +id: string,
-    +uid: string,
-    +username: string,
-    +email: ?string,
+    +uid: string
   |}
 |};
 export type landingQuery = {|
@@ -27,63 +24,40 @@ export type landingQuery = {|
 /*
 query landingQuery {
   me {
-    id
     uid
-    username
-    email
+    id
   }
 }
 */
 
 const node/*: ConcreteRequest*/ = (function(){
-var v0 = [
-  {
-    "alias": null,
-    "args": null,
-    "concreteType": "User",
-    "kind": "LinkedField",
-    "name": "me",
-    "plural": false,
-    "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "id",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "uid",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "username",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "email",
-        "storageKey": null
-      }
-    ],
-    "storageKey": null
-  }
-];
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "uid",
+  "storageKey": null
+};
 return {
   "fragment": {
     "argumentDefinitions": [],
     "kind": "Fragment",
     "metadata": null,
     "name": "landingQuery",
-    "selections": (v0/*: any*/),
+    "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "User",
+        "kind": "LinkedField",
+        "name": "me",
+        "plural": false,
+        "selections": [
+          (v0/*: any*/)
+        ],
+        "storageKey": null
+      }
+    ],
     "type": "Query",
     "abstractKey": null
   },
@@ -92,19 +66,39 @@ return {
     "argumentDefinitions": [],
     "kind": "Operation",
     "name": "landingQuery",
-    "selections": (v0/*: any*/)
+    "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "User",
+        "kind": "LinkedField",
+        "name": "me",
+        "plural": false,
+        "selections": [
+          (v0/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "id",
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      }
+    ]
   },
   "params": {
-    "cacheID": "8f6788c569ec40a5b7150d26c608dd95",
+    "cacheID": "46b5b3e5ff044393bac5f47f537c5c0d",
     "id": null,
     "metadata": {},
     "name": "landingQuery",
     "operationKind": "query",
-    "text": "query landingQuery {\n  me {\n    id\n    uid\n    username\n    email\n  }\n}\n"
+    "text": "query landingQuery {\n  me {\n    uid\n    id\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '3b6db57063555ae3fb11494eb6161a85';
+(node/*: any*/).hash = '88206d68274b7c62ea9a6474f784f3c0';
 
 module.exports = node;

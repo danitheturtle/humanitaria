@@ -6,10 +6,7 @@ export default {
   query: graphql`
     query landingQuery {
       me {
-        id
         uid
-        username
-        email
       }
     }
   `,

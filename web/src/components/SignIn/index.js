@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useMutation } from 'react-relay';
+import { graphql, useMutation } from 'react-relay';
 
 export const SignIn = ({refetch}) => {
   const [loginNameValue, setLoginName] = useState('');
@@ -34,7 +34,7 @@ export const SignIn = ({refetch}) => {
           passwordHash: passwordValue
         }
       },
-      onCompleted: data => {
+      onCompleted: () => {
         refetch({}, { fetchPolicy: 'network-only' });
       }
     })

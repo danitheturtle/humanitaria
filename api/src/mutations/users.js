@@ -1,4 +1,4 @@
-import { GraphQLObjectType, GraphQLInt, GraphQLList, GraphQLBoolean, GraphQLID, GraphQLString, GraphQLNonNull } from 'graphql';  
+import { GraphQLList, GraphQLID, GraphQLString, GraphQLNonNull } from 'graphql';  
 import { mutationWithClientMutationId } from "graphql-relay";
 import nanoid from 'nanoid';
 import { InputError, ForbiddenError, validatorResultToErrorList } from '../error';

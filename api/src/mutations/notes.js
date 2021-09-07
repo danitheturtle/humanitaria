@@ -1,7 +1,6 @@
 import { NoteType, QueryNotesEdge } from '../types';
 import {
   GraphQLString,
-  GraphQLBoolean,
   GraphQLNonNull,
   GraphQLID
 } from 'graphql';

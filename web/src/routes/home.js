@@ -1,5 +1,4 @@
 import { graphql } from "relay-runtime";
-import { GraphQLInt, GraphQLString } from 'graphql';
 import { Home } from '../pages'
 
 export default {
@@ -7,12 +6,10 @@ export default {
   query: graphql`
     query homeQuery($count: Int!, $cursor: String!) {
       me {
-        id
-        uid
-        username
+        __typename
       }
-      ...NotesRoot_notes
-      ...NotesUser_notes
+      ...NotesRoot_notes @arguments(count: $count, cursor: $cursor)
+      ...NotesUser_notes @arguments(count: $count, cursor: $cursor)
     }
   `,
   component: Home,

@@ -1,5 +1,4 @@
 import { subscriptionWithClientId } from 'graphql-relay-subscription';
-import { GraphQLID, GraphQLNonNull } from 'graphql';
 import { NoteType, QueryNotesEdge } from '../types';
 
 export const noteUpdated = subscriptionWithClientId({

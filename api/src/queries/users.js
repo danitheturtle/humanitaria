@@ -1,4 +1,4 @@
-import { GraphQLNonNull, GraphQLInputObjectType, GraphQLID, GraphQLString } from 'graphql';
+import { GraphQLInputObjectType, GraphQLID, GraphQLString } from 'graphql';
 import { UserType } from '../types';
 import { fromGlobalId } from '../graph/utils';
 

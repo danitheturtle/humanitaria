@@ -10,8 +10,8 @@
 import type { ConcreteRequest } from 'relay-runtime';
 type NotesUser_notes$ref = any;
 export type NotesUserQueryVariables = {|
-  count?: ?number,
-  cursor?: ?string,
+  count: number,
+  cursor: string,
 |};
 export type NotesUserQueryResponse = {|
   +$fragmentRefs: NotesUser_notes$ref
@@ -25,10 +25,10 @@ export type NotesUserQuery = {|
 
 /*
 query NotesUserQuery(
-  $count: Int
-  $cursor: String
+  $count: Int!
+  $cursor: String!
 ) {
-  ...NotesUser_notes
+  ...NotesUser_notes_1G22uz
 }
 
 fragment Note_note on Note {
@@ -41,7 +41,7 @@ fragment Note_note on Note {
   }
 }
 
-fragment NotesUser_notes on Query {
+fragment NotesUser_notes_1G22uz on Query {
   me {
     id
     uid
@@ -103,7 +103,18 @@ return {
     "name": "NotesUserQuery",
     "selections": [
       {
-        "args": null,
+        "args": [
+          {
+            "kind": "Variable",
+            "name": "count",
+            "variableName": "count"
+          },
+          {
+            "kind": "Variable",
+            "name": "cursor",
+            "variableName": "cursor"
+          }
+        ],
         "kind": "FragmentSpread",
         "name": "NotesUser_notes"
       }
@@ -254,16 +265,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "3191eee97838504dc91ddd8c1e98d6c6",
+    "cacheID": "6cdf93a551b318af11f5f928ac07cabf",
     "id": null,
     "metadata": {},
     "name": "NotesUserQuery",
     "operationKind": "query",
-    "text": "query NotesUserQuery(\n  $count: Int\n  $cursor: String\n) {\n  ...NotesUser_notes\n}\n\nfragment Note_note on Note {\n  id\n  content\n  likes\n  user {\n    username\n    id\n  }\n}\n\nfragment NotesUser_notes on Query {\n  me {\n    id\n    uid\n    notes(first: $count, after: $cursor) {\n      edges {\n        node {\n          ...Note_note\n          id\n          __typename\n        }\n        cursor\n      }\n      pageInfo {\n        endCursor\n        hasNextPage\n      }\n    }\n  }\n}\n"
+    "text": "query NotesUserQuery(\n  $count: Int!\n  $cursor: String!\n) {\n  ...NotesUser_notes_1G22uz\n}\n\nfragment Note_note on Note {\n  id\n  content\n  likes\n  user {\n    username\n    id\n  }\n}\n\nfragment NotesUser_notes_1G22uz on Query {\n  me {\n    id\n    uid\n    notes(first: $count, after: $cursor) {\n      edges {\n        node {\n          ...Note_note\n          id\n          __typename\n        }\n        cursor\n      }\n      pageInfo {\n        endCursor\n        hasNextPage\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '17d08960a06d2469730a95dc378ca508';
+(node/*: any*/).hash = '73c9ebf53bc6d8123630d18ccccc7ca3';
 
 module.exports = node;
