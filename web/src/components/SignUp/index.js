@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
+import { Stack, TextField, Button, Typography, Box } from '@mui/material';
 import { graphql, useMutation } from 'react-relay';
 
 export const SignUp = ({ refetch }) => {
@@ -31,19 +28,13 @@ export const SignUp = ({ refetch }) => {
     }
   `);
   const handleEditUsername = (e) => {
-    if (e?.target?.value) {
-      setUsernameValue(e.target.value);
-    }
+    setUsernameValue(e.target.value);
   }
   const handleEditEmail = (e) => {
-    if (e?.target?.value) {
-      setEmailValue(e.target.value);
-    }
+    setEmailValue(e.target.value);
   }
   const handleEditPassword = (e) => {
-    if (e?.target?.value) {
-      setPasswordValue(e.target.value);
-    }
+    setPasswordValue(e.target.value);
   }
   const handleLogin = () => {
     commitSignIn({
@@ -74,13 +65,13 @@ export const SignUp = ({ refetch }) => {
   }
   if (isBeingCreated || isSigningIn) return <div className="loading">loading</div>;
   
-  return <Box sx={{}}>
-    <Typography variant="h3" component="h1">Humanitaria Sign Up</Typography>
-    <Typography variant="body1" component="div">
+  return <Typography variant="body1" component="div" sx={{ flex: 1 }}>
+    <Typography sx={{ width: 1, mb: 1 }} variant="h3" component="h1">Sign Up</Typography>
+    <Stack spacing={2}>
       <TextField
         id="username"
         label="Username"
-        variant="outlined"
+        variant="standard"
         onChange={handleEditUsername}
         value={usernameValue}
         required
@@ -89,7 +80,7 @@ export const SignUp = ({ refetch }) => {
       <TextField
         id="email"
         label="Email"
-        variant="outlined"
+        variant="standard"
         onChange={handleEditEmail}
         value={emailValue}
         fullWidth
@@ -97,14 +88,14 @@ export const SignUp = ({ refetch }) => {
       <TextField
         id="password"
         label="Password"
-        variant="outlined"
+        variant="standard"
         type="password"
         onChange={handleEditPassword}
         value={passwordValue}
         required
         fullWidth
       />
-    </Typography>
-    <Button variant="contained" onClick={handleSignup}>Sign Up</Button>
-  </Box>
+    </Stack>
+    <Button sx={{ mt: 4, width: 1 }} variant="contained" onClick={handleSignup}>Sign Up</Button>
+  </Typography>
 };

@@ -3,6 +3,7 @@ import { RelayEnvironmentProvider } from 'react-relay';
 import { Action } from 'history';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider } from '@mui/material/styles';
+import { PageLayoutWithAuth } from './components';
 import { resolveRoute } from './routes';
 import { theme } from './style';
 
@@ -44,11 +45,13 @@ const App = ({ relayEnvironment, history }) => {
         <LocationContext.Provider value={location}>
           <CssBaseline />
           <ThemeProvider theme={theme}>
-            <React.Suspense fallback={<div>loading</div>}>
-              {route?.component
-                ? React.createElement(route.component, route.props)
-                : null}
-            </React.Suspense>
+            <PageLayoutWithAuth>
+              <React.Suspense fallback={<div>loading</div>}>
+                {route?.component
+                  ? React.createElement(route.component, route.props)
+                  : null}
+              </React.Suspense>
+            </PageLayoutWithAuth>
           </ThemeProvider>
         </LocationContext.Provider>
       </HistoryContext.Provider>

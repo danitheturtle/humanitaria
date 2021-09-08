@@ -4,12 +4,13 @@ export const theme = responsiveFontSizes(createTheme({
   palette: {
     common: {
       black: '#000000',
+      dark: '#212121',
       white: '#ffffff'
     },
     primary: {
-      light: '#A75ED4',
-      main: '#953ECC',
-      dark: '#7F2FB1',
+      light: '#A259B1',
+      main: '#8c4899',
+      dark: '#723B7D',
       contrastText: '#F4EEF8'
     },
     secondary: {
@@ -67,7 +68,7 @@ export const theme = responsiveFontSizes(createTheme({
   },
   typography: {
     htmlFontSize: 16,
-    fontFamily: ['Poppins', 'Helvetica', 'Arial', 'sans-serif' ].join(', '),
+    fontFamily: ['Poppins', 'Helvetica', 'Arial', 'sans-serif'].join(', '),
     fontSize: 14,
     fontWeightLight: 300,
     fontWeightRegular: 400,
@@ -79,7 +80,7 @@ export const theme = responsiveFontSizes(createTheme({
     h2: {
       fontSize: 36
     },
-    h3: { 
+    h3: {
       fontSize: 32
     },
     h4: {
@@ -107,7 +108,7 @@ export const theme = responsiveFontSizes(createTheme({
       fontSize: 16
     },
     caption: {
-      fontSize: 12
+      fontSize: 10
     },
     overline: {
       fontSize: 12
@@ -116,11 +117,8 @@ export const theme = responsiveFontSizes(createTheme({
   shape: {
     borderRadius: 0
   },
-  components: {
-    MuiButtonBase: {
-      defaultProps: {
-        disableRipple: true
-      }
-    }
-  }
+  shadows: ["none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none",
+    "none", "none", "none", "none", "none", "none", "none"
+  ],
+  components: {}
 }));

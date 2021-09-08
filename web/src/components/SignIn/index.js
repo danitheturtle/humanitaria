@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { graphql, useMutation } from 'react-relay';
+import { Stack, TextField, Button, Typography } from '@mui/material';
 
 export const SignIn = ({refetch}) => {
   const [loginNameValue, setLoginName] = useState('');
@@ -40,30 +41,29 @@ export const SignIn = ({refetch}) => {
     })
   };
   if (isSigningIn) return <div className="loading">loading</div>;
-  return <div className="SignIn">
-      <h1 className="title">Sign In</h1>
-      <div className="signup-form">
-        <div className="field-row">
-          <div className="field-name">{"username or email*: "}</div>
-          <input
-            name="usernameOrEmail"
-            className="field-input"
-            type="text"
-            onChange={handleEditLoginName}
-            value={loginNameValue}
-          />
-        </div>
-        <div className="field-row">
-          <div className="field-name">{"password*: "}</div>
-          <input
-            name="password"
-            className="field-input"
-            type="password"
-            onChange={handleEditPassword}
-            value={passwordValue}
-          />
-        </div>
-      </div>
-      <button className="signin-button" onClick={handleLogin}>Sign In</button>
-  </div>
+  return <Typography variant="body1" component="div" sx={{ position: 'relative', display: 'flex', flexDirection: 'column', flex: 1, height: 1 }}>
+      <Typography sx={{ width: 1, mb: 1 }} variant="h3" component="h1">Sign In</Typography>
+      <Stack spacing={2}>
+        <TextField
+          id="usernameOrEmail"
+          label="Username or Email"
+          variant="standard"
+          onChange={handleEditLoginName}
+          value={loginNameValue}
+          required
+          fullWidth
+        />
+        <TextField
+          id="password"
+          label="Password"
+          variant="standard"
+          type="password"
+          onChange={handleEditPassword}
+          value={passwordValue}
+          required
+          fullWidth
+        />
+      </Stack>
+      <Button sx={{ mt: 4, width: 1, position: 'absolute', bottom: 0 }} variant="contained" onClick={handleLogin}>Sign In</Button>
+  </Typography>
 };
