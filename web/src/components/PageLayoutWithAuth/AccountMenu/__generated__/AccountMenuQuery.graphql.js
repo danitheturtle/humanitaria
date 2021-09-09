@@ -13,7 +13,7 @@ export type AccountMenuQueryResponse = {|
   +me: ?{|
     +id: string,
     +uid: string,
-    +username: string,
+    +picture: ?string,
   |}
 |};
 export type AccountMenuQuery = {|
@@ -28,7 +28,7 @@ query AccountMenuQuery {
   me {
     id
     uid
-    username
+    picture
   }
 }
 */
@@ -61,7 +61,7 @@ var v0 = [
         "alias": null,
         "args": null,
         "kind": "ScalarField",
-        "name": "username",
+        "name": "picture",
         "storageKey": null
       }
     ],
@@ -86,16 +86,16 @@ return {
     "selections": (v0/*: any*/)
   },
   "params": {
-    "cacheID": "88ae788fc017af7b1c3c9621486e6ff0",
+    "cacheID": "7d7850f00d9f346051c7284e4e7bfd2e",
     "id": null,
     "metadata": {},
     "name": "AccountMenuQuery",
     "operationKind": "query",
-    "text": "query AccountMenuQuery {\n  me {\n    id\n    uid\n    username\n  }\n}\n"
+    "text": "query AccountMenuQuery {\n  me {\n    id\n    uid\n    picture\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '60af93ab057fb3e6fea17e9abd3b043f';
+(node/*: any*/).hash = 'cc0c3fd16d6ebfc5fc38c139c6cad91c';
 
 module.exports = node;

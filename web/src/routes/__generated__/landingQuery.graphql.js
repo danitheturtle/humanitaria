@@ -11,7 +11,7 @@ import type { ConcreteRequest } from 'relay-runtime';
 export type landingQueryVariables = {||};
 export type landingQueryResponse = {|
   +me: ?{|
-    +uid: string
+    +__typename: string
   |}
 |};
 export type landingQuery = {|
@@ -24,7 +24,7 @@ export type landingQuery = {|
 /*
 query landingQuery {
   me {
-    uid
+    __typename
     id
   }
 }
@@ -35,7 +35,7 @@ var v0 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "uid",
+  "name": "__typename",
   "storageKey": null
 };
 return {
@@ -89,16 +89,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "46b5b3e5ff044393bac5f47f537c5c0d",
+    "cacheID": "4b9b7eaa58f6f394e99bce69bbb7700e",
     "id": null,
     "metadata": {},
     "name": "landingQuery",
     "operationKind": "query",
-    "text": "query landingQuery {\n  me {\n    uid\n    id\n  }\n}\n"
+    "text": "query landingQuery {\n  me {\n    __typename\n    id\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '88206d68274b7c62ea9a6474f784f3c0';
+(node/*: any*/).hash = 'f0440162822a7f3daa6c3718912f39e8';
 
 module.exports = node;

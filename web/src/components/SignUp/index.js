@@ -86,7 +86,7 @@ export const SignUp = ({ refetch }) => {
         fullWidth
       />
       <TextField
-        id="password"
+        id="signupPassword"
         label="Password"
         variant="standard"
         type="password"

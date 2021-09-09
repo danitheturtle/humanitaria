@@ -6,7 +6,7 @@ export default {
   query: graphql`
     query landingQuery {
       me {
-        uid
+        __typename
       }
     }
   `,

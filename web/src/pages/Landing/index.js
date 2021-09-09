@@ -1,18 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useQueryLoader, usePreloadedQuery } from 'react-relay';
 import { Paper, Box, Container } from '@mui/material';
 import { SignUp, SignIn, SignOut } from '../../components';
 import * as landingQuery from '../../routes/__generated__/landingQuery.graphql';
+import { HistoryContext } from '../../App';
 
 export const Landing = ({ queryRef }) => {
+  const history = useContext(HistoryContext);
   const [landingQueryRef, loadLandingQuery] = useQueryLoader(landingQuery, queryRef);
   const landingQueryData = usePreloadedQuery(landingQuery, landingQueryRef);
   
   if (landingQueryData.me) {
-    return <Container maxWidth="lg">
-      <div className="id-label">{"Your uid is: "}{landingQueryData?.me?.uid}</div>
-      <SignOut refetch={loadLandingQuery}/>
-    </Container>
+    setTimeout(() => history.push('/'),0);
+    return <div/>
   } else {
     return <Container maxWidth="lg">
       <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', mt: 8}}>

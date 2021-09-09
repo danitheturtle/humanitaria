@@ -15,10 +15,16 @@ export const PageLayoutWithAuth = ({ children }) => {
         </Link>
         <Box sx={{ height: 1, display: 'flex', flexDirection: 'row', alignItems: 'stretch' }}>
           <Link to="/">
-            <Button variant="text" sx={{ height: 1, color: 'primary.contrastText' }} color="secondary">HOME</Button>
+            <Button variant="text" sx={{ height: 1, color: 'primary.contrastText' }} color="secondary">MAP</Button>
           </Link>
           <Link to="/landing">
-            <Button variant="text" sx={{ height: 1, color: 'primary.contrastText' }} color="secondary">LANDING</Button>
+            <Button variant="text" sx={{ height: 1, color: 'primary.contrastText' }} color="secondary">SPACES</Button>
+          </Link>
+          <Link to="/ideas">
+            <Button variant="text" sx={{ height: 1, color: 'primary.contrastText' }} color="secondary">IDEAS</Button>
+          </Link>
+          <Link to="/chats">
+            <Button variant="text" sx={{ height: 1, color: 'primary.contrastText' }} color="secondary">CHATS</Button>
           </Link>
         </Box>
         <React.Suspense fallback={<div/>}> <AccountMenu /> </React.Suspense>

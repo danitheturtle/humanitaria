@@ -7,14 +7,10 @@ export const SignIn = ({refetch}) => {
   const [passwordValue, setPasswordValue] = useState('');
   
   const handleEditLoginName = (e) => {
-    if (e?.target?.value) {
-      setLoginName(e?.target?.value);
-    }
+    setLoginName(e?.target?.value);
   }
   const handleEditPassword = (e) => {
-    if (e?.target?.value) {
-      setPasswordValue(e.target.value);
-    }
+    setPasswordValue(e.target.value);
   }
   
   const [commitSignIn, isSigningIn] = useMutation(graphql`
