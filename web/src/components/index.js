@@ -6,3 +6,5 @@ export * from './SignIn';
 export * from './SignOut';
 export * from './CountToNumber';
 export * from './PageLayoutWithAuth';
+export * from './NotificationList';
+export * from './SpaceName';

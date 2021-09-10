@@ -8,16 +8,16 @@ export const theme = responsiveFontSizes(createTheme({
       white: '#ffffff'
     },
     primary: {
-      light: '#A259B1',
+      light: '#B982C4',
       main: '#8c4899',
       dark: '#723B7D',
       contrastText: '#F4EEF8'
     },
     secondary: {
-      light: '#EED2DE',
-      main: '#E6BCCD',
-      dark: '#D897B3',
-      contrastText: '#1C0118'
+      light: '#FFF2FA',
+      main: '#fde8f5',
+      dark: '#FFC2E8',
+      contrastText: '#BC4E7D'
     },
     error: {
       light: '#F96A4D',
@@ -44,16 +44,16 @@ export const theme = responsiveFontSizes(createTheme({
       contrastText: '#212121'
     },
     grey: {
-      50: '#fafafa',
-      100: '#f5f5f5',
-      200: '#eeeeee',
-      300: '#e0e0e0',
-      400: '#bdbdbd',
-      500: '#9e9e9e',
-      600: '#757575',
-      700: '#616161',
-      800: '#424242',
-      900: '#212121'
+      '50': '#fafafa',
+      '100': '#f5f5f5',
+      '200': '#eeeeee',
+      '300': '#e0e0e0',
+      '400': '#bdbdbd',
+      '500': '#9e9e9e',
+      '600': '#757575',
+      '700': '#616161',
+      '800': '#424242',
+      '900': '#212121'
     },
     text: {
       primary: '#140110',
@@ -63,7 +63,8 @@ export const theme = responsiveFontSizes(createTheme({
     },
     background: {
       paper: '#fffff',
-      default: '#fafafa'
+      default: '#fafafa',
+      grey: '#e0e0e0'
     }
   },
   typography: {
@@ -87,16 +88,19 @@ export const theme = responsiveFontSizes(createTheme({
       fontSize: 28
     },
     h5: {
-      fontSize: 24
+      fontSize: 20
     },
     h6: {
-      fontSize: 20
+      fontSize: 18,
+      color: '#1A0214'
     },
     subtitle1: {
       fontSize: 18
     },
     subtitle2: {
-      fontSize: 16
+      fontSize: 14,
+      color: '#424242',
+      fontWeight: 400
     },
     body1: {
       fontSize: 16

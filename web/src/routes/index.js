@@ -3,10 +3,12 @@ import { loadQuery } from "react-relay";
 import { NotFoundError } from '../errors';
 import homeRoute from './home';
 import landingRoute from './landing';
+import accountSettingsRoute from './accountSettings';
 
 const routes = [
   homeRoute,
-  landingRoute
+  landingRoute,
+  accountSettingsRoute
 ];
 
 const matchCache = {};

@@ -1,6 +1,6 @@
 import React from 'react';
 import { graphql, useMutation } from 'react-relay';
-import { Button } from '@mui/material';
+import { Button, Skeleton } from '@mui/material';
 
 export const SignOut = ({ refetch }) => {
   const [commitSignOut, isSigningOut] = useMutation(graphql `
@@ -18,6 +18,6 @@ export const SignOut = ({ refetch }) => {
       }
     });
   }
-  if (isSigningOut) return <div className="loading">loading</div>;
-  return <Button sx={{ mt: 4, width: 1 }} variant="contained" onClick={handleSignout}>Sign Out</Button>
+  if (isSigningOut) return <Skeleton variant="rectangular" sx={{ backgroundColor: 'primary.main',  width: '50%'}}/>;
+  return <Button sx={{ width: '50%' }} variant="contained" onClick={handleSignout}>Sign Out</Button>
 };

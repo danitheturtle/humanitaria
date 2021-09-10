@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Typography, AppBar, Toolbar, Box, Button } from '@mui/material';
 import { Link } from '../';
-import { AccountMenu } from './AccountMenu';
+import { AccountMenu, AccountMenuSkeleton } from './AccountMenu';
 
 export const PageLayoutWithAuth = ({ children }) => {
   return <Box sx={{ width: 1, height: 1 }}>
@@ -27,7 +27,7 @@ export const PageLayoutWithAuth = ({ children }) => {
             <Button variant="text" sx={{ height: 1, color: 'primary.contrastText' }} color="secondary">CHATS</Button>
           </Link>
         </Box>
-        <React.Suspense fallback={<div/>}> <AccountMenu /> </React.Suspense>
+        <React.Suspense fallback={<AccountMenuSkeleton />}> <AccountMenu /> </React.Suspense>
       </Toolbar>
     </AppBar>
     { children }
