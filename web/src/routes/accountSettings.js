@@ -6,7 +6,14 @@ export default {
   query: graphql`
     query accountSettingsQuery {
       me {
-        __typename
+        id
+        uid
+        username
+        email
+        name
+        picture
+        timezone
+        locale
       }
     }
   `,

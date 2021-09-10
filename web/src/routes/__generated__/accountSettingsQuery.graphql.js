@@ -11,7 +11,14 @@ import type { ConcreteRequest } from 'relay-runtime';
 export type accountSettingsQueryVariables = {||};
 export type accountSettingsQueryResponse = {|
   +me: ?{|
-    +__typename: string
+    +id: string,
+    +uid: string,
+    +username: string,
+    +email: ?string,
+    +name: ?string,
+    +picture: ?string,
+    +timezone: ?string,
+    +locale: ?string,
   |}
 |};
 export type accountSettingsQuery = {|
@@ -24,40 +31,95 @@ export type accountSettingsQuery = {|
 /*
 query accountSettingsQuery {
   me {
-    __typename
     id
+    uid
+    username
+    email
+    name
+    picture
+    timezone
+    locale
   }
 }
 */
 
 const node/*: ConcreteRequest*/ = (function(){
-var v0 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "__typename",
-  "storageKey": null
-};
+var v0 = [
+  {
+    "alias": null,
+    "args": null,
+    "concreteType": "User",
+    "kind": "LinkedField",
+    "name": "me",
+    "plural": false,
+    "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "id",
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "uid",
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "username",
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "email",
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "name",
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "picture",
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "timezone",
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "locale",
+        "storageKey": null
+      }
+    ],
+    "storageKey": null
+  }
+];
 return {
   "fragment": {
     "argumentDefinitions": [],
     "kind": "Fragment",
     "metadata": null,
     "name": "accountSettingsQuery",
-    "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "concreteType": "User",
-        "kind": "LinkedField",
-        "name": "me",
-        "plural": false,
-        "selections": [
-          (v0/*: any*/)
-        ],
-        "storageKey": null
-      }
-    ],
+    "selections": (v0/*: any*/),
     "type": "Query",
     "abstractKey": null
   },
@@ -66,39 +128,19 @@ return {
     "argumentDefinitions": [],
     "kind": "Operation",
     "name": "accountSettingsQuery",
-    "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "concreteType": "User",
-        "kind": "LinkedField",
-        "name": "me",
-        "plural": false,
-        "selections": [
-          (v0/*: any*/),
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "id",
-            "storageKey": null
-          }
-        ],
-        "storageKey": null
-      }
-    ]
+    "selections": (v0/*: any*/)
   },
   "params": {
-    "cacheID": "030f0f77f928209bc9d90225129ef892",
+    "cacheID": "6515172b2f7044cdc6a5d0d40dd02e56",
     "id": null,
     "metadata": {},
     "name": "accountSettingsQuery",
     "operationKind": "query",
-    "text": "query accountSettingsQuery {\n  me {\n    __typename\n    id\n  }\n}\n"
+    "text": "query accountSettingsQuery {\n  me {\n    id\n    uid\n    username\n    email\n    name\n    picture\n    timezone\n    locale\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'be2cb294fa6057330b9f3ea54b41ca31';
+(node/*: any*/).hash = '919985b33347e2fbba5ec9536b308013';
 
 module.exports = node;
