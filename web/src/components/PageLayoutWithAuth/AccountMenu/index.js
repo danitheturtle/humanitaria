@@ -1,9 +1,9 @@
 import React, { useEffect, useContext, useState, useMemo } from 'react';
-import { Box, Avatar, Skeleton, Paper, SwipeableDrawer } from '@mui/material';
+import { Box, Avatar, Button, Typography, Skeleton, Paper, SwipeableDrawer } from '@mui/material';
 import { graphql, useQueryLoader, usePreloadedQuery, useRelayEnvironment, loadQuery } from 'react-relay';
 import { HistoryContext } from '../../../App';
 import { AccountSpaces } from './AccountSpaces';
-import { NotificationList } from '../../../components';
+import { NotificationList, SignIn, Link } from '../../../components';
 import { AccountMenuActions } from './AccountMenuActions';
 import * as AccountMenuQuery from './__generated__/AccountMenuQuery.graphql';
 
@@ -20,7 +20,7 @@ export const AccountMenu = () => {
           picture
         }
       }
-    `, {}, { fetchPolicy: 'store-or-network'});
+    `, {}, { fetchPolicy: 'store-or-network' });
   }, []);
   const [queryRef, reloadQuery] = useQueryLoader(AccountMenuQuery, initialQueryRef);
   const accountData = usePreloadedQuery(AccountMenuQuery, queryRef);
@@ -30,9 +30,10 @@ export const AccountMenu = () => {
     reloadQuery(...reloadArgs);
     setAccountDrawerOpen(false);
   }
-  if (history.location.pathname !== '/landing' && !accountData.me) {
-    return <AccountMenuSkeleton />;
+  if (history.location.pathname === '/landing') {
+    return <Box sx={{ width: 32, height: 32 }}/>
   }
+
   return <Box>
     <Avatar sx={{ width: 32, height: 32 }} onClick={ handleOpenAccountDrawer }>H</Avatar>
     <SwipeableDrawer
@@ -43,9 +44,21 @@ export const AccountMenu = () => {
       elevation={0}
     >
       <Box sx={{ overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'stretch', width: '100vw', maxWidth: 420, height: '100vh', backgroundColor: 'background.default'}}>
-        <AccountSpaces />
-        <NotificationList />
-        <AccountMenuActions refetch={reloadAndCloseDrawer}/>
+        {history.location.pathname !== '/landing' && !accountData.me ? (
+          <Box sx={{ p: 4, height: theme => theme.spacing(48), display: 'flex', flexDirection: 'column', alignItems: 'stretch' }}>
+            <SignIn refetch={reloadAndCloseDrawer} />
+            <Typography sx={{textAlign: 'center', my: 1 }} variant="body2" component="div">or</Typography>
+            <Link to="/landing" sx={{ textDecoration: 'none', textAlign: 'center' }}>
+              <Button variant="outlined" sx={{ width: 1 }}>Sign Up</Button>
+            </Link>
+          </Box>
+        ) : (
+          <React.Fragment>
+            <AccountSpaces />
+            <NotificationList />
+            <AccountMenuActions refetch={reloadAndCloseDrawer}/>
+          </React.Fragment>
+        )}
       </Box>
     </SwipeableDrawer>
   </Box>

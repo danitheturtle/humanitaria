@@ -4,7 +4,7 @@ import { Link } from '../';
 import { AccountMenu, AccountMenuSkeleton } from './AccountMenu';
 
 export const PageLayoutWithAuth = ({ children }) => {
-  return <Box sx={{ width: 1, height: 1 }}>
+  return <React.Fragment>
     <AppBar position="sticky" color="primary" sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'stretch'}}>
       <Toolbar disableGutters={true} sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', flex: 1, width: 1, mx: 2 }}>
         <Link to="/">
@@ -30,6 +30,8 @@ export const PageLayoutWithAuth = ({ children }) => {
         <React.Suspense fallback={<AccountMenuSkeleton />}> <AccountMenu /> </React.Suspense>
       </Toolbar>
     </AppBar>
-    { children }
-  </Box>
+    <Box sx={{ position: 'relative', width: '100vw', height: 'calc(100vh - 64px)'}}>
+      { children }
+    </Box>
+  </React.Fragment>
 };

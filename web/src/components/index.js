@@ -7,4 +7,5 @@ export * from './SignOut';
 export * from './CountToNumber';
 export * from './PageLayoutWithAuth';
 export * from './NotificationList';
+export * from './SpacesSidebar';
 export * from './SpaceName';
