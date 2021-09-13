@@ -31,7 +31,6 @@ export const AccountMenu = () => {
     setAccountDrawerOpen(false);
   }
   if (history.location.pathname !== '/landing' && !accountData.me) {
-    setTimeout(() => history.push('/landing'), 0);
     return <AccountMenuSkeleton />;
   }
   return <Box>

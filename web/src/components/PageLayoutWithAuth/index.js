@@ -17,7 +17,7 @@ export const PageLayoutWithAuth = ({ children }) => {
           <Link to="/">
             <Button variant="text" sx={{ height: 1, color: 'primary.contrastText' }} color="secondary">MAP</Button>
           </Link>
-          <Link to="/landing">
+          <Link to="/spaces">
             <Button variant="text" sx={{ height: 1, color: 'primary.contrastText' }} color="secondary">SPACES</Button>
           </Link>
           <Link to="/ideas">

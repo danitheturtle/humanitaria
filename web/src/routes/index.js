@@ -4,11 +4,13 @@ import { NotFoundError } from '../errors';
 import homeRoute from './home';
 import landingRoute from './landing';
 import accountSettingsRoute from './accountSettings';
+import spacesRoute from './spaces';
 
 const routes = [
   homeRoute,
   landingRoute,
-  accountSettingsRoute
+  accountSettingsRoute,
+  spacesRoute
 ];
 
 const matchCache = {};
@@ -29,6 +31,7 @@ export function resolveRoute(routerCtx) {
       const route = routes[i];
       const evalMatchResult = matchUrlPath(route.path, path);
       if (!evalMatchResult) continue;
+      
       routerCtx.params = evalMatchResult.params
 
       const variables = typeof route.variables === 'function' ?

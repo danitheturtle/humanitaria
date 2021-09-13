@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Stack, TextField, Button, Typography, Box } from '@mui/material';
 import { graphql, useMutation } from 'react-relay';
+import { AuthenticationContext } from '../../App';
 
 export const SignUp = ({ refetch }) => {
   const [usernameValue, setUsernameValue] = useState('');
@@ -44,7 +45,7 @@ export const SignUp = ({ refetch }) => {
           passwordHash: passwordValue
         }
       },
-      onCompleted: () => {
+      onCompleted: (payload) => {
         refetch({}, { fetchPolicy: 'network-only' });
       }
     })
