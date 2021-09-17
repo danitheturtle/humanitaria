@@ -2,13 +2,13 @@ import React, { useContext } from 'react';
 import { Button, Typography } from '@mui/material';
 import { HistoryContext } from '../../App';
 
-export const SpaceName = ({ id, sx = {} }) => {
+export const SpaceName = ({ vid, sx = {} }) => {
   const history = useContext(HistoryContext);
   return <Button
     variant="text"
     size="small"
     color="secondary"
-    onClick={(e) => { e.stopPropagation(); history.push(`/${id}`) }} 
+    onClick={(e) => { e.stopPropagation(); history.push(`/${vid}`) }} 
     sx={{ 
       py: 0,
       px: 0.3,
@@ -25,7 +25,7 @@ export const SpaceName = ({ id, sx = {} }) => {
       variant="body2" 
       color="secondary.contrastText"
       sx={{ textTransform: 'none'}}
-    > {`~${id}`} </Typography>
+    > {`~${vid}`} </Typography>
   </Button>
 };
 
@@ -39,7 +39,7 @@ export const renderTextWithSpaceId = (text) => {
       const nameIndex = text.indexOf(name);
       const beforeName = text.slice(lastIndex, nameIndex);
       resultingElements.push(<span key={i}>{beforeName}</span>);
-      resultingElements.push(<SpaceName key={name} id={name.trim().split('~')[1]}/>);
+      resultingElements.push(<SpaceName key={name} vid={name.trim().split('~')[1]}/>);
       lastIndex = nameIndex + name.length;
     });
     if (lastIndex < text.length - 1) {

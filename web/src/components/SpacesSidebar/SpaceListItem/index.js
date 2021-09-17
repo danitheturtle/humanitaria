@@ -57,6 +57,6 @@ export const SpaceListItem = ({
 };
 
 export const SpaceListItemDescription = ({ space }) => (<React.Fragment>
-  <SpaceName id={space.vid} sx={{ ml: -0.8 }}/>
+  <SpaceName vid={space.vid} sx={{ ml: -0.8 }}/>
   <Typography variant="subtitle2" component="span" sx={{ display: 'block' }}>{space.descriptionShort}</Typography>
 </React.Fragment>);

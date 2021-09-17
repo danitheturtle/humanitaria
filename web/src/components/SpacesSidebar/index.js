@@ -66,7 +66,7 @@ const allSpaces = [{
 
 export const SpacesSidebar = ({ spacename }) => {
   const history = useContext(HistoryContext);
-  return <List sx={{ width: 1, maxWidth: 340, height: 1, padding: 0, backgroundColor: 'background.default' }}>
+  return <List sx={{ position: 'sticky', width: 1, maxWidth: 340, height: 1, padding: 0, overflowY: 'scroll', overflowX: 'hidden', backgroundColor: 'background.default' }}>
     <Box component="li"><Typography variant="h4" component="h2" sx={{ px: 2, my: 2 }}>Spaces</Typography></Box>
     <SpaceListItem
       selected={ !spacename && history.location.pathname === '/spaces' }

@@ -10,7 +10,7 @@ export const PageLayoutWithAuth = ({ children }) => {
         <Link to="/">
           <Typography variant="h4" component="div" color="primary.contrastText" sx={{ position: 'relative', pb: '4px' }}>
             Humanitaria
-            <Typography variant="caption" component="span" color="secondary" sx={{ position: 'absolute', top: -0.5 }}>ALPHA</Typography>
+            <Typography variant="caption" component="span" color="secondary" sx={{ position: 'absolute', top: -0.5, whiteSpace: 'nowrap' }}>PRE-ALPHA</Typography>
           </Typography>
         </Link>
         <Box sx={{ height: 1, display: 'flex', flexDirection: 'row', alignItems: 'stretch' }}>

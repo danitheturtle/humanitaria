@@ -68,7 +68,7 @@ export const AccountSpaces = ({ queryRef }) => {
           <ListItemText
             primary={space.name}
             secondary={<React.Fragment>
-              <SpaceName id={space.vid} sx={{ ml: -0.8 }}/>
+              <SpaceName vid={space.vid} sx={{ ml: -0.8 }}/>
             </React.Fragment>}
           />
           <ListItemSecondaryAction>

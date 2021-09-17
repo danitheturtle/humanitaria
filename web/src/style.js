@@ -95,7 +95,9 @@ export const theme = responsiveFontSizes(createTheme({
       color: '#1A0214'
     },
     subtitle1: {
-      fontSize: 18
+      fontSize: 18,
+      color: '#1A0214',
+      fontStyle: 'italic'
     },
     subtitle2: {
       fontSize: 14,
