@@ -11908,6 +11908,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["leaflet", [
+        ["npm:1.7.1", {
+          "packageLocation": "./.yarn/cache/leaflet-npm-1.7.1-dc40ced5a1-f69149ab48.zip/node_modules/leaflet/",
+          "packageDependencies": [
+            ["leaflet", "npm:1.7.1"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["leven", [
         ["npm:3.1.0", {
           "packageLocation": "./.yarn/cache/leven-npm-3.1.0-b7697736a3-638401d534.zip/node_modules/leven/",
@@ -16842,6 +16851,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["history", "npm:5.0.1"],
             ["html-webpack-plugin", "virtual:42b1ed7d3a3ef35c42ac579b760bc4a57b4d9efe82aa857be421d347a9d5eb77b93f1eefdf7c38f1138ec18d742a002770af95542f0d242dcc89856cb39b7f23#npm:5.3.2"],
             ["http-proxy-middleware", "npm:1.3.1"],
+            ["leaflet", "npm:1.7.1"],
             ["path-to-regexp", "npm:6.2.0"],
             ["pnp-webpack-plugin", "npm:1.7.0"],
             ["react", "npm:17.0.2"],

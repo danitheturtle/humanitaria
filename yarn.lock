@@ -8906,6 +8906,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"leaflet@npm:^1.7.1":
+  version: 1.7.1
+  resolution: "leaflet@npm:1.7.1"
+  checksum: f69149ab482eeb6cdabd837939c4782c97a7a18bc0b2a9330d4a828ca0dc6e035981f2ecdb71c6646aa173bc369cd3b4fd6bbe5d81df4c59c45254f9e9361d03
+  languageName: node
+  linkType: hard
+
 "leven@npm:^3.1.0":
   version: 3.1.0
   resolution: "leven@npm:3.1.0"
@@ -13127,6 +13134,7 @@ resolve@^2.0.0-next.3:
     history: ^5.0.1
     html-webpack-plugin: ^5.3.2
     http-proxy-middleware: ^1.1.0
+    leaflet: ^1.7.1
     path-to-regexp: ^6.2.0
     pnp-webpack-plugin: ^1.7.0
     react: ^17.0.2

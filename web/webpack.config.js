@@ -109,7 +109,7 @@ module.exports = function config(envArg) {
         },
         {
           test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
-          type: 'asset/resources'
+          type: 'asset/resource'
         },
         {
           test: /\.(js|jsx)$/,
