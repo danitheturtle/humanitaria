@@ -16,7 +16,6 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.1",
     "cross-spawn": "^7.0.3",

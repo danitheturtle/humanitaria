@@ -7,6 +7,7 @@ export const { nodeInterface, nodeField, nodesField } = nodeDefinitions(
     const { type, id } = fromGlobalId(globalId);
     if (type === 'User') return db.getUser(id).then(assignNodeType("User"));
     if (type === 'Note') return db.getNote(id).then(assignNodeType("Note"));
+    if (type === 'Location') return db.lookupLocation(id).then(assignNodeType("Location"));
     return null;
   },
   (obj) => {
@@ -15,6 +16,8 @@ export const { nodeInterface, nodeField, nodesField } = nodeDefinitions(
         return require("./types").NoteType
       case "User":
         return require('./types').UserType
+      case "Location":
+        return require('./types').LocationType
       default:
         return null;
     }

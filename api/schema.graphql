@@ -14,6 +14,7 @@ type Query {
   note(input: noteInput): Note
   me: User
   user(input: userInput): User
+  geocode(input: geocodeInput): Location
 }
 
 """An object with an ID"""
@@ -108,6 +109,35 @@ input userInput {
   username: String
   email: String
   uid: ID
+}
+
+type Location implements Node {
+  """The ID of an object"""
+  id: ID!
+  displayName: String
+  lat: String
+  lon: String
+  boundingBox: [String]
+  category: String
+  subCategory: String
+  geotext: String
+  address: Address
+}
+
+type Address {
+  label: String
+  address: String
+  neighborhood: String
+  city: String
+  county: String
+  state: String
+  zip: String
+  country: String
+  countryCode: String
+}
+
+input geocodeInput {
+  search: String
 }
 
 type Mutation {
