@@ -1,5 +1,5 @@
 import { GraphQLFloat, GraphQLString, GraphQLList, GraphQLObjectType } from 'graphql';
-import { globalIdField } from 'graphql-relay';
+import { globalIdField, connectionDefinitions } from "graphql-relay";
 import { nodeInterface } from '../graph/nodeDefinitions';
 
 export const LocationType = new GraphQLObjectType({
@@ -7,6 +7,7 @@ export const LocationType = new GraphQLObjectType({
   interfaces: [nodeInterface],
   fields: () => ({
     id: globalIdField('Location'),
+    placeId: { type: GraphQLString },
     displayName: { type: GraphQLString },
     lat: { type: GraphQLString },
     lon: { type: GraphQLString },
@@ -23,7 +24,7 @@ export const AddressType = new GraphQLObjectType({
   fields: () => ({
     label: { type: GraphQLString },
     address: { type: GraphQLString },
-    neighborhood: { type: GraphQLString },
+    suburb: { type: GraphQLString },
     city: { type: GraphQLString },
     county: { type: GraphQLString },
     state: { type: GraphQLString },
@@ -32,3 +33,8 @@ export const AddressType = new GraphQLObjectType({
     countryCode: { type: GraphQLString }
   })
 });
+
+export const {
+  connectionType: QuerySearchLocationsConnection,
+  edgeType: QuerySearchLocationsEdge
+} = connectionDefinitions({ name: 'SearchLocations', nodeType: LocationType });

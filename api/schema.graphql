@@ -14,7 +14,8 @@ type Query {
   note(input: noteInput): Note
   me: User
   user(input: userInput): User
-  geocode(input: geocodeInput): Location
+  searchLocations(input: searchLocationsInput): SearchLocationsConnection
+  location(input: locationInput): Location
 }
 
 """An object with an ID"""
@@ -111,9 +112,28 @@ input userInput {
   uid: ID
 }
 
+"""A connection to a list of items."""
+type SearchLocationsConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [SearchLocationsEdge]
+}
+
+"""An edge in a connection."""
+type SearchLocationsEdge {
+  """The item at the end of the edge"""
+  node: Location
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
 type Location implements Node {
   """The ID of an object"""
   id: ID!
+  placeId: String
   displayName: String
   lat: String
   lon: String
@@ -127,7 +147,7 @@ type Location implements Node {
 type Address {
   label: String
   address: String
-  neighborhood: String
+  suburb: String
   city: String
   county: String
   state: String
@@ -136,8 +156,14 @@ type Address {
   countryCode: String
 }
 
-input geocodeInput {
+input searchLocationsInput {
+  after: String
+  first: Int
   search: String
+}
+
+input locationInput {
+  id: ID
 }
 
 type Mutation {

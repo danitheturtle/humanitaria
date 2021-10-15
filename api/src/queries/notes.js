@@ -39,7 +39,7 @@ export const note = {
     }
   },
   resolve: async (_, args) => {
-    const id = fromGlobalId(args.id);
+    const id = fromGlobalId(args.id, 'Note');
     return await db.getNote(id);
   }
 }

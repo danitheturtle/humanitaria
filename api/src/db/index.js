@@ -3,13 +3,12 @@ import knex from "knex";
 import config from "../../../db/knexfile";
 import { notesApi } from './notes';
 import { usersApi } from './users';
-import { lookupLocation, searchLocation } from './locationDB';
+import * as locationsApi from './locations';
 
 const dbRef = knex(config[process.env.APP_ENV]);
 export default {
   dbRef,
-  lookupLocation,
-  searchLocation,
+  ...locationsApi,
   ...notesApi(dbRef),
   ...usersApi(dbRef)
 }
