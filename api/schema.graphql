@@ -14,7 +14,7 @@ type Query {
   note(input: noteInput): Note
   me: User
   user(input: userInput): User
-  searchLocations(input: searchLocationsInput): SearchLocationsConnection
+  searchLocations(after: String, first: Int, search: String): SearchLocationsConnection
   location(input: locationInput): Location
 }
 
@@ -137,11 +137,18 @@ type Location implements Node {
   displayName: String
   lat: String
   lon: String
-  boundingBox: [String]
+  boundingBox: BoundingBox
   category: String
   subCategory: String
   geotext: String
   address: Address
+}
+
+type BoundingBox {
+  x1: String
+  y1: String
+  x2: String
+  y2: String
 }
 
 type Address {
@@ -154,12 +161,6 @@ type Address {
   zip: String
   country: String
   countryCode: String
-}
-
-input searchLocationsInput {
-  after: String
-  first: Int
-  search: String
 }
 
 input locationInput {

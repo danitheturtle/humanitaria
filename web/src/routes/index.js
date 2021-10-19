@@ -4,12 +4,14 @@ import { NotFoundError } from '../errors';
 import homeRoute from './home';
 import landingRoute from './landing';
 import accountSettingsRoute from './accountSettings';
+import actionMapRoute from './actionMap';
 import spacesRoute from './spaces';
 
 const routes = [
   homeRoute,
   landingRoute,
   accountSettingsRoute,
+  actionMapRoute,
   spacesRoute
 ];
 

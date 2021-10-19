@@ -7,19 +7,12 @@ import db from '../db';
 export const searchLocations = {
   type: QuerySearchLocationsConnection,
   args: {
-    input: {
-      type: new GraphQLInputObjectType({
-        name: 'searchLocationsInput',
-        fields: {
-          ...forwardConnectionArgs,
-          search: { type: GraphQLString }
-        }
-      })
-    }
+    ...forwardConnectionArgs,
+    search: { type: GraphQLString }
   },
   resolve: async (_, args, ctx) => {
-    const query = args.input.search;
-    const dbResult = await db.getSearchLocationsConnection(args.input.after, args.input.first, query);
+    const query = args.search;
+    const dbResult = await db.getSearchLocationsConnection(args.after, args.first, query);
     return {
       pageInfo: {
         hasNextPage: dbResult.hasNextPage,

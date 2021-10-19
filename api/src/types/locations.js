@@ -11,7 +11,7 @@ export const LocationType = new GraphQLObjectType({
     displayName: { type: GraphQLString },
     lat: { type: GraphQLString },
     lon: { type: GraphQLString },
-    boundingBox: { type: new GraphQLList(GraphQLString) },
+    boundingBox: { type: BoundingBoxType },
     category: { type: GraphQLString },
     subCategory: { type: GraphQLString },
     geotext: { type: GraphQLString },
@@ -31,6 +31,16 @@ export const AddressType = new GraphQLObjectType({
     zip: { type: GraphQLString },
     country: { type: GraphQLString },
     countryCode: { type: GraphQLString }
+  })
+});
+
+export const BoundingBoxType = new GraphQLObjectType({
+  name: 'BoundingBox',
+  fields: () => ({
+    x1: { type: GraphQLString },
+    y1: { type: GraphQLString },
+    x2: { type: GraphQLString },
+    y2: { type: GraphQLString }
   })
 });
 

@@ -14,7 +14,7 @@ export const PageLayoutWithAuth = ({ children }) => {
           </Typography>
         </Link>
         <Box sx={{ height: 1, display: 'flex', flexDirection: 'row', alignItems: 'stretch' }}>
-          <Link to="/">
+          <Link to="/map">
             <Button variant="text" sx={{ height: 1, color: 'primary.contrastText' }} color="secondary">MAP</Button>
           </Link>
           <Link to="/spaces">

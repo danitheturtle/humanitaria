@@ -17,7 +17,12 @@ const osmToLocationType = (osmData) => {
     displayName: resolvedName,
     category: osmData.class,
     subCategory: osmData.type,
-    boundingBox: osmData.boundingBox,
+    boundingBox: { 
+      x1: osmData.boundingbox[0],
+      x2: osmData.boundingbox[1],
+      y1: osmData.boundingbox[2],
+      y2: osmData.boundingbox[3]
+    },
     geotext: osmData.geotext,
     address: {
       address: resolvedAddress,
@@ -88,6 +93,13 @@ export const getSearchLocationsConnection = async (cursor, first, query) => {
   if (data.length < 1) {
     return { data: [], hasNextPage: false, endCursor: '' };
   }
+  //de-duplicate
+  const uniqueOSMIDs = new Set();
+  data = data.filter(locObj => {
+    if (uniqueOSMIDs.has(locObj.id)) return false;
+    uniqueOSMIDs.add(locObj.id);
+    return true;
+  });
   return {
   //TODO: zip codes can have undefined osm_type/id. They aren't actually OSM objects. If the only result is a zip code, omit it and search the zip code instead
     data: data.filter(locObj => locObj.subCategory !== 'postcode'),
