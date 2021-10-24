@@ -11,7 +11,7 @@ export const timeSinceDate = (dateOrIsoString) => {
   if (dayDiff < 1) {
     const hourDiff = parseInt(msDiff / (1000 * 60 * 60));
     const minDiff = parseInt(msDiff / (1000 * 60));
-    console.dir(msDiff);
+    
     if (minDiff < 1) {
       return 'just now';
     } else if (minDiff < 2) {

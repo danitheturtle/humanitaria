@@ -8,6 +8,7 @@
 
 /*::
 import type { ReaderFragment } from 'relay-runtime';
+type AddressString_Address$ref = any;
 import type { FragmentReference } from "relay-runtime";
 declare export opaque type SearchResultsAutocomplete_locations$ref: FragmentReference;
 declare export opaque type SearchResultsAutocomplete_locations$fragmentType: SearchResultsAutocomplete_locations$ref;
@@ -17,20 +18,17 @@ export type SearchResultsAutocomplete_locations = {|
       +node: ?{|
         +id: string,
         +placeId: ?string,
-        +address: ?{|
-          +address: ?string,
-          +city: ?string,
-          +state: ?string,
-          +zip: ?string,
-        |},
         +lat: ?string,
         +lon: ?string,
+        +category: ?string,
+        +subCategory: ?string,
         +boundingBox: ?{|
           +x1: ?string,
           +y1: ?string,
           +x2: ?string,
           +y2: ?string,
         |},
+        +$fragmentRefs: AddressString_Address$ref,
       |}
     |}>
   |},
@@ -139,45 +137,6 @@ return {
                 {
                   "alias": null,
                   "args": null,
-                  "concreteType": "Address",
-                  "kind": "LinkedField",
-                  "name": "address",
-                  "plural": false,
-                  "selections": [
-                    {
-                      "alias": null,
-                      "args": null,
-                      "kind": "ScalarField",
-                      "name": "address",
-                      "storageKey": null
-                    },
-                    {
-                      "alias": null,
-                      "args": null,
-                      "kind": "ScalarField",
-                      "name": "city",
-                      "storageKey": null
-                    },
-                    {
-                      "alias": null,
-                      "args": null,
-                      "kind": "ScalarField",
-                      "name": "state",
-                      "storageKey": null
-                    },
-                    {
-                      "alias": null,
-                      "args": null,
-                      "kind": "ScalarField",
-                      "name": "zip",
-                      "storageKey": null
-                    }
-                  ],
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
                   "kind": "ScalarField",
                   "name": "lat",
                   "storageKey": null
@@ -187,6 +146,20 @@ return {
                   "args": null,
                   "kind": "ScalarField",
                   "name": "lon",
+                  "storageKey": null
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "category",
+                  "storageKey": null
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "subCategory",
                   "storageKey": null
                 },
                 {
@@ -234,6 +207,11 @@ return {
                   "kind": "ScalarField",
                   "name": "__typename",
                   "storageKey": null
+                },
+                {
+                  "args": null,
+                  "kind": "FragmentSpread",
+                  "name": "AddressString_Address"
                 }
               ],
               "storageKey": null
@@ -282,6 +260,6 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '0af894fe976dfc0f955eddad100c1c8a';
+(node/*: any*/).hash = '20aeb6bf3c2ec17804db4993ebb9cded';
 
 module.exports = node;

@@ -14,7 +14,7 @@ export const MapBox = ({ mapRef, setMapRef, bounds = [], sx = {} }) => {
   useEffect(() => {
     const newMap = leaflet.map('mapid').setView([39.103, -84.512], 13);
     leaflet.tileLayer('http://a.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
-      attribution: '<a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      attribution: '<a href="https://www.nominatim.org">Nominatim</a> | <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
       maxZoom: 18,
       tileSize: 256
     }).addTo(newMap);

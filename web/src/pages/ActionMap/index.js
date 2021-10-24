@@ -10,7 +10,7 @@ export const ActionMap = ({ queryRef }) => {
   const actionMapQueryData = usePreloadedQuery(actionMapQuery, queryRef);
   const [mapRef, setMapRef] = useState();
   const [selectedLocation, setSelectedLocation] = useState();
-  console.dir(selectedLocation);
+  
   return <Box sx={{ position: 'relative', display: 'flex', flexDirection: 'row', justifyContent: 'center', width: 1, height: 1 }}>
     <LocationSearch setValue={setSelectedLocation} value={selectedLocation} queryData={actionMapQueryData} />
     <MapBox 

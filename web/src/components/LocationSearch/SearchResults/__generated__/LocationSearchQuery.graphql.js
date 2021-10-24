@@ -33,26 +33,40 @@ query LocationSearchQuery(
   ...SearchResultsAutocomplete_locations_1Ozsmw
 }
 
+fragment AddressString_Address on Location {
+  id
+  category
+  subCategory
+  address {
+    label
+    address
+    district
+    city
+    county
+    state
+    zip
+    country
+    countryCode
+  }
+}
+
 fragment SearchResultsAutocomplete_locations_1Ozsmw on Query {
   searchLocations(first: $first, after: $after, search: $search) {
     edges {
       node {
         id
         placeId
-        address {
-          address
-          city
-          state
-          zip
-        }
         lat
         lon
+        category
+        subCategory
         boundingBox {
           x1
           y1
           x2
           y2
         }
+        ...AddressString_Address
         __typename
       }
       cursor
@@ -163,45 +177,6 @@ return {
                   {
                     "alias": null,
                     "args": null,
-                    "concreteType": "Address",
-                    "kind": "LinkedField",
-                    "name": "address",
-                    "plural": false,
-                    "selections": [
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "address",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "city",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "state",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "zip",
-                        "storageKey": null
-                      }
-                    ],
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
                     "kind": "ScalarField",
                     "name": "lat",
                     "storageKey": null
@@ -211,6 +186,20 @@ return {
                     "args": null,
                     "kind": "ScalarField",
                     "name": "lon",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "category",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "subCategory",
                     "storageKey": null
                   },
                   {
@@ -247,6 +236,80 @@ return {
                         "args": null,
                         "kind": "ScalarField",
                         "name": "y2",
+                        "storageKey": null
+                      }
+                    ],
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "Address",
+                    "kind": "LinkedField",
+                    "name": "address",
+                    "plural": false,
+                    "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "label",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "address",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "district",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "city",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "county",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "state",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "zip",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "country",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "countryCode",
                         "storageKey": null
                       }
                     ],
@@ -314,16 +377,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "ee103ecefba45c102b710ba30a5c3f24",
+    "cacheID": "d3d3a87634e00a58cfce2adfcdf65e16",
     "id": null,
     "metadata": {},
     "name": "LocationSearchQuery",
     "operationKind": "query",
-    "text": "query LocationSearchQuery(\n  $after: String\n  $first: Int!\n  $search: String\n) {\n  ...SearchResultsAutocomplete_locations_1Ozsmw\n}\n\nfragment SearchResultsAutocomplete_locations_1Ozsmw on Query {\n  searchLocations(first: $first, after: $after, search: $search) {\n    edges {\n      node {\n        id\n        placeId\n        address {\n          address\n          city\n          state\n          zip\n        }\n        lat\n        lon\n        boundingBox {\n          x1\n          y1\n          x2\n          y2\n        }\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
+    "text": "query LocationSearchQuery(\n  $after: String\n  $first: Int!\n  $search: String\n) {\n  ...SearchResultsAutocomplete_locations_1Ozsmw\n}\n\nfragment AddressString_Address on Location {\n  id\n  category\n  subCategory\n  address {\n    label\n    address\n    district\n    city\n    county\n    state\n    zip\n    country\n    countryCode\n  }\n}\n\nfragment SearchResultsAutocomplete_locations_1Ozsmw on Query {\n  searchLocations(first: $first, after: $after, search: $search) {\n    edges {\n      node {\n        id\n        placeId\n        lat\n        lon\n        category\n        subCategory\n        boundingBox {\n          x1\n          y1\n          x2\n          y2\n        }\n        ...AddressString_Address\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '0af894fe976dfc0f955eddad100c1c8a';
+(node/*: any*/).hash = '20aeb6bf3c2ec17804db4993ebb9cded';
 
 module.exports = node;

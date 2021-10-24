@@ -24,7 +24,7 @@ export const AddressType = new GraphQLObjectType({
   fields: () => ({
     label: { type: GraphQLString },
     address: { type: GraphQLString },
-    suburb: { type: GraphQLString },
+    district: { type: GraphQLString },
     city: { type: GraphQLString },
     county: { type: GraphQLString },
     state: { type: GraphQLString },

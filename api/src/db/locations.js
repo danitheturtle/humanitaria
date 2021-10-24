@@ -1,42 +1,5 @@
 import axios from 'axios';
-
-const osmToLocationType = (osmData) => {
-  const osmTypeChar = osmData.osm_type?.[0]?.toUpperCase(); // node, way, or relation. N | W | R
-  const osmID = osmData.osm_id;
-  
-  const resolvedName = osmData.address?.place || osmData.namedetails?.name || osmData.display_name;
-  
-  const resolvedHouseNum = osmData.address?.house_number ? osmData.address.house_number + ' ' : '';
-  const resolvedAddress = resolvedHouseNum + (osmData.address?.road ? osmData.address.road : '');
-  
-  return {
-    id: `${osmTypeChar}${osmID}`,
-    placeId: `${osmData.place_id}`,
-    lat: osmData.lat,
-    lon: osmData.lon,
-    displayName: resolvedName,
-    category: osmData.class,
-    subCategory: osmData.type,
-    boundingBox: { 
-      x1: osmData.boundingbox[0],
-      x2: osmData.boundingbox[1],
-      y1: osmData.boundingbox[2],
-      y2: osmData.boundingbox[3]
-    },
-    geotext: osmData.geotext,
-    address: {
-      address: resolvedAddress,
-      zip: osmData.address?.postcode,
-      state: osmData.address?.state,
-      country: osmData.address?.country,
-      countryCode: osmData.address?.country_code,
-      label: osmData.address?.place ?? '',
-      suburb: osmData.address?.suburb ?? '',
-      city: osmData.address?.city ?? '',
-      county: osmData.address?.county ?? '',
-    }
-  }
-}
+import { osmToLocationType } from './models';
 
 export const searchLocations = async (query, limit, excludedPlaceIds = []) => {
   const osmResultsByRelevance = await axios({
@@ -86,10 +49,10 @@ export const getSearchLocationsConnection = async (cursor, first, query) => {
       }
     }
     //add the rest of the locations to the already-fetched index
-    data.forEach(loc => { fetchedPlaceIds.push(loc.placeId); })
+    data.forEach(loc => { fetchedPlaceIds.push(loc.placeId); });
   }
   const hasNextPage = data.length > first+1;
-  data = hasNextPage ? data.slice(cursor === undefined ? 0 : 1, first+1) : data;
+  data = hasNextPage ? data.slice(!cursor ? 0 : 1, first+1) : data;
   if (data.length < 1) {
     return { data: [], hasNextPage: false, endCursor: '' };
   }
@@ -101,8 +64,7 @@ export const getSearchLocationsConnection = async (cursor, first, query) => {
     return true;
   });
   return {
-  //TODO: zip codes can have undefined osm_type/id. They aren't actually OSM objects. If the only result is a zip code, omit it and search the zip code instead
-    data: data.filter(locObj => locObj.subCategory !== 'postcode'),
+    data: data,
     hasNextPage,
     endCursor: data[data.length-1].placeId
   }

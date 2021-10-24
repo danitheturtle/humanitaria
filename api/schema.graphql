@@ -154,7 +154,7 @@ type BoundingBox {
 type Address {
   label: String
   address: String
-  suburb: String
+  district: String
   city: String
   county: String
   state: String

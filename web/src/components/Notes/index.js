@@ -2,7 +2,6 @@ import React, { useState, useMemo } from 'react';
 import ConnectionHandler from 'relay-connection-handler-plus';
 import { graphql, usePaginationFragment, useMutation, useSubscription } from 'react-relay';
 import { Note } from './Note';
-require('./index.css');
 
 export const Notes = ({ queryData }) => {
   const [viewingMyNotes, setViewingMyNotes] = useState(false);

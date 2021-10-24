@@ -11,4 +11,5 @@ export * from './SpacesSidebar';
 export * from './SpaceName';
 export * from './MapBox';
 export * from './LocationSearch';
+export * from './AddressString';
 export * from './Space';
