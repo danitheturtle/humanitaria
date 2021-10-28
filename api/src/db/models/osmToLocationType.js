@@ -192,9 +192,6 @@ const osmToAddress = osmData => {
 }
 
 export const osmToLocationType = osmData => {
-
-  const resolvedName = osmData.address?.place || osmData.namedetails?.name || osmData.display_name;
-
   const [resolvedCategory, resolvedSubCategory] = lookupCategory(osmData);
   const resolvedAddress = osmToAddress(osmData);
   
@@ -206,7 +203,6 @@ export const osmToLocationType = osmData => {
     placeId: `${osmData.place_id}`,
     lat: osmData.lat,
     lon: osmData.lon,
-    displayName: resolvedName,
     category: resolvedCategory,
     subCategory: resolvedSubCategory,
     boundingBox: {

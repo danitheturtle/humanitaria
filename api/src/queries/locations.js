@@ -1,4 +1,4 @@
-import { GraphQLInputObjectType, GraphQLString, GraphQLID } from 'graphql';
+import { GraphQLInputObjectType, GraphQLString, GraphQLInt, GraphQLID } from 'graphql';
 import { forwardConnectionArgs } from 'graphql-relay';
 import { fromGlobalId } from '../graph/utils';
 import { LocationType, QuerySearchLocationsConnection, QuerySearchLocationsEdge } from '../types';
@@ -23,6 +23,25 @@ export const searchLocations = {
         node: loc
       }))
     };
+  }
+}
+
+export const locationNear = {
+  type: LocationType,
+  args: {
+    input: {
+      type: new GraphQLInputObjectType({
+        name: 'locationNearInput',
+        fields: {
+          lat: { type: GraphQLString },
+          lon: { type: GraphQLString },
+          zoom: { type: GraphQLInt }
+        }
+      })
+    }
+  },
+  resolve: async (_, args) => {
+    return await db.getLocationNear(args.input.lat, args.input.lon, args.input.zoom)
   }
 }
 

@@ -1,6 +1,26 @@
 import axios from 'axios';
 import { osmToLocationType } from './models';
 
+export const getLocationNear = async (lat, lon, zoom = 18) => {
+  const foundLocation = await axios({
+    method: 'get',
+    baseURL: process.env.NOMINATIM_ORIGIN,
+    url: process.env.NOMINATIM_REVERSE_ENDPOINT,
+    params: {
+      extratags: '1',
+      format: 'json',
+      polygon_text: '1',
+      namedetails: '1',
+      addressdetails: '1',
+      countrycodes: 'us',
+      lat,
+      lon,
+      zoom
+    }
+  });
+  return osmToLocationType(foundLocation?.data);
+}
+
 export const searchLocations = async (query, limit, excludedPlaceIds = []) => {
   const osmResultsByRelevance = await axios({
     method: 'get',

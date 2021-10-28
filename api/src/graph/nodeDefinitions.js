@@ -7,7 +7,7 @@ export const { nodeInterface, nodeField, nodesField } = nodeDefinitions(
     const { type, id } = fromGlobalId(globalId);
     if (type === 'User') return db.getUser(id).then(assignNodeType("User"));
     if (type === 'Note') return db.getNote(id).then(assignNodeType("Note"));
-    if (type === 'Location') return db.lookupLocation(id).then(assignNodeType("Location"));
+    if (type === 'Location') return db.getLocation(id).then(assignNodeType("Location"));
     return null;
   },
   (obj) => {

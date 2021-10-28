@@ -8,7 +8,6 @@ export const LocationType = new GraphQLObjectType({
   fields: () => ({
     id: globalIdField('Location'),
     placeId: { type: GraphQLString },
-    displayName: { type: GraphQLString },
     lat: { type: GraphQLString },
     lon: { type: GraphQLString },
     boundingBox: { type: BoundingBoxType },

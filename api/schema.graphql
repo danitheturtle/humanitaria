@@ -15,6 +15,7 @@ type Query {
   me: User
   user(input: userInput): User
   searchLocations(after: String, first: Int, search: String): SearchLocationsConnection
+  locationNear(input: locationNearInput): Location
   location(input: locationInput): Location
 }
 
@@ -134,7 +135,6 @@ type Location implements Node {
   """The ID of an object"""
   id: ID!
   placeId: String
-  displayName: String
   lat: String
   lon: String
   boundingBox: BoundingBox
@@ -161,6 +161,12 @@ type Address {
   zip: String
   country: String
   countryCode: String
+}
+
+input locationNearInput {
+  lat: String
+  lon: String
+  zoom: Int
 }
 
 input locationInput {

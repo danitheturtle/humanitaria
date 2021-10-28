@@ -2492,6 +2492,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@react-leaflet/core@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "@react-leaflet/core@npm:1.1.1"
+  peerDependencies:
+    leaflet: ^1.7.1
+    react: ^17.0.1
+    react-dom: ^17.0.1
+  checksum: 2fc4a80e5524f9437ac6cef0f95e63388f2df6ecc5107fef85fd097eb2455436e796d41a4c43cdcbb983a4132403646823ba1dc0d953e866eb80808cbfaf0232
+  languageName: node
+  linkType: hard
+
 "@sindresorhus/is@npm:^0.14.0":
   version: 0.14.0
   resolution: "@sindresorhus/is@npm:0.14.0"
@@ -10952,6 +10963,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-leaflet@npm:^3.2.2":
+  version: 3.2.2
+  resolution: "react-leaflet@npm:3.2.2"
+  dependencies:
+    "@react-leaflet/core": ^1.1.1
+  peerDependencies:
+    leaflet: ^1.7.1
+    react: ^17.0.1
+    react-dom: ^17.0.1
+  checksum: d5e5f34dea05e4d48d1d8c5c455b62ac1d2d417620b025f1098ca4014d83e81c97db3d5adef6abaa0c0c429aa6230564f50091aab4e7ebd9402d1fc541573967
+  languageName: node
+  linkType: hard
+
 "react-lifecycles-compat@npm:^3.0.2, react-lifecycles-compat@npm:^3.0.4":
   version: 3.0.4
   resolution: "react-lifecycles-compat@npm:3.0.4"
@@ -13159,6 +13183,7 @@ resolve@^2.0.0-next.3:
     pnp-webpack-plugin: ^1.7.0
     react: ^17.0.2
     react-dom: ^17.0.2
+    react-leaflet: ^3.2.2
     react-relay: ^11.0.2
     relay-compiler: ^11.0.2
     relay-config: ^11.0.1

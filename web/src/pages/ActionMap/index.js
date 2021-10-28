@@ -16,7 +16,9 @@ export const ActionMap = ({ queryRef }) => {
     <MapBox 
       setMapRef={ setMapRef } 
       mapRef={ mapRef } 
-      bounds={selectedLocation?.boundingBox}
+      queryData={actionMapQueryData}
+      location={selectedLocation}
+      setLocation={setSelectedLocation}
       sx={{ position: 'absolute', top: 0, left: 0 }}
     />
   </Box>
