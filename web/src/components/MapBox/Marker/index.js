@@ -4,7 +4,7 @@ import ReactDOMServer from 'react-dom/server';
 import { Box } from '@mui/material';
 import { Marker as DefaultMarker } from 'react-leaflet';
 
-export const Marker = ({ iconComponent, iconProps, children, ...props }) => {
+export const Marker = ({ iconComponent, leafletIconProps, children, ...props }) => {
   const renderedIcon = useMemo(() => leaflet.divIcon({
     className: 'custom-icon',
     html: ReactDOMServer.renderToString((
@@ -21,7 +21,7 @@ export const Marker = ({ iconComponent, iconProps, children, ...props }) => {
         { iconComponent }
       </Box>
     )),
-    ...iconProps
+    ...leafletIconProps
   }), []);
   
   return <DefaultMarker icon={renderedIcon} {...props}>

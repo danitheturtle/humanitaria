@@ -50,7 +50,7 @@ const categoryConfig = {
   }
 }
 
-const makeStyles = theme => ({
+const makeStyles = (theme, sx) => ({
   AddressString: {
     position: 'relative',
     display: 'flex',
@@ -59,7 +59,8 @@ const makeStyles = theme => ({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    p: 1
+    p: 1,
+    ...sx
   },
   Icon: {
     color: theme.palette.info.dark,
@@ -77,9 +78,9 @@ const makeStyles = theme => ({
   }
 });
 
-export const AddressString = ({ location, withTypeIcon }) => {
+export const AddressString = ({ location, withTypeIcon, sx }) => {
   const theme = useTheme();
-  const styles = makeStyles(theme);
+  const styles = makeStyles(theme, sx);
   const locationData = useFragment(
     graphql`
       fragment AddressString_Address on Location {
