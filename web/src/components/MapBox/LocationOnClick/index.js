@@ -27,7 +27,13 @@ export const LocationOnClick = ({queryData, mapRef, location, setLocation}) => {
   useEffect(() => {
     if (mapRef) {
       mapRef.on('click', (e) => {
-        findAtClickLocation({ input: { lat: String(e.latlng.lat), lon: String(e.latlng.lng) }})
+        findAtClickLocation({ 
+          input: { 
+            lat: String(e.latlng.lat), 
+            lon: String(e.latlng.lng), 
+            zoom: mapRef.getZoom()
+          }
+        });
       });
     }
   }, [mapRef]);

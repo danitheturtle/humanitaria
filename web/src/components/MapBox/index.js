@@ -84,8 +84,8 @@ export const MapBox = ({ mapRef, setMapRef, queryData, location, setLocation, sx
   
   return <Box id="mapid" component="div" sx={styles.MapContainer}>
     <MapContainer 
-      center={[39.103, -84.512]} 
-      zoom={13} 
+      center={[40.27312, -98.5821872]} 
+      zoom={5} 
       style={{
         height: '100%', width: '100%'
       }} 
@@ -116,12 +116,3 @@ export const MapBox = ({ mapRef, setMapRef, queryData, location, setLocation, sx
     </Suspense>
   </Box>
 };
-
-
-
-/*
-
-
-
-
-*/

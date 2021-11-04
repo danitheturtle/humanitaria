@@ -12,4 +12,5 @@ export * from './SpaceName';
 export * from './MapBox';
 export * from './LocationSearch';
 export * from './AddressString';
+export * from './ActionMapSidebar';
 export * from './Space';

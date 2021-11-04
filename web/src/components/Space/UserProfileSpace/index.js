@@ -6,7 +6,7 @@ import { ProfileDescription } from './ProfileDescription';
 import { ProfileStats } from './ProfileStats';
 import { ProfileConnections } from './ProfileConnections';
 import { Feature } from '../Feature';
-import { PostList } from './PostList';
+import { PostList } from '../../Posts/PostList';
 
 const makeStyles = theme => ({
   Profile: {
@@ -85,6 +85,10 @@ const postList = [{
     },
     time: '2021-09-19T19:19:59.000Z',
     content: 'hahahaha, thats fun',
+    reactions: [
+      { type: 'like', who: ['otterbotter', 'slamongflobo'] },
+      { type: 'shock', who: ['otterbotter', 'rawb', 'profunikitty'] },
+    ],
     replyPosts: [{
       id: 6,
       parent: 5,
@@ -156,7 +160,7 @@ export const UserProfileSpace = ({ data }) => {
         }} />
     </Box>
     <Box id="PostsBox" sx={styles.PostsBox}>
-      <PostList postList={postList} maxIndentLevel={5} />
+      <PostList postList={postList} startingIndentLevel={2} />
     </Box>
   </Box>
 };

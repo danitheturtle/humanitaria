@@ -104,7 +104,7 @@ export const AddressString = ({ location, withTypeIcon, sx }) => {
   );
   
   const [addressString, icon] = useMemo(() => {
-    let resAddress;
+    let resAddress = '';
     let resIcon = <LocationOnSharpIcon sx={ styles.Icon } />;
     if (locationData.category === 'locality') {
       resIcon = categoryConfig.locality[locationData.subCategory].icon({ sx: styles.Icon });
@@ -112,17 +112,35 @@ export const AddressString = ({ location, withTypeIcon, sx }) => {
     } else {
       const address = locationData.address;
       if (address.label) {
-        resAddress = address.address ? `${address.label} ${address.address}` : address.label;
-      } else {
-        resAddress = address.address ? address.address : '';
+        resAddress = address.label;
+      }
+      if (address.address) {
+        resAddress += address.label ? ` ${address.address}` : address.address;
+      }
+      
+      if (!resAddress && address.district) {
+        resAddress = address.district;
+        if (!address.address && !address.label) {
+          resIcon = categoryConfig.locality.district.icon({ sx: styles.Icon });
+        }
       }
       if (address.city) {
-        resAddress += `, ${address.city} ${address.state}`;
-      } else if (address.county) {
-        resAddress += `, ${address.county} ${address.state}`
+        resAddress += resAddress ? `, ${address.city}` : address.city;
+        if (!address.address && !address.label && !address.district) {
+          resIcon = categoryConfig.locality.city.icon({ sx: styles.Icon });
+        }
       }
-      if (address.postcode) {
-        resAddress += `, ${postcode}`;
+      if (!address.address && !address.label && !address.district && address.county) {
+        resAddress += resAddress ? `, ${address.county}` : address.county;
+        if (!address.city) {
+          resIcon = categoryConfig.locality.county.icon({ sx: styles.Icon });
+        }
+      }
+      if (address.state) {
+        resAddress += resAddress ? ` ${address.state}` : address.state;
+      }
+      if (address.zip) {
+        resAddress += resAddress ? `, ${address.zip}` : address.zip;
       }
     }
     return [resAddress, resIcon];

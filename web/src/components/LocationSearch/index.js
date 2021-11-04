@@ -4,7 +4,16 @@ import { useTheme } from '@mui/material/styles';
 import { graphql, usePaginationFragment } from 'react-relay';
 import { SearchResultsAutocomplete, SearchResultsAutocompleteSkeleton } from './SearchResults';
 
-const makeStyles = (theme, searchOpen) => ({
+const makeStyles = (theme, searchOpen, sx = {}) => ({
+  SearchWrapper: {
+    mt: 4, 
+    width: theme.spacing(64), 
+    bgcolor: 'common.white', 
+    '& div, & input': { 
+      zIndex: 1005
+    },
+    ...sx
+  },
   SearchInput: {
     width: theme.spacing(64), 
     position: 'relative', 
@@ -55,7 +64,7 @@ export const LocationSearch = (props) => {
   const resultsRef = useRef(null);
   const [inputValue, setInputValue] = useState(null);
   const [searchOpen, setSearchOpen] = useState(false);
-  const styles = makeStyles(theme, searchOpen);
+  const styles = makeStyles(theme, searchOpen, props.sx);
   
   const handleTextChange = (e) => {
     setInputValue(e.target.value);
@@ -72,7 +81,7 @@ export const LocationSearch = (props) => {
   }
   
   return <ClickAwayListener onClickAway={ () => setSearchOpen(false) }>
-    <Box sx={{ mt: 4, width: theme.spacing(64), bgcolor: 'common.white', '& div, & input': { zIndex: 1005 }}}>
+    <Box sx={styles.SearchWrapper}>
       <TextField 
         variant="filled"
         sx={styles.SearchInput} 
