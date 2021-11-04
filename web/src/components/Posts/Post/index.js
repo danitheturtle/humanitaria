@@ -18,6 +18,7 @@ import {
   Divider
 } from '@mui/material';
 import AddReactionOutlinedIcon from '@mui/icons-material/AddReactionOutlined';
+import MoreHorizSharpIcon from '@mui/icons-material/MoreHorizSharp';
 import { useTheme } from '@mui/material/styles';
 import { SpaceName } from '../../../components';
 import { timeSinceDate } from '../../../utils';
@@ -62,7 +63,7 @@ const makeStyles = (theme, indentLevel, hasChildren) => ({
     height: theme.spacing(6) 
   },
   VerticalDivider: { 
-    height: `calc(100% - ${theme.spacing(hasChildren ? 9.75 : 8.25)} - ${theme.spacing(2.5)})`, 
+    height: `calc(100% - ${theme.spacing(hasChildren ? 9.25 : 8.25)} - ${theme.spacing(2.5)})`, 
     position: 'absolute', 
     top: theme.spacing(7.25), 
     left: theme.spacing(3), 
@@ -138,14 +139,28 @@ const makeStyles = (theme, indentLevel, hasChildren) => ({
     justifySelf: 'flex-end',
     bottom: 0,
     mr: '-5px'
+  },
+  LoadMore: {
+    mb: theme.spacing(0.5),
+    height: theme.spacing(4), 
+    mt: theme.spacing(-0.5),
+    display: 'flex', 
+    alignItems: 'center'
+  },
+  LoadMoreButton: {
+    py: 0,
+    my: theme.spacing(0.5)
   }
 });
 
-export const Post = ({ post, indentLevel, isChild, children }) => {
+export const Post = ({ post, indentLevel, isLastChild, setFocusedPost, children }) => {
   const theme = useTheme();
-  const styles = makeStyles(theme, indentLevel, !!children);
+  const styles = makeStyles(theme, indentLevel, post?.replyPosts?.length > 0);
   const formattedDate = timeSinceDate(post.time);
   
+  const handleViewRepliesClick = () => {
+    setFocusedPost(post);
+  }
   return <ListItem alignItems='flex-start' sx={styles.PostListItem}>
     <ListItemAvatar sx={styles.PostListItemAvatar}>
       <Avatar sx={styles.PostAvatar}>H</Avatar>
@@ -167,8 +182,13 @@ export const Post = ({ post, indentLevel, isChild, children }) => {
           <Button size="small" sx={styles.PostReplyButton}>Reply</Button>
         </Box>
       </Box>
-      { isChild && !(post?.replyPosts?.length > 0) && <Divider sx={styles.HorizontalDivider} />}
-      { children }
+      { indentLevel === 0 && post?.replyPosts?.length > 0 && <Box sx={styles.LoadMore}>
+        <Button sx={styles.LoadMoreButton} onClick={handleViewRepliesClick} startIcon={<MoreHorizSharpIcon fontSize="medium"/>} color="primary" type="text">
+          View Replies
+        </Button>
+      </Box>}
+      { isLastChild && !(post?.replyPosts?.length > 0) && <Divider sx={styles.HorizontalDivider} />}
+      { indentLevel > 0 && children }
     </ListItemText>
   </ListItem>
 }

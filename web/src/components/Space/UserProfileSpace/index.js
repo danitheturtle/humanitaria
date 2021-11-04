@@ -97,7 +97,17 @@ const postList = [{
         vid: 'danitheturtle'
       },
       time: '2021-09-15T19:19:59.000Z',
-      content: 'I know right?!'
+      content: 'I know right?!',
+      replyPosts: [{
+        id: 100,
+        parent: 6,
+        owner: {
+          name: 'Alex',
+          vid: 'slamongflobo'
+        },
+        time: '2021-09-15T19:20:15.000Z',
+        content: 'Hell Yes?!'
+      }]
     }]
   }, {
     id: 7,
@@ -108,6 +118,24 @@ const postList = [{
     },
     time: '2021-09-19T19:19:59.000Z',
     content: 'The pancakes are infinite and so is my slap'
+  }, {
+    id: 8,
+    parent: 2,
+    owner: {
+      name: 'Meghan',
+      vid: 'otterbotter'
+    },
+    time: '2021-10-19T19:19:59.000Z',
+    content: 'Random words are fun to write sometimes. yis'
+  }, {
+    id: 9,
+    parent: 2,
+    owner: {
+      name: 'Dani',
+      vid: 'danitheturtle'
+    },
+    time: '2021-11-01T19:19:59.000Z',
+    content: 'yis'
   }]
 }, {
   id: 3,
