@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Button, Typography } from '@mui/material';
 import { HistoryContext } from '../../App';
 
-export const SpaceName = ({ vid, sx = {} }) => {
+export const SpaceName = ({ vid, textVariant = 'body2', sx = {} }) => {
   const history = useContext(HistoryContext);
   return <Button
     variant="text"
@@ -22,7 +22,7 @@ export const SpaceName = ({ vid, sx = {} }) => {
   }}>
     <Typography 
       component="span" 
-      variant="body2" 
+      variant={textVariant}
       color="secondary.contrastText"
       sx={{ textTransform: 'none'}}
     > {`~${vid}`} </Typography>

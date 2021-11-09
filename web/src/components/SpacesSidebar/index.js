@@ -20,51 +20,8 @@ import DashboardSharpIcon from '@mui/icons-material/DashboardSharp';
 import IndeterminateCheckBoxSharpIcon from '@mui/icons-material/IndeterminateCheckBoxSharp';
 import { HistoryContext } from '../../App';
 import { SpaceListItem, SpaceListItemDescription } from './SpaceListItem';
-const managedSpaces = [{
-  vid: 'danitheturtle',
-  uid: 'daniUserId',
-  name: 'Dani',
-  descriptionShort: 'Making humanitaria happen'
-}, {
-  vid: 'mutualaidcinci',
-  uid: 'daniUserId',
-  name: 'Mutual Aid Cincinnati',
-  descriptionShort: 'Mutually helping each other in the cincinnati area'
-}];
-const joinedSpaces = [{
-  vid: 'traaaaaaaaaaaans',
-  uid: 'kwoeoroo2o2o',
-  name: 'Traaaaaaaaaaaans',
-  descriptionShort: 'Life is pain'
-}, {
-  vid: 'itcouldhappenhere',
-  uid: 'robertEvans',
-  name: 'It Could Happen Here',
-  descriptionShort: 'A daily show about how to survive the climate crumbles' //max length
-}, {
-  vid: 'completeanarchy',
-  uid: 'dkwowormmsmw',
-  name: 'COMPLETEANARCHY',
-  descriptionShort: 'Memes for edgy anarchists'
-}];
-const allSpaces = [{
-  vid: 'politics',
-  uid: 'kwoeoroo2o2o',
-  name: 'Politics',
-  descriptionShort: 'Discussing US politics'
-}, {
-  vid: 'activism',
-  uid: 'robertEvans',
-  name: 'Activism',
-  descriptionShort: 'A community to discuss activism' //max length
-}, {
-  vid: 'twoxchromosomes',
-  uid: 'dkwowormmsmw',
-  name: 'TwoXChromosomes',
-  descriptionShort: 'A community of feminists supporting each other'
-}];
 
-export const SpacesSidebar = ({ spacename }) => {
+export const SpacesSidebar = ({ spacename, managedSpaces, joinedSpaces, allSpaces }) => {
   const history = useContext(HistoryContext);
   return <List sx={{ position: 'sticky', width: 1, maxWidth: 340, height: 1, padding: 0, overflowY: 'scroll', overflowX: 'hidden', backgroundColor: 'background.default' }}>
     <Box component="li"><Typography variant="h4" component="h2" sx={{ px: 2, my: 2 }}>Spaces</Typography></Box>

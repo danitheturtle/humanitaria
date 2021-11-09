@@ -1,5 +1,5 @@
 import React from 'react';
 
-export const PostChannel = () => {
+export const CommunityMembersByRole = () => {
   return <div></div>
 };
