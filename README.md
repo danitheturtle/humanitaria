@@ -61,6 +61,15 @@ nominatim database will take even longer! Its incredibly powerful though. I did 
 ubuntu but I'm sure you could get it working on a different distro. Eventually I'll have a docker 
 container you can download and this won't be necessary :)
 
+If you're here to get running quickly just to check out the project, open street map has their own
+instance up and running with a smaller dataset. You're not allowed to use it on deployed code, so 
+please just use it for development:
+```
+https://nominatim.openstreetmap.org/search?extratags=1&format=json&polygon_text=1&namedetails=1&addressdetails=1&q=Main%20Street
+```
+To understand the queryparams, check out [the nominatim docs](https://nominatim.org/release-docs/latest/api/Search/)
+
+##### building your own local nominatim instance
 check here for requirements and database config: 
 * https://nominatim.org/release-docs/latest/admin/Installation/#tuning-the-postgresql-database
 * https://nominatim.org/release-docs/latest/appendix/Install-on-Ubuntu-20/
