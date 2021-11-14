@@ -28,14 +28,14 @@ export const SpacesSidebar = ({ spacename, managedSpaces, joinedSpaces, allSpace
     <SpaceListItem
       selected={ !spacename && history.location.pathname === '/spaces' }
       height={8}
-      path='/spaces'
+      path='/s'
       avatar={<DashboardSharpIcon sx={{ position: 'relative', width: 48, height: 48, color: 'primary.dark' }}/>}
       primary="Dashboard"
     />
     <SpaceListItem
       selected={ !spacename && history.location.pathname === '/all' }
       height={8}
-      path='/all'
+      path='/s/all'
       avatar={<LayersSharpIcon sx={{ position: 'relative', width: 48, height: 48, color: 'primary.dark', top: 2 }}/>}
       primary="All"
     />
@@ -44,7 +44,7 @@ export const SpacesSidebar = ({ spacename, managedSpaces, joinedSpaces, allSpace
         key={space.vid}
         selected={ space.vid === spacename }
         height={12}
-        path={`/${space.vid}`}
+        path={`/s/${space.vid}`}
         avatar={<Avatar width={48} height={48}>H</Avatar>}
         primary={space.name}
         secondary={<SpaceListItemDescription space={space} />}
@@ -59,7 +59,7 @@ export const SpacesSidebar = ({ spacename, managedSpaces, joinedSpaces, allSpace
         key={space.vid}
         selected={ space.vid === spacename }
         height={12}
-        path={`/${space.vid}`}
+        path={`/s/${space.vid}`}
         avatar={<Avatar width={48} height={48}>H</Avatar>}
         primary={space.name}
         secondary={<SpaceListItemDescription space={space} />}
@@ -74,7 +74,7 @@ export const SpacesSidebar = ({ spacename, managedSpaces, joinedSpaces, allSpace
         key={space.vid}
         selected={ space.vid === spacename }
         height={12}
-        path={`/${space.vid}`}
+        path={`/s/${space.vid}`}
         avatar={<Avatar width={48} height={48}>H</Avatar>}
         primary={space.name}
         secondary={<SpaceListItemDescription space={space} />}

@@ -31,10 +31,13 @@ const makeStyles = theme => ({
     justifyContent: 'space-between', 
     alignItems: 'flex-start', 
     flexDirection: 'column'
+  },
+  Divider: {
+    width: '45%', flex: 0, backgroundColor: 'primary.main'
   }
 })
 
-export const ProfileDescription = ({ profile }) => {
+export const ProfileDescription = ({ profile, withDivider = true }) => {
   const theme = useTheme();
   const styles = makeStyles(theme);
   return <Box sx={styles.ProfileDescBox}>
@@ -46,6 +49,6 @@ export const ProfileDescription = ({ profile }) => {
     <Typography component="div" id="ProfileDescription" sx={ styles.ProfileDescription }>
       { profile.descriptionLong }
     </Typography>
-    <Divider sx={{ width: '45%', flex: 0, backgroundColor: 'primary.main' }}/>
+    { withDivider && <Divider sx={styles.Divider} />}
   </Box>
 };

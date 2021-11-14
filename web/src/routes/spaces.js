@@ -10,7 +10,7 @@ import { Spaces } from '../pages'
 // `
 
 export default {
-  path: ["/spaces", "/all", "/:spacename+"],
+  path: ["/s", "/s/all", "/s/:spacename+"],
   query: graphql`
     query spacesQuery {
       me {

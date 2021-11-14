@@ -52,7 +52,87 @@ const joinedSpaces = [{
   feature: {
     __typename: 'PictureFeature',
     src: { img: 'https://via.placeholder.com/300', title: '468 square' }
-  }
+  },
+  stats: {
+    Followers: '145',
+    'Online Now': '25',
+    Ideas: '110',
+    Posts: '45',
+    Cheese: '384,842,929,929,699'
+  },
+  members: [{
+    role: {
+      name: 'Digital Bard',
+      order: 0,
+      permissions: []
+    },
+    space: {
+      __typename: 'UserProfileSpace',
+      vid: 'urealms',
+      uid: 'rawbUserId',
+      name: 'Robert Moran',
+    }
+  }, {
+    role: {
+      name: 'Rawb\'s Band',
+      order: 1,
+      permissions: []
+    },
+    space: {
+      __typename: 'UserProfileSpace',
+      vid: 'danidipp',
+      uid: 'danidippUserId',
+      name: 'Dani Dipp',
+    }
+  }, {
+    role: {
+      name: 'Rawb\'s Band',
+      order: 1,
+      permissions: []
+    },
+    space: {
+      __typename: 'UserProfileSpace',
+      vid: 'citra',
+      uid: 'citraUserId',
+      name: 'Citra',
+    }
+  }, {
+    role: {
+      name: 'Sneaky Bosses',
+      order: 2,
+      permissions: []
+    },
+    space: {
+      __typename: 'UserProfileSpace',
+      vid: 'danitheturtle',
+      uid: 'daniUserId',
+      name: 'Dani',
+    }
+  }, {
+    role: {
+      name: 'Sneaky Bosses',
+      order: 2,
+      permissions: []
+    },
+    space: {
+      __typename: 'UserProfileSpace',
+      vid: 'lesbian_mami',
+      uid: 'mamiUserId',
+      name: 'Mami',
+    }
+  }, {
+    role: {
+      name: 'Sneaky Bosses',
+      order: 2,
+      permissions: []
+    },
+    space: {
+      __typename: 'UserProfileSpace',
+      vid: 'vidoku',
+      uid: 'vidokuUserId',
+      name: 'Vidoku',
+    }
+  }]
 }, {
   __typename: 'TopicSpace',
   vid: 'traaaaaaaaaaaans',

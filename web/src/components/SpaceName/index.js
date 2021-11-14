@@ -8,7 +8,7 @@ export const SpaceName = ({ vid, textVariant = 'body2', sx = {} }) => {
     variant="text"
     size="small"
     color="secondary"
-    onClick={(e) => { e.stopPropagation(); history.push(`/${vid}`) }} 
+    onClick={(e) => { e.stopPropagation(); history.push(`/s/${vid}`) }} 
     sx={{ 
       py: 0,
       px: 0.3,
