@@ -67,83 +67,83 @@ check here for requirements and database config:
 
 add a linux user for nominatim
 ```
-	sudo useradd -d /srv/nominatim -s /bin/bash -m nominatim
+sudo useradd -d /srv/nominatim -s /bin/bash -m nominatim
 ```
 
 add these to `.bashrc`
 ```
-	nano /srv/nominatim/.bashrc
-	export USERNAME=nominatim
-	export USERHOME=/srv/nominatim
+nano /srv/nominatim/.bashrc
+export USERNAME=nominatim
+export USERHOME=/srv/nominatim
 ```
 
 make sure no sudo permissions are needed
 ```
-	chmod a+x $USERHOME
+chmod a+x $USERHOME
 ```
 
 Wherever you have your postgres instance, add 2 users for nominatim. One is an admin, one is for 
 the API to use for reading data. From the API's perspective, this database is read-only. It 
 takes forever to update so I'm only planning to do it once a year
 ```
-	sudo -u postgres createuser -s $USERNAME
-	sudo -u postgres createuser www-data
+sudo -u postgres createuser -s $USERNAME
+sudo -u postgres createuser www-data
 ```
 download the latest nominatim source and supplimental data
 ```
-	cd $USERHOME
-	git clone --recursive git://github.com/openstreetmap/Nominatim.git
-	cd Nominatim
-	wget -O data/country_osm_grid.sql.gz https://www.nominatim.org/data/country_grid.sql.gz
+cd $USERHOME
+git clone --recursive git://github.com/openstreetmap/Nominatim.git
+cd Nominatim
+wget -O data/country_osm_grid.sql.gz https://www.nominatim.org/data/country_grid.sql.gz
 ```
 Build from source and install (installs in /usr/bin):
 ```
-	cd $USERHOME
-	mkdir build
-	cd build
-	cmake ../Nominatim 
-	make
-	sudo make install
+cd $USERHOME
+mkdir build
+cd build
+cmake ../Nominatim 
+make
+sudo make install
 ```
 Download TIGER data from the us census website and convert using this repo. This will take a while:
 * https://github.com/osm-search/TIGER-data
 
 Create a project directory and add `PROJECT_DIR` to `.bashrc`:
 ```
-	cd /srv/nominatim
-	mkdir map-server
-	nano /srv/nominatim/.bashrc
-	export PROJECT_DIR=~/map-server
+cd /srv/nominatim
+mkdir map-server
+nano /srv/nominatim/.bashrc
+export PROJECT_DIR=~/map-server
 ```
 Copy the `env.default` file from `$USERHOME/Nominatim` to `/map-server` and rename it `.env`
 Edit `.env`, add or update the following:
 ```
-	NOMINATIM_DATABASE_DSN="pgsql:dbname=nominatim;user=nominatim;password=PASSWORD"
-	NOMINATIM_DATABASE_WEBUSER="www-data"
-	NOMINATIM_IMPORT_STYLE=extra
-	NOMINATIM_USE_US_TIGER_DATA=yes
-	NOMINATIM_FLATNODE_FILE="/srv/nominatim/map-server/flatnode.file"
-	NOMINATIM_IMPORT_STYLE="settings/import-extratags.style"
+NOMINATIM_DATABASE_DSN="pgsql:dbname=nominatim;user=nominatim;password=PASSWORD"
+NOMINATIM_DATABASE_WEBUSER="www-data"
+NOMINATIM_IMPORT_STYLE=extra
+NOMINATIM_USE_US_TIGER_DATA=yes
+NOMINATIM_FLATNODE_FILE="/srv/nominatim/map-server/flatnode.file"
+NOMINATIM_IMPORT_STYLE="settings/import-extratags.style"
 ```
 Go to the project dir and download map data from geofabrik and others. This will take a while:
 ```
-	cd $PROJECT_DIR
-	wget https://www.nominatim.org/data/us_postcode_data.sql.gz
-	wget https://www.nominatim.org/data/wikimedia-importance.sql.gz
-	wget https://download.geofabrik.de/north-america-latest.osm.pbf
+cd $PROJECT_DIR
+wget https://www.nominatim.org/data/us_postcode_data.sql.gz
+wget https://www.nominatim.org/data/wikimedia-importance.sql.gz
+wget https://download.geofabrik.de/north-america-latest.osm.pbf
 ```
 Import the downloaded geofabrik data. This also takes a long time, both CPU and RAM bottlenecked
 ```
-	nominatim import --osm-file north-america-latest.osm.pbf 2>&1 | tee setup.log
+nominatim import --osm-file north-america-latest.osm.pbf 2>&1 | tee setup.log
 ```
 Import tiger data. This also takes a long time, both CPU and RAM bottlenecked
 ```
-	nominatim add-data --tiger-data ./TIGER-data/
-	nominatim refresh --functions
+nominatim add-data --tiger-data ./TIGER-data/
+nominatim refresh --functions
 ```
 Import/refresh wiki data from wikipedia
 ```
-	nominatim special-phrases --import-from-wiki
+nominatim special-phrases --import-from-wiki
 ```
 Whew! You should now have a database for nominatim running! You can test it with a local query:
 ```
