@@ -150,7 +150,7 @@ Whew! You should now have a database for nominatim running! You can test it with
 http://localhost:8088/search.php?extratags=1&format=json&polygon_text=1&namedetails=1&addressdetails=1&q=Main%20Street
 ```
 _____
-### Running Everythinghttp://localhost:8088/search.php?extratags=1&format=json&polygon_text=1&namedetails=1&addressdetails=1&q=Main%20Street
+### Running Everything
 Running everything is fairly trivial now. You'll need 3 terminal tabs, or you can use something like
 concurrently to run the commands in the same view.
 
