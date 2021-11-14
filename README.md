@@ -67,7 +67,9 @@ please just use it for development:
 ```
 https://nominatim.openstreetmap.org/search?extratags=1&format=json&polygon_text=1&namedetails=1&addressdetails=1&q=Main%20Street
 ```
-To understand the queryparams, check out [the nominatim docs](https://nominatim.org/release-docs/latest/api/Search/)
+To understand the queryparams, check out [the nominatim docs](https://nominatim.org/release-docs/latest/api/Search/). 
+You should be able to set up the .env variables so the entire project points to the public nominatim
+server. Make sure to remove `.php` from the nominatim route variables
 
 ##### building your own local nominatim instance
 check here for requirements and database config: 
