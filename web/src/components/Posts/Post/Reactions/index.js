@@ -12,7 +12,8 @@ const makeStyles = (theme, sx) => ({
   ReactionBox: { 
     display: 'flex', 
     flexGrow: 0, 
-    height: theme.spacing(2.5), 
+    height: theme.spacing(3), 
+    py: theme.spacing(0.25),
     flexDirection: 'row', 
     alignItems: 'flex-start', 
     '& span': {

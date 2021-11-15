@@ -42,7 +42,7 @@ import { Reactions } from './Reactions';
 //   reactions: [{
 //     type: 'like',
 //     who: ['otterbotter', 'slamongflobo']
-//   }],
+//   }],.
 //   replyPosts: [{
 //     parent: 'randomPost',
 //     owner: {},
@@ -56,14 +56,17 @@ import { Reactions } from './Reactions';
 // }]
 
 const makeStyles = (theme, indentLevel, hasChildren) => ({
-  PostListItem: { p: 0 },
+  PostListItem: {
+    p: 0,
+    my: theme.spacing(1)
+  },
   PostListItemAvatar: { m: 0, height: 1 },
   PostAvatar: { 
     width: theme.spacing(6), 
     height: theme.spacing(6) 
   },
   VerticalDivider: { 
-    height: `calc(100% - ${theme.spacing(hasChildren ? 9.25 : 8.25)} - ${theme.spacing(2.5)})`, 
+    height: `calc(100% - ${theme.spacing(hasChildren ? 7.5 : 8.25)} - ${theme.spacing(2.5)})`, 
     position: 'absolute', 
     top: theme.spacing(7.25), 
     left: theme.spacing(3), 
@@ -72,18 +75,18 @@ const makeStyles = (theme, indentLevel, hasChildren) => ({
   },
   HorizontalDivider: {
     //100% - post indent from right - padding of reply button (lines up the end with the reply cta)
-    width: `calc(100% - ${theme.spacing((indentLevel+1)*2.5)} + ${theme.spacing(2)})`, 
+    width: `calc(100% - ${theme.spacing((indentLevel)*2.5)} + ${theme.spacing(2)})`, 
     mt: 1,
     ml: theme.spacing(-2),
     backgroundColor: 'grey.300'
   },
   PostListItemContent: {
     m: 0,
-    mb: theme.spacing(1.5)
+    py: 0
   },
   Post: {
-    mb: theme.spacing(1.5),
-    pr: theme.spacing((indentLevel+1)*2.5),
+    // mb: theme.spacing(1.5),
+    pr: theme.spacing((indentLevel)*2.5),
     position: 'relative',
     display: 'flex',
     flexDirection: 'row',
@@ -106,7 +109,7 @@ const makeStyles = (theme, indentLevel, hasChildren) => ({
   },
   PostBody: {
     lineHeight: 1.4, 
-    py: theme.spacing(1), 
+    py: theme.spacing(0.5), 
     px: 1, 
     my: -0.2, 
     pl: 0,
@@ -124,11 +127,11 @@ const makeStyles = (theme, indentLevel, hasChildren) => ({
   },
   PostTimestamp: {
     position: 'absolute',
-    top: theme.spacing(3.5),
+    top: theme.spacing(0.5),
     color: 'grey.400'
   },
-  PostLikeButton: {
-    mt: theme.spacing(6),
+  PostReactButton: {
+    mt: theme.spacing(3),
     mr: '-5px'
   },
   PostReplyButton: {
@@ -141,9 +144,8 @@ const makeStyles = (theme, indentLevel, hasChildren) => ({
     mr: '-5px'
   },
   LoadMore: {
-    mb: theme.spacing(0.5),
+    mt: theme.spacing(0.5),
     height: theme.spacing(4), 
-    mt: theme.spacing(-0.5),
     display: 'flex', 
     alignItems: 'center'
   },
@@ -166,7 +168,7 @@ export const Post = ({ post, indentLevel, isLastChild, setFocusedPost, children 
       <Avatar sx={styles.PostAvatar}>H</Avatar>
       <Divider orientation="vertical" sx={styles.VerticalDivider}/>
     </ListItemAvatar>
-    <ListItemText sx={styles.PostListItemContent}>
+    <ListItemText sx={styles.PostListItemContent} id="PostListItemContent">
       <Box sx={styles.Post}>
         <Box sx={styles.PostContent}>
           <Typography variant="h5" sx={styles.PostOwnerName} component="h6">{post.owner.name}</Typography>
@@ -178,7 +180,7 @@ export const Post = ({ post, indentLevel, isLastChild, setFocusedPost, children 
           <Typography variant="body2" sx={styles.PostTimestamp} component="div">
             {formattedDate}
           </Typography>
-          <IconButton size="small" sx={styles.PostLikeButton}><AddReactionOutlinedIcon/></IconButton>
+          <IconButton size="small" sx={styles.PostReactButton}><AddReactionOutlinedIcon/></IconButton>
           <Button size="small" sx={styles.PostReplyButton}>Reply</Button>
         </Box>
       </Box>

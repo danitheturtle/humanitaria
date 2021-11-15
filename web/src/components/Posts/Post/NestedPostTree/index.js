@@ -7,15 +7,13 @@ import { Post } from '../';
 const makeStyles = theme => ({
   LoadMore: {
     pl: theme.spacing(1.5), 
-    mb: theme.spacing(0.5),
-    height: theme.spacing(4), 
-    mt: theme.spacing(-0.5),
+    mt: theme.spacing(1),
     display: 'flex', 
     alignItems: 'center'
   },
   LoadMoreButton: {
     py: 0,
-    my: theme.spacing(0.5)
+    // my: theme.spacing(0.5)
   },
   SubList: {
     p: 0

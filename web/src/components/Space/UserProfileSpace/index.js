@@ -6,7 +6,7 @@ import { ProfileDescription } from '../ProfileDescription';
 import { ProfileStats } from './ProfileStats';
 import { ProfileConnections } from './ProfileConnections';
 import { Feature } from '../Feature';
-import { PostList } from '../../Posts/PostList';
+import { Posts, defaultTabInfo } from '../../Posts';
 
 const makeStyles = theme => ({
   Profile: {
@@ -16,13 +16,15 @@ const makeStyles = theme => ({
     gridTemplateColumns: `${theme.spacing(24)} auto auto auto`,
     gridTemplateRows: `${theme.spacing(24)} ${theme.spacing(36)} ${theme.spacing(12)} ${theme.spacing(32)} auto`,
     gridGap: theme.spacing(3),
-    pt: 8,
-    pl: 8,
+    pt: 3,
+    pl: 3,
     width: 1,
     overflowX: 'hidden',
     overflowY: 'scroll',
     [theme.breakpoints.up('xl')]: {
       overflow: 'hidden',
+      pt: 8,
+      pl: 8,
       gridGap: theme.spacing(4),
       gridTemplateColumns: `${theme.spacing(28)} auto auto auto 46%`,
       gridTemplateRows: `${theme.spacing(28)} ${theme.spacing(36)} ${theme.spacing(12)} auto`,
@@ -55,8 +57,7 @@ const makeStyles = theme => ({
     [theme.breakpoints.up('xl')]: { 
       gridColumn: '5 / span 1', 
       gridRow: '1 / span 4',
-      overflowX: 'hidden',
-      overflowY: 'scroll',
+      overflow: 'hidden'
     } 
   }
 });
@@ -153,7 +154,7 @@ const postList = [{
   },
   time: '2021-09-19T19:19:59.000Z',
   content: 'this is a test4'
-}]
+}];
 
 export const UserProfileSpace = ({ data }) => {
   const theme = useTheme();
@@ -175,7 +176,7 @@ export const UserProfileSpace = ({ data }) => {
       <Feature data={data.feature} />
     </Box>
     <Box id="PostsBox" sx={styles.PostsBox}>
-      <PostList postList={postList} startingIndentLevel={2} />
+      <Posts data={postList} tabInfo={defaultTabInfo} startingIndentLevel={2} compactAfterNumReplies={4} />
     </Box>
   </Box>
 };

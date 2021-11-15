@@ -21,7 +21,7 @@ import { NestedPostTree } from '../Post/NestedPostTree';
 
 const sortReverseChronological = (a, b) => (new Date(a.time) > new Date(b.time) ? -1 : 1);
 
-export const PostList = ({ postList, startingIndentLevel, compactAfterNumReplies = 2}) => {
+export const PostList = ({ postList, startingIndentLevel, compactAfterNumReplies }) => {
   const [focusedPost, setFocusedPost] = useState(null);
   const handleBackClick = () => {
     setFocusedPost(null);

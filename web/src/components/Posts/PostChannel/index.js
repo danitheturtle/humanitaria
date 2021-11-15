@@ -21,12 +21,13 @@ import { NestedPostTree } from '../Post/NestedPostTree';
 
 const sortReverseChronological = (a, b) => (new Date(a.time) < new Date(b.time) ? -1 : 1);
 
-export const PostChannel = ({ postList, startingIndentLevel, compactAfterNumReplies = 2}) => {
+export const PostChannel = ({ postList, startingIndentLevel, compactAfterNumReplies }) => {
   const [focusedPost, setFocusedPost] = useState(null);
   const handleBackClick = () => {
     setFocusedPost(null);
   }
-  return <List sx={{ p: 0 }}>
+
+  return <List id="PostChannel" sx={{ p: 0, display: 'flex', flexDirection: 'column'}}>
     { focusedPost && <>
       <ListItem>
         <Button onClick={handleBackClick} type="text" startIcon={<ArrowBackIosNewSharpIcon />} color="primary">
@@ -38,7 +39,7 @@ export const PostChannel = ({ postList, startingIndentLevel, compactAfterNumRepl
         rootPostData={focusedPost} 
         setFocusedPost={setFocusedPost}
         compactAfterNumReplies={compactAfterNumReplies} 
-        startingIndentLevel={2}
+        startingIndentLevel={startingIndentLevel}
       />
     </>}
     { !focusedPost && postList.sort(sortReverseChronological).map(post => {
@@ -48,7 +49,7 @@ export const PostChannel = ({ postList, startingIndentLevel, compactAfterNumRepl
         rootPostData={post} 
         setFocusedPost={setFocusedPost}
         compactAfterNumReplies={compactAfterNumReplies} 
-        startingIndentLevel={1}
+        startingIndentLevel={startingIndentLevel}
       />
     }) }
   </List>
