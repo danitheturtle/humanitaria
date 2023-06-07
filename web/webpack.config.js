@@ -6,6 +6,9 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const { WebpackManifestPlugin } = require("webpack-manifest-plugin");
 const pkg = require("./package.json");
+const crypto = require("crypto");
+const crypto_orig_createHash = crypto.createHash;
+crypto.createHash = algorithm => crypto_orig_createHash(algorithm == "md4" ? "sha256" : algorithm);
 require('env');
 
 /**

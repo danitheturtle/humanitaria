@@ -15,7 +15,7 @@ module.exports = {
     connection: {
       database: 'humanitaria',
       user:     'postgres',
-      password: 'password'
+      password: ''
     }
   }
 };

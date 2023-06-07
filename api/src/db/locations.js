@@ -2,42 +2,56 @@ import axios from 'axios';
 import { osmToLocationType } from './models';
 
 export const getLocationNear = async (lat, lon, zoom = 18) => {
-  const foundLocation = await axios({
-    method: 'get',
-    baseURL: process.env.NOMINATIM_ORIGIN,
-    url: process.env.NOMINATIM_REVERSE_ENDPOINT,
-    params: {
-      extratags: '1',
-      format: 'json',
-      polygon_text: '1',
-      namedetails: '1',
-      addressdetails: '1',
-      countrycodes: 'us',
-      lat,
-      lon,
-      zoom
-    }
-  });
+  debugger;
+  let foundLocation = {};
+  try {
+    foundLocation = await axios({
+      method: 'get',
+      baseURL: process.env.NOMINATIM_ORIGIN,
+      url: process.env.NOMINATIM_REVERSE_ENDPOINT,
+      params: {
+        extratags: '1',
+        format: 'json',
+        polygon_text: '1',
+        namedetails: '1',
+        addressdetails: '1',
+        countrycodes: 'us',
+        lat,
+        lon,
+        zoom
+      }
+    });
+  } catch (e) {
+    debugger;
+    console.error(e);
+  }
   return osmToLocationType(foundLocation?.data);
 }
 
 export const searchLocations = async (query, limit, excludedPlaceIds = []) => {
-  const osmResultsByRelevance = await axios({
-    method: 'get',
-    baseURL: process.env.NOMINATIM_ORIGIN,
-    url: process.env.NOMINATIM_SEARCH_ENDPOINT,
-    params: {
-      extratags: '1',
-      format: 'json',
-      polygon_text: '1',
-      namedetails: '1',
-      addressdetails: '1',
-      limit: String(limit),
-      exclude_place_ids: excludedPlaceIds.join(','),
-      countrycodes: 'us',
-      q: query
-    }
-  });
+  debugger;
+  let osmResultsByRelevance = {data: []};
+  try {
+    osmResultsByRelevance = await axios({
+      method: 'get',
+      baseURL: process.env.NOMINATIM_ORIGIN,
+      url: process.env.NOMINATIM_SEARCH_ENDPOINT,
+      params: {
+        extratags: '1',
+        format: 'json',
+        polygon_text: '1',
+        namedetails: '1',
+        addressdetails: '1',
+        limit: String(limit),
+        exclude_place_ids: excludedPlaceIds.join(','),
+        countrycodes: 'us',
+        q: query
+      }
+    });
+  } catch (e) {
+    debugger;
+    console.error(e);
+  }
   //TODO: zip codes can have undefined osm_type/id. They aren't actually OSM objects. If the only result is a zip code, omit it and search the zip code instead
   return osmResultsByRelevance.data.map(osmToLocationType);
 }
@@ -92,19 +106,27 @@ export const getSearchLocationsConnection = async (cursor, first, query) => {
 
 // OSM id lookup only works if you prepend the first letter of the osm_type to the osm_id (see line 4). osm_ids can lookup multiple at once - seperate ids with comma
 export const getLocations = async (osmIDs = []) => {
-  const { data: osmResults } = await axios({
-    method: 'get',
-    baseURL: process.env.NOMINATIM_ORIGIN,
-    url: process.env.NOMINATIM_LOOKUP_ENDPOINT,
-    params: {
-      extratags: '1',
-      format: 'json',
-      polygon_text: '1',
-      namedetails: '1',
-      addressdetails: '1',
-      osm_ids: osmIDs.join(',')
-    }
-  });
+  debugger;
+  let osmResults = [];
+  try {
+    let { data: osmResultsResponse } = await axios({
+      method: 'get',
+      baseURL: process.env.NOMINATIM_ORIGIN,
+      url: process.env.NOMINATIM_LOOKUP_ENDPOINT,
+      params: {
+        extratags: '1',
+        format: 'json',
+        polygon_text: '1',
+        namedetails: '1',
+        addressdetails: '1',
+        osm_ids: osmIDs.join(',')
+      }
+    });
+    osmResults = osmResultsResponse;
+  } catch (e) {
+    debugger;
+    console.error(e);
+  }
   return osmResults.map(osmToLocationType);
 }
 export const getLocation = async (osmID) => {

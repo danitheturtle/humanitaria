@@ -2,8 +2,11 @@
   "main.js": "/main.js",
   "runtime-main.js": "/runtime-main.js",
   "vendors.js": "/vendors.js",
+  "image/marker-icon-2x.png": "/image/00179c4c1ee830d3a108.png",
+  "image/marker-icon.png": "/image/574c3a5cca85f4114085.png",
+  "image/layers-2x.png": "/image/066daca850d8ffbef007.png",
+  "image/layers.png": "/image/1dbbe9d028e292f36fcb.png",
   "index.html": "/index.html",
-  "style/index.css": "/style/c69107863a1b40fec498.css",
   "main.js.map": "/main.js.map",
   "runtime-main.js.map": "/runtime-main.js.map",
   "vendors.js.map": "/vendors.js.map"

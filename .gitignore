@@ -1,4 +1,4 @@
-#Yarn 2
+#Yarn
 **/.yarn/**
 !.yarn/cache
 !.yarn/patches
@@ -6,6 +6,9 @@
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+#Editors
+**/.vscode/**
 
 # Logs
 logs

@@ -3,23 +3,12 @@ import { Slide, List, Divider, Badge, Typography, IconButton, ListItemButton, Li
 import NotificationsSharpIcon from '@mui/icons-material/NotificationsSharp';
 import CloseSharpIcon from '@mui/icons-material/CloseSharp';
 import { renderTextWithSpaceId } from '../../components';
+import { mockNotifications } from '../../utils/mockData';
 
 export const NotificationList = () => {
   const notificationsComponentRef = useRef(null);
   const [dismissedState, setDismissedState] = useState({});
-  const [notificationData, setNotificationData] = useState([{
-    id: 'jsowo2',
-    unread: true,
-    title: 'New Mention',
-    content: 'Does ~danitheturtle know how much longer its ~redddds going to take to build this website?',
-    action: 'goto /humanitariadev/p0ow02202'
-  }, {
-    id: 'jdkkwoo',
-    unread: true,
-    title: 'Idea Updates',
-    content: 'Alex and 4 others gave your idea feedback. Go check it out!',
-    action: 'goto /danitheturtle/i40202ls'
-  }]);
+  const [notificationData, setNotificationData] = useState(mockNotifications);
   
   const dismissNotification = (notifId) => {
     setDismissedState({...dismissedState, [notifId]: true})

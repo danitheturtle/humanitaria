@@ -35,7 +35,7 @@ export class Context {
   }
   
   ensureAuthorized(authCallback) {
-    //if (process.env.APP_ENV === 'development') return;
+    if (process.env.APP_ENV === 'development') return;
     if (!this.user) throw new UnauthorizedError();
     if (authCallback && !authCallback(this.user)) {
       throw new ForbiddenError();

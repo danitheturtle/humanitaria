@@ -10,52 +10,19 @@ type Query {
     """The IDs of objects"""
     ids: [ID!]!
   ): [Node]!
-  notes(after: String, first: Int, before: String, last: Int): NoteConnection
   note(input: noteInput): Note
+  notes(after: String, first: Int, before: String, last: Int): NoteConnection
   me: User
   user(input: userInput): User
-  searchLocations(after: String, first: Int, search: String): SearchLocationsConnection
-  locationNear(input: locationNearInput): Location
   location(input: locationInput): Location
+  locationNear(input: locationNearInput): Location
+  searchLocations(after: String, first: Int, search: String): SearchLocationsConnection
 }
 
 """An object with an ID"""
 interface Node {
   """The id of the object."""
   id: ID!
-}
-
-"""A connection to a list of items."""
-type NoteConnection {
-  """Information to aid in pagination."""
-  pageInfo: PageInfo!
-
-  """A list of edges."""
-  edges: [NoteEdge]
-}
-
-"""Information about pagination in a connection."""
-type PageInfo {
-  """When paginating forwards, are there more items?"""
-  hasNextPage: Boolean!
-
-  """When paginating backwards, are there more items?"""
-  hasPreviousPage: Boolean!
-
-  """When paginating backwards, the cursor to continue."""
-  startCursor: String
-
-  """When paginating forwards, the cursor to continue."""
-  endCursor: String
-}
-
-"""An edge in a connection."""
-type NoteEdge {
-  """The item at the end of the edge"""
-  node: Note
-
-  """A cursor for use in pagination"""
-  cursor: String!
 }
 
 type Note implements Node {
@@ -93,6 +60,21 @@ type UserNotesConnection {
   edges: [UserNotesEdge]
 }
 
+"""Information about pagination in a connection."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+}
+
 """An edge in a connection."""
 type UserNotesEdge {
   """The item at the end of the edge"""
@@ -106,29 +88,29 @@ input noteInput {
   id: ID
 }
 
+"""A connection to a list of items."""
+type NoteConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [NoteEdge]
+}
+
+"""An edge in a connection."""
+type NoteEdge {
+  """The item at the end of the edge"""
+  node: Note
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
 input userInput {
   id: ID
   username: String
   email: String
   uid: ID
-}
-
-"""A connection to a list of items."""
-type SearchLocationsConnection {
-  """Information to aid in pagination."""
-  pageInfo: PageInfo!
-
-  """A list of edges."""
-  edges: [SearchLocationsEdge]
-}
-
-"""An edge in a connection."""
-type SearchLocationsEdge {
-  """The item at the end of the edge"""
-  node: Location
-
-  """A cursor for use in pagination"""
-  cursor: String!
 }
 
 type Location implements Node {
@@ -163,21 +145,39 @@ type Address {
   countryCode: String
 }
 
+input locationInput {
+  id: ID
+}
+
 input locationNearInput {
   lat: String
   lon: String
   zoom: Int
 }
 
-input locationInput {
-  id: ID
+"""A connection to a list of items."""
+type SearchLocationsConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [SearchLocationsEdge]
+}
+
+"""An edge in a connection."""
+type SearchLocationsEdge {
+  """The item at the end of the edge"""
+  node: Location
+
+  """A cursor for use in pagination"""
+  cursor: String!
 }
 
 type Mutation {
   createNote(input: createNoteInput!): createNotePayload
   deleteNote(input: deleteNoteInput!): deleteNotePayload
-  updateNote(input: updateNoteInput!): updateNotePayload
   likeNote(input: likeNoteInput!): likeNotePayload
+  updateNote(input: updateNoteInput!): updateNotePayload
   signIn(input: signInInput!): signInPayload
   signOut(input: signOutInput!): signOutPayload
   createUser(input: createUserInput!): createUserPayload
@@ -205,6 +205,16 @@ input deleteNoteInput {
   clientMutationId: String
 }
 
+type likeNotePayload {
+  note: Note
+  clientMutationId: String
+}
+
+input likeNoteInput {
+  id: ID!
+  clientMutationId: String
+}
+
 type updateNotePayload {
   note: Note
   clientMutationId: String
@@ -213,16 +223,6 @@ type updateNotePayload {
 input updateNoteInput {
   id: ID!
   content: String!
-  clientMutationId: String
-}
-
-type likeNotePayload {
-  note: Note
-  clientMutationId: String
-}
-
-input likeNoteInput {
-  id: ID!
   clientMutationId: String
 }
 
@@ -295,9 +295,9 @@ input updateUserInput {
 
 type Subscription {
   countToNumber(input: countToNumberInput!): countToNumberPayload
-  noteUpdated(input: noteUpdatedInput!): noteUpdatedPayload
   noteCreated(input: noteCreatedInput!): noteCreatedPayload
   noteDeleted(input: noteDeletedInput!): noteDeletedPayload
+  noteUpdated(input: noteUpdatedInput!): noteUpdatedPayload
 }
 
 type countToNumberPayload {
@@ -307,15 +307,6 @@ type countToNumberPayload {
 
 input countToNumberInput {
   number: Int
-  clientSubscriptionId: String
-}
-
-type noteUpdatedPayload {
-  note: Note
-  clientSubscriptionId: String
-}
-
-input noteUpdatedInput {
   clientSubscriptionId: String
 }
 
@@ -334,5 +325,14 @@ type noteDeletedPayload {
 }
 
 input noteDeletedInput {
+  clientSubscriptionId: String
+}
+
+type noteUpdatedPayload {
+  note: Note
+  clientSubscriptionId: String
+}
+
+input noteUpdatedInput {
   clientSubscriptionId: String
 }
