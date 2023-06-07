@@ -1,18 +1,29 @@
-# humanitaria
+## What is Humanitaria?
+### Humanitaria is an ethical, open source, anti-capitalist social media platform with the explicit purpose of inspiring the public to direct action while remaining fully open source and independent. The eventual goal is to utilize the [ActivityPub](https://www.w3.org/TR/activitypub/) protocol for inter-operability with similar projects
+___
 
-This readme will help you get the dev version up and running. If you're interested in the 
-motivations behind this project,check out [/r/humanitaria](https://www.reddit.com/r/humanitaria).
+## Quickstart
+### This readme will help you get the dev version up and running. If you're interested in the motivations behind this project, check out [/r/humanitaria](https://www.reddit.com/r/humanitaria).
 
-#### Project Architecture Overview
-There are a few workspaces in this repo and that number will likely increase as the platform 
-requires more features. Workspaces are: /api, /db, /env, and /web.
-* /api - The main graphql-relay server. Relay is a superset of the 
-graphql protocol and was challenging to find backend documentation for. Everything in this app is
-done through graphql queries/mutations/subscriptions, letting us batch an entire page of component 
-requests. `session.js` is where login information gets stored in a jwt. `/context` contains auth
-information that is useful when writing graphql. It lets me authenticate anywhere, no matter if its
-a subscription or a normal HTTP request. Down the line, I'll add additional features for roles and
-levels of authentication - stuff like that.
+### Prerequisites:
+* Latest node version (20.2.0 current version)
+* Latest yarn version (3.6.0 current version). I installed it through corepack as recommended in the [yarn installation docs](https://yarnpkg.com/getting-started/install). Also double check you don't have additional oudated yarn versions.
+* Postgres database with admin permissions (12.15 current version)
+
+### Setup:
+* Copy the `.env` file in `/env` to a new file called `.env.development`. Uncomment and fill out the environment variables in this file. The only required things are generating a JWT secret and ensuring the postgres connection details are valid. You'll need a nominatim server to run the map page and get any results, but the app shouldn't break if they remain unset.
+* Run `yarn install`
+* Assuming your `.env.development` config values are correct, run `yarn workspace db reset` to run db migrations
+
+### Running:
+* You'll need 2 terminals. In the first, run `yarn start:api` and in the other run `yarn start:web`.
+* The site should now be running at `localhost:8080`!
+___
+
+
+## Project Architecture Overview
+There are a few workspaces in this repo and that number will likely increase as the platform requires more features. Workspaces are: /api, /db, /env, and /web.
+* /api - The main graphql-relay server. Everything in this app is done through graphql queries/mutations subscriptions, letting us batch an entire page of component requests. `session.js` is where login information gets stored in a jwt. `/context` contains auth information that is useful when writing graphql. It lets me authenticate anywhere, no matter if its a subscription or a normal HTTP request. Down the line, I'll add additional features for roles and levels of authentication
 
 * /db - Using knex.js to write postgres schema and migrations using javascript. `/migrations` 
 contains the code that sets up the database itself. `/seeds` contains what it sounds like: test
@@ -32,11 +43,10 @@ entirely with a custom styled version material-ui. All the settings for that are
 you'll see the use of the `useTheme()` and `makeStyles()` functions throughout the component library
 _____
 
-### Yarn Installation
-This repo requires yarn 2's "Plug and Play" functionality. Ideally the repo should be ready to run 
-when you download it, but run `yarn install` from the root just in case.
+### Yarn Troubleshooting
+This repo uses "Plug and Play" functionality, intended to run with Yarn 3.6.0. Ideally the repo should be ready to run when you download it, but run `yarn install` from the root just in case. Its possible you've got conflicting yarn versions if you've been using yarn for a while. This repo uses some of the breaking features that come with later versions.
 _____
-### Database Setup
+### Database Setup In-Depth
 You'll need a local [postgres database](https://www.google.com/search?q=how+to+set+up+postgresql). 
 The default .env file in /env/.env has all the variables that need setting up. The database and 
 schema and all that is handled using knex.js, so all you need is a user named 'postgres' or whatever 
@@ -54,24 +64,26 @@ yarn workspace db start
 ```
 If you set up a password, enter that here. Congrats! The database is working
 _____
-### Map Setup
+### Map Setup In-Depth
 This is by far the most complex part of setup. It took a few weeks for me to put this together. At 
 a minimum, this download will take a few days. Depending on your cpu/ram, building the actual 
 nominatim database will take even longer! Its incredibly powerful though. I did this setup on 
 ubuntu but I'm sure you could get it working on a different distro. Eventually I'll have a docker 
 container you can download and this won't be necessary :)
 
-If you're here to get running quickly just to check out the project, open street map has their own
-instance up and running with a smaller dataset. You're not allowed to use it on deployed code, so 
-please just use it for development:
+**If you're here to get running quickly just to check out the project, open street map has their own
+instance up and running with a smaller dataset. You're not allowed to use it for anything large (they say no more than 1 request per second) so please just use it for development**:
 ```
-https://nominatim.openstreetmap.org/search?extratags=1&format=json&polygon_text=1&namedetails=1&addressdetails=1&q=Main%20Street
+NOMINATIM_ORIGIN=https://nominatim.openstreetmap.org
+NOMINATIM_SEARCH_ENDPOINT=/search
+NOMINATIM_LOOKUP_ENDPOINT=/lookup
+NOMINATIM_REVERSE_ENDPOINT=/reverse
 ```
 To understand the queryparams, check out [the nominatim docs](https://nominatim.org/release-docs/latest/api/Search/). 
 You should be able to set up the .env variables so the entire project points to the public nominatim
-server. Make sure to remove `.php` from the nominatim route variables
-
-##### building your own local nominatim instance
+server.
+___
+##### building your own local nominatim instance (out of date)
 check here for requirements and database config: 
 * https://nominatim.org/release-docs/latest/admin/Installation/#tuning-the-postgresql-database
 * https://nominatim.org/release-docs/latest/appendix/Install-on-Ubuntu-20/
@@ -161,7 +173,7 @@ Whew! You should now have a database for nominatim running! You can test it with
 http://localhost:8088/search.php?extratags=1&format=json&polygon_text=1&namedetails=1&addressdetails=1&q=Main%20Street
 ```
 _____
-### Running Everything
+### Running Everything including the map
 Running everything is fairly trivial now. You'll need 3 terminal tabs, or you can use something like
 concurrently to run the commands in the same view.
 
@@ -175,9 +187,9 @@ nominatim serve
 ```
 Second Terminal from root of project:
 ```
-yarn workspace api start
+yarn start:api
 ```
 Third Terminal from root of project:
 ```
-yarn workspace web start
+yarn start:web
 ```

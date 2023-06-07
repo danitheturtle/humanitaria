@@ -10,8 +10,9 @@
     "db"
   ],
   "scripts": {
-    "start": "yarn workspaces foreach -ip run start",
-    "build": "yarn workspaces foreach -p run build",
+    "start:api": "yarn workspace api start",
+    "start:web": "yarn workspace web start",
+    "build": "yarn workspace api build && yarn workspace web build",
     "lint": "eslint --cache --report-unused-disable-directives .",
     "test": "jest"
   },
