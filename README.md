@@ -1,5 +1,5 @@
 ## What is Humanitaria?
-### Humanitaria is an ethical, open source, anti-capitalist social media platform with the explicit purpose of inspiring the public to direct action while remaining fully open source and independent. The eventual goal is to utilize the [ActivityPub](https://www.w3.org/TR/activitypub/) protocol for inter-operability with similar projects
+### Humanitaria is an ethical, open source, anti-capitalist social media platform with the explicit purpose of inspiring the public to direct action while remaining fully independent. The eventual goal is to utilize the [ActivityPub](https://www.w3.org/TR/activitypub/) protocol for inter-operability with similar projects
 ___
 
 ## Quickstart
