@@ -1,3 +1,7 @@
+## THIS PROJECT IS ARCHIVED
+### After a lot of time on the fediverse and playing with ActivityPub in other projects, I've concluded the world does not in fact need a geolocational social media. I was very optimistic about the social internet when I started this project which is no longer the case. I leave it here for portfolio purposes because the code is still some of the best work I've ever done
+___
+
 ## What is Humanitaria?
 ### Humanitaria is an ethical, open source, anti-capitalist social media platform with the explicit purpose of inspiring the public to direct action while remaining fully independent. The eventual goal is to utilize the [ActivityPub](https://www.w3.org/TR/activitypub/) protocol for inter-operability with similar projects
 ___
