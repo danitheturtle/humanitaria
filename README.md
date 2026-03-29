@@ -1,5 +1,14 @@
-## THIS PROJECT IS ARCHIVED
+## This Project is Archived
 ### After a lot of time on the fediverse and playing with ActivityPub in other projects, I've concluded the world does not in fact need a geolocational social media. I was very optimistic about the social internet when I started this project which is no longer the case. I leave it here for portfolio purposes because the code is still some of the best work I've ever done
+___
+
+## Showcase
+![Profile showcase with posts](assets/profile_mockup_showcase.png)
+![Mapping showcase](assets/map_showcase.png)
+
+https://github.com/user-attachments/assets/4bb794fc-411c-46ce-bd51-e4d97d0a5460
+
+https://github.com/user-attachments/assets/e7cb3307-f184-45c0-a20e-a600d3e65a98
 ___
 
 ## What is Humanitaria?
