@@ -1,5 +1,5 @@
 ## This Project is Archived
-### After a lot of time on the fediverse and playing with ActivityPub in other projects, I've concluded the world does not in fact need a geolocational social media. I was very optimistic about the social internet when I started this project which is no longer the case. I leave it here for portfolio purposes because the code is still some of the best work I've ever done
+### After a lot of time on the fediverse and playing with ActivityPub in other projects, I've concluded the world does not in fact need a geolocational social media. I was very optimistic about the social internet when I started this project which is no longer the case. I leave it here for portfolio purposes because the code is still some of the best work I've ever done. GraphQL, Express, Relay.js, React, Openstreetmaps, and Postgres
 ___
 
 ## Showcase
